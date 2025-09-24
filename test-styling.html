@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>WebClip Assistant - Styling Test</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+    <style>
+        :root {
+            --primary: #137fec;
+            --background-light: #f6f7f8;
+            --background-dark: #101922;
+            --surface-light: #ffffff;
+            --surface-dark: #1a2530;
+            --text-primary-light: #0d151c;
+            --text-primary-dark: #e3e8ed;
+            --text-secondary-light: #5b6b7a;
+            --text-secondary-dark: #a0aeba;
+            --border-light: #e5e7eb;
+            --border-dark: #374151;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings:
+                'FILL' 0,
+                'wght' 400,
+                'GRAD' 0,
+                'opsz' 24;
+            font-size: 24px;
+            line-height: 1;
+        }
+
+        .material-symbols-outlined.text-base {
+            font-size: 16px;
+        }
+
+        .material-symbols-outlined.text-xl {
+            font-size: 20px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .rounded-DEFAULT {
+            border-radius: 0.5rem;
+        }
+
+        .test-section {
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body class="bg-[var(--background-light)] text-[var(--text-primary-light)]">
+    <div class="container mx-auto p-8">
+        <h1 class="text-3xl font-bold mb-8">WebClip Assistant Styling Test</h1>
+
+        <!-- Test CSS Variables -->
+        <div class="test-section">
+            <h2 class="text-2xl font-semibold mb-4">CSS Variables Test</h2>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="p-4 bg-[var(--surface-light)] rounded-lg">
+                    <h3 class="text-lg font-medium text-[var(--text-primary-light)]">Light Mode Colors</h3>
+                    <p class="text-[var(--text-secondary-light)]">Secondary text color</p>
+                    <div class="mt-2 p-2 bg-[var(--primary)] text-white rounded">Primary Color</div>
+                    <div class="mt-2 p-2 border border-[var(--border-light)] rounded">Border Color</div>
+                </div>
+                <div class="p-4 bg-[var(--surface-dark)] rounded-lg text-[var(--text-primary-dark)]">
+                    <h3 class="text-lg font-medium">Dark Mode Colors</h3>
+                    <p class="text-[var(--text-secondary-dark)]">Secondary text color</p>
+                    <div class="mt-2 p-2 bg-[var(--primary)] text-white rounded">Primary Color</div>
+                    <div class="mt-2 p-2 border border-[var(--border-dark)] rounded">Border Color</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Test Material Symbols -->
+        <div class="test-section">
+            <h2 class="text-2xl font-semibold mb-4">Material Symbols Test</h2>
+            <div class="flex items-center gap-4">
+                <span class="material-symbols-outlined">web</span>
+                <span class="material-symbols-outlined text-base">settings</span>
+                <span class="material-symbols-outlined text-xl">auto_awesome</span>
+                <span class="material-symbols-outlined text-[color:var(--primary)]">description</span>
+                <span class="material-symbols-outlined text-[color:var(--primary)]">data_object</span>
+            </div>
+        </div>
+
+        <!-- Test Form Elements -->
+        <div class="test-section">
+            <h2 class="text-2xl font-semibold mb-4">Form Elements Test</h2>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-[var(--text-primary-light)] mb-2">Text Input</label>
+                    <input type="text" class="w-full rounded-DEFAULT border border-[var(--border-light)] bg-[var(--background-light)] focus:ring-2 focus:ring-[color:var(--primary)] focus:border-[color:var(--primary)] p-2 text-sm" placeholder="Enter text...">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-[var(--text-primary-light)] mb-2">Textarea</label>
+                    <textarea class="w-full rounded-DEFAULT border border-[var(--border-light)] bg-[var(--background-light)] focus:ring-2 focus:ring-[color:var(--primary)] focus:border-[color:var(--primary)] p-2 text-sm" rows="3" placeholder="Enter text..."></textarea>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-[var(--text-primary-light)] mb-2">Select</label>
+                    <select class="w-full rounded-DEFAULT border border-[var(--border-light)] bg-[var(--background-light)] focus:ring-2 focus:ring-[color:var(--primary)] focus:border-[color:var(--primary)] p-2 text-sm">
+                        <option>Option 1</option>
+                        <option>Option 2</option>
+                    </select>
+                </div>
+                <div>
+                    <button class="px-4 py-2 bg-[color:var(--primary)] text-white rounded-DEFAULT hover:bg-[color:var(--primary)]/90 transition-colors">
+                        <span class="material-symbols-outlined text-base mr-2">check</span>
+                        Test Button
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Test Popup Layout -->
+        <div class="test-section">
+            <h2 class="text-2xl font-semibold mb-4">Popup Layout Test</h2>
+            <div class="w-[360px] p-4 bg-[var(--surface-light)] border border-[var(--border-light)] rounded-lg">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-8 h-8 flex items-center justify-center bg-[color:var(--primary)]/10 rounded-full">
+                            <span class="material-symbols-outlined text-[color:var(--primary)] text-xl">web</span>
+                        </div>
+                        <h3 class="text-lg font-bold">WebClip Assistant</h3>
+                    </div>
+                </div>
+                <div class="space-y-3">
+                    <input type="text" class="w-full rounded-DEFAULT border border-[var(--border-light)] bg-[var(--background-light)] p-2 text-sm" value="Sample Page Title">
+                    <button class="w-full flex items-center justify-center space-x-2 py-2.5 px-4 rounded-DEFAULT bg-[color:var(--primary)] text-white text-sm font-semibold">
+                        <span class="material-symbols-outlined text-base">auto_awesome</span>
+                        <span>AI Summarize</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dark Mode Toggle -->
+        <div class="test-section">
+            <h2 class="text-2xl font-semibold mb-4">Dark Mode Test</h2>
+            <button onclick="document.documentElement.classList.toggle('dark')" class="px-4 py-2 bg-[color:var(--primary)] text-white rounded-DEFAULT">
+                Toggle Dark Mode
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Test that CSS variables are working
+        console.log('CSS Variables Test:');
+        console.log('--primary:', getComputedStyle(document.documentElement).getPropertyValue('--primary'));
+        console.log('--background-light:', getComputedStyle(document.documentElement).getPropertyValue('--background-light'));
+        console.log('--text-primary-light:', getComputedStyle(document.documentElement).getPropertyValue('--text-primary-light'));
+
+        // Test Material Symbols
+        console.log('Material Symbols loaded:', document.querySelectorAll('.material-symbols-outlined').length > 0);
+
+        console.log('Styling test page loaded successfully!');
+    </script>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>WebClip Assistant - Settings</title>
+    <link href="styles.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Noto+Sans:wght@400;500;700;900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+    <script src="tailwind-config.js"></script>
+    <script src="settings.js"></script>
+</head>
+<body class="bg-[var(--background-light)] dark:bg-[var(--background-dark)] text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]">
+    <div class="flex flex-col min-h-screen">
+        <header class="sticky top-0 z-10 bg-[var(--background-light)]/80 dark:bg-[var(--background-dark)]/80 backdrop-blur-sm border-b border-[var(--border-light)] dark:border-[var(--border-dark)]">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <div class="flex items-center gap-4">
+                        <div class="text-[color:var(--primary)]">
+                            <svg fill="currentColor" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.64 12.05c-1.39 1.39-3.23 2.15-5.09 2.15-1.85 0-3.7-.76-5.09-2.15C4.07 10.66 3.31 8.81 3.31 7c0-1.85.76-3.7 2.15-5.09C6.85 1.48 8.44.82 10.21.5c.53-.1.99.36.99.89v17.22c0 .53-.46.99-.99.89-1.77-.32-3.36-.98-4.75-2.37C4.07 15.76 3.31 13.91 3.31 12c0-1.91.76-3.76 2.15-5.14C6.85 5.48 8.44 4.82 10.21 4.5c.53-.1.99.36.99.89v13.22c0 .53-.46.99-.99.89-1.12-.2-2.16-.62-3.05-1.28-1.39-1-2.15-2.52-2.15-4.14 0-1.62.76-3.14 2.15-4.14 1.39-1 3.23-1.5 5.09-1.5 1.85 0 3.7.5 5.09 1.5 1.39 1 2.15 2.52 2.15 4.14 0 1.62-.76 3.14-2.15 4.14z"></path>
+                            </svg>
+                        </div>
+                        <h1 class="text-xl font-bold text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]">WebClip Assistant</h1>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <button class="p-2 rounded-full hover:bg-[var(--border-light)] dark:hover:bg-[var(--border-dark)] focus:outline-none focus:ring-2 focus:ring-[color:var(--primary)] focus:ring-offset-2 focus:ring-offset-[var(--background-light)] dark:focus:ring-offset-[var(--background-dark)]">
+                            <span class="material-symbols-outlined text-[var(--text-secondary-light)] dark:text-[var(--text-secondary-dark)]"> settings </span>
+                        </button>
+                        <div class="relative">
+                            <button>
+                                <img alt="User avatar" class="size-10 rounded-full border-2 border-transparent hover:border-[color:var(--primary)] transition-colors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCn8hYMTeZXrpuRX6VLiLWQdDdWcVD48Rs-6k2zFcSJlKWPGHnVkJUZ1kzywLYxMGH2igleBy5vor6lCP2ZqJ-RiCsC0iJndvBdlrVJP3nFokb986BbWflPIukX9cgkCrlhjHyJ915UN_L57kXvWkXa6SkqkkyW5eWzd5Hg9EmpaRgt0hFz_PpxNZNBfUQlrLWbBSC8cap7ZlPu2fUWG7DrltGBpd5o9WzhncelGdktq56cqwlx0W7v9Bgn0SluNoeXVdDr88tdcvws"/>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="flex-grow">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <div class="max-w-3xl mx-auto">
+                    <div class="mb-8">
+                        <h2 class="text-3xl font-bold tracking-tight text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]">Settings</h2>
+                        <p class="mt-2 text-[var(--text-secondary-light)] dark:text-[var(--text-secondary-dark)]">Manage your plugin settings and API keys.</p>
+                    </div>
+
+                    <div class="space-y-8">
+                        <!-- API Provider Section -->
+                        <section class="bg-[var(--surface-light)] dark:bg-[var(--surface-dark)] shadow-sm rounded-lg">
+                            <div class="p-6">
+                                <h3 class="text-lg font-semibold leading-6 text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]">Large Model API Provider</h3>
+                                <p class="mt-1 text-sm text-[var(--text-secondary-light)] dark:text-[var(--text-secondary-dark)]">Configure your preferred large model provider. Defaults to OpenAI protocol.</p>
+                            </div>
+                            <div class="px-6 pb-6 space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)] mb-2" for="api-provider">API Provider</label>
+                                    <select class="block w-full rounded-lg border-[var(--border-light)] dark:border-[var(--border-dark)] bg-[var(--background-light)] dark:bg-[var(--background-dark)] py-3 px-4 shadow-sm focus:border-[color:var(--primary)] focus:ring-[color:var(--primary)] text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]" id="api-provider">
+                                        <option value="openai">OpenAI</option>
+                                        <option value="anthropic">Anthropic</option>
+                                        <option value="custom">Custom Provider</option>
+                                    </select>
+                                </div>
+                                <div class="relative">
+                                    <label class="block text-sm font-medium text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)] mb-2" for="api-endpoint">API Endpoint</label>
+                                    <input class="block w-full rounded-lg border-[var(--border-light)] dark:border-[var(--border-dark)] bg-[var(--background-light)] dark:bg-[var(--background-dark)] py-3 px-4 shadow-sm focus:border-[color:var(--primary)] focus:ring-[color:var(--primary)] text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)] placeholder-[var(--text-secondary-light)] dark:placeholder-[var(--text-secondary-dark)]" id="api-endpoint" placeholder="https://api.example.com/v1" type="url"/>
+                                </div>
+                                <div class="relative">
+                                    <label class="block text-sm font-medium text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)] mb-2" for="llm-api-key">API Key</label>
+                                    <input class="block w-full rounded-lg border-[var(--border-light)] dark:border-[var(--border-dark)] bg-[var(--background-light)] dark:bg-[var(--background-dark)] py-3 px-4 shadow-sm focus:border-[color:var(--primary)] focus:ring-[color:var(--primary)] text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)] placeholder-[var(--text-secondary-light)] dark:placeholder-[var(--text-secondary-dark)]" id="llm-api-key" placeholder="sk-xxxxxxxxxxxxxxxxxxxxxxxx" type="password"/>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Notion Integration Section -->
+                        <section class="bg-[var(--surface-light)] dark:bg-[var(--surface-dark)] shadow-sm rounded-lg">
+                            <details class="group" open="">
+                                <summary class="flex items-center justify-between p-6 cursor-pointer">
+                                    <div>
+                                        <h3 class="text-lg font-semibold leading-6 text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]">Notion Integration</h3>
+                                        <p class="mt-1 text-sm text-[var(--text-secondary-light)] dark:text-[var(--text-secondary-dark)]">Connect your Notion account to save clips directly.</p>
+                                    </div>
+                                    <span class="material-symbols-outlined text-[var(--text-secondary-light)] dark:text-[var(--text-secondary-dark)] group-open:rotate-180 transition-transform"> expand_more </span>
+                                </summary>
+                                <div class="px-6 pb-6 space-y-4">
+                                    <div class="relative">
+                                        <label class="block text-sm font-medium text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)] mb-2" for="notion-token">Integration Token</label>
+                                        <input class="block w-full rounded-lg border-[var(--border-light)] dark:border-[var(--border-dark)] bg-[var(--background-light)] dark:bg-[var(--background-dark)] py-3 px-4 shadow-sm focus:border-[color:var(--primary)] focus:ring-[color:var(--primary)] text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)] placeholder-[var(--text-secondary-light)] dark:placeholder-[var(--text-secondary-dark)]" id="notion-token" placeholder="secret_xxxxxxxxxxxxxxxxxxxxxxxx" type="password"/>
+                                    </div>
+                                    <div class="relative">
+                                        <label class="block text-sm font-medium text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)] mb-2" for="notion-db-id">Database ID</label>
+                                        <input class="block w-full rounded-lg border-[var(--border-light)] dark:border-[var(--border-dark)] bg-[var(--background-light)] dark:bg-[var(--background-dark)] py-3 px-4 shadow-sm focus:border-[color:var(--primary)] focus:ring-[color:var(--primary)] text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)] placeholder-[var(--text-secondary-light)] dark:placeholder-[var(--text-secondary-dark)]" id="notion-db-id" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" type="text"/>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-base font-semibold text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)] mb-2">Field Mapping</h4>
+                                        <p class="text-sm text-[var(--text-secondary-light)] dark:text-[var(--text-secondary-dark)] mb-4">Map WebClip fields to your Notion database properties.</p>
+                                        <div class="space-y-4">
+                                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+                                                <label class="text-sm font-medium text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]" for="map-title">Page Title</label>
+                                                <select class="block w-full rounded-lg border-[var(--border-light)] dark:border-[var(--border-dark)] bg-[var(--background-light)] dark:bg-[var(--background-dark)] py-3 px-4 shadow-sm focus:border-[color:var(--primary)] focus:ring-[color:var(--primary)] text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]" id="map-title">
+                                                    <option value="Title" selected>Title</option>
+                                                    <option value="Name">Name</option>
+                                                </select>
+                                            </div>
+                                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+                                                <label class="text-sm font-medium text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]" for="map-url">URL</label>
+                                                <select class="block w-full rounded-lg border-[var(--border-light)] dark:border-[var(--border-dark)] bg-[var(--background-light)] dark:bg-[var(--background-dark)] py-3 px-4 shadow-sm focus:border-[color:var(--primary)] focus:ring-[color:var(--primary)] text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]" id="map-url">
+                                                    <option value="URL" selected>URL</option>
+                                                    <option value="Link">Link</option>
+                                                </select>
+                                            </div>
+                                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+                                                <label class="text-sm font-medium text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]" for="map-content">Content</label>
+                                                <select class="block w-full rounded-lg border-[var(--border-light)] dark:border-[var(--border-dark)] bg-[var(--background-light)] dark:bg-[var(--background-dark)] py-3 px-4 shadow-sm focus:border-[color:var(--primary)] focus:ring-[color:var(--primary)] text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]" id="map-content">
+                                                    <option value="Rich Text">Rich Text</option>
+                                                    <option value="Page Content" selected>Page Content</option>
+                                                </select>
+                                            </div>
+                                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+                                                <label class="text-sm font-medium text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]" for="map-tags">Tags</label>
+                                                <select class="block w-full rounded-lg border-[var(--border-light)] dark:border-[var(--border-dark)] bg-[var(--background-light)] dark:bg-[var(--background-dark)] py-3 px-4 shadow-sm focus:border-[color:var(--primary)] focus:ring-[color:var(--primary)] text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]" id="map-tags">
+                                                    <option value="Multi-select">Multi-select</option>
+                                                    <option value="Tags" selected>Tags</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </details>
+                        </section>
+
+                        <!-- Preferences Section -->
+                        <section class="bg-[var(--surface-light)] dark:bg-[var(--surface-dark)] shadow-sm rounded-lg">
+                            <div class="p-6">
+                                <h3 class="text-lg font-semibold leading-6 text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]">Preferences</h3>
+                                <p class="mt-1 text-sm text-[var(--text-secondary-light)] dark:text-[var(--text-secondary-dark)]">Customize the behavior of the WebClip Assistant.</p>
+                            </div>
+                            <ul class="divide-y divide-[var(--border-light)] dark:divide-[var(--border-dark)]">
+                                <li class="flex items-center justify-between p-6">
+                                    <div>
+                                        <p class="font-medium text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]">Auto-Save Clips</p>
+                                        <p class="text-sm text-[var(--text-secondary-light)] dark:text-[var(--text-secondary-dark)]">Automatically save web clips when captured.</p>
+                                    </div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input id="auto-save" class="sr-only peer" type="checkbox"/>
+                                        <div class="w-11 h-6 bg-[var(--border-light)] dark:bg-[var(--border-dark)] rounded-full peer peer-focus:ring-2 peer-focus:ring-[color:var(--primary)] peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-[var(--border-light)] after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:after:border-[var(--border-dark)] peer-checked:bg-[color:var(--primary)]"></div>
+                                    </label>
+                                </li>
+                                <li class="flex items-center justify-between p-6">
+                                    <div>
+                                        <p class="font-medium text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]">Default Export Format</p>
+                                        <p class="text-sm text-[var(--text-secondary-light)] dark:text-[var(--text-secondary-dark)]">Choose the default format for exporting clips.</p>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <select id="default-export-format" class="text-sm font-medium text-[var(--text-secondary-light)] dark:text-[var(--text-secondary-dark)] bg-transparent border-none focus:outline-none">
+                                            <option value="markdown">Markdown</option>
+                                            <option value="json">JSON</option>
+                                        </select>
+                                    </div>
+                                </li>
+                            </ul>
+                        </section>
+
+                        <div class="flex justify-end pt-4">
+                            <button id="save-settings" class="hidden inline-flex items-center justify-center rounded-lg bg-[color:var(--primary)] px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[color:var(--primary)]/80 focus:outline-none focus:ring-2 focus:ring-[color:var(--primary)] focus:ring-offset-2 focus:ring-offset-[var(--background-light)] dark:focus:ring-offset-[var(--background-dark)]" type="button">
+                                <span>Save Changes</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

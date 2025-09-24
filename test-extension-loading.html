@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Extension Loading Test</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            padding: 20px;
+            background: var(--background-light);
+            color: var(--text-primary-light);
+        }
+        .test-result {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .success {
+            background: #10b981;
+            color: white;
+        }
+        .error {
+            background: #ef4444;
+            color: white;
+        }
+        .info {
+            background: #3b82f6;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>WebClip Assistant - Extension Loading Test</h1>
+
+    <div id="test-results">
+        <div class="test-result info">
+            <strong>Testing Extension Files:</strong>
+        </div>
+    </div>
+
+    <script>
+        function addResult(message, type = 'info') {
+            const results = document.getElementById('test-results');
+            const div = document.createElement('div');
+            div.className = `test-result ${type}`;
+            div.innerHTML = `<strong>${type.toUpperCase()}:</strong> ${message}`;
+            results.appendChild(div);
+        }
+
+        // Test CSS Variables
+        try {
+            const root = document.documentElement;
+            const computedStyle = getComputedStyle(root);
+
+            if (computedStyle.getPropertyValue('--primary')) {
+                addResult('CSS Variables loaded successfully', 'success');
+            } else {
+                addResult('CSS Variables not found', 'error');
+            }
+        } catch (e) {
+            addResult('Error testing CSS Variables: ' + e.message, 'error');
+        }
+
+        // Test Material Symbols
+        setTimeout(() => {
+            const symbols = document.querySelectorAll('.material-symbols-outlined');
+            if (symbols.length > 0) {
+                addResult('Material Symbols loaded successfully', 'success');
+            } else {
+                addResult('Material Symbols not found', 'error');
+            }
+        }, 100);
+
+        // Test Chrome Extension APIs
+        if (typeof chrome !== 'undefined' && chrome.runtime) {
+            addResult('Chrome Extension APIs available', 'success');
+        } else {
+            addResult('Chrome Extension APIs not available (expected in regular browser)', 'info');
+        }
+
+        // Test Local Storage
+        try {
+            localStorage.setItem('test', 'value');
+            localStorage.removeItem('test');
+            addResult('Local Storage working', 'success');
+        } catch (e) {
+            addResult('Local Storage error: ' + e.message, 'error');
+        }
+
+        addResult('Extension loading test completed', 'success');
+    </script>
+</body>
+</html>
