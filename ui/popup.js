@@ -96,13 +96,48 @@ class PopupManager {
       this.saveToNotion();
     });
 
-    // Tag input system - supports Enter and comma to add tags
+    // Tag input system - supports Enter, comma, and space to add tags
     const tagInput = document.getElementById('tag-input');
-    tagInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter' || e.key === ',') {
-        console.log('[WebClip Popup] Tag added via keyboard:', e.key);
+
+    if (!tagInput) {
+      console.error('[WebClip Popup] Tag input element not found!');
+      return;
+    }
+
+    const self = this; // Preserve 'this' context
+
+    // Handle keyboard events for tag input
+    tagInput.addEventListener('keydown', (e) => {
+      const inputValue = tagInput.value.trim();
+
+      // Handle Enter, comma, or space to add tags
+      if (e.key === 'Enter' || e.key === ',' || e.key === ' ') {
         e.preventDefault();
-        this.addTag(tagInput.value.trim());
+
+        if (inputValue) {
+          // For space, if there are multiple tags separated by spaces, add all of them
+          if (e.key === ' ' && inputValue.includes(' ')) {
+            const tags = inputValue.split(' ').filter(tag => tag.trim());
+            tags.forEach(tag => self.addTag(tag.trim()));
+          } else {
+            self.addTag(inputValue);
+          }
+          tagInput.value = '';
+        }
+      }
+    });
+
+    // Handle blur event for adding remaining tags when clicking away
+    tagInput.addEventListener('blur', (e) => {
+      const tagValue = tagInput.value.trim();
+      if (tagValue) {
+        // If input contains spaces, treat as multiple tags
+        if (tagValue.includes(' ')) {
+          const tags = tagValue.split(' ').filter(tag => tag.trim());
+          tags.forEach(tag => self.addTag(tag.trim()));
+        } else {
+          self.addTag(tagValue);
+        }
         tagInput.value = '';
       }
     });
@@ -176,11 +211,18 @@ class PopupManager {
    * Creates clickable tag elements with remove buttons
    */
   renderTags() {
+    console.log('[WebClip Popup] renderTags called with:', this.currentData.tags);
     const tagsContainer = document.getElementById('tags-container');
+    if (!tagsContainer) {
+      console.error('[WebClip Popup] Tags container not found!');
+      return;
+    }
+
     tagsContainer.innerHTML = '';
 
     // Create tag element for each tag
     this.currentData.tags.forEach(tag => {
+      console.log('[WebClip Popup] Creating tag element for:', tag);
       const tagElement = document.createElement('span');
       tagElement.className = 'bg-primary/20 text-primary text-xs font-semibold px-2 py-1 rounded-full flex items-center';
       tagElement.innerHTML = `
@@ -219,10 +261,35 @@ class PopupManager {
    * @param {string} tagText - Tag text to add
    */
   addTag(tagText) {
-    if (tagText && !this.currentData.tags.includes(tagText)) {
-      this.currentData.tags.push(tagText);
-      this.renderTags();
+    console.log('[WebClip Popup] addTag called with:', tagText);
+    console.log('[WebClip Popup] Current tags before:', this.currentData.tags);
+
+    // Validate and clean tag text
+    if (!tagText || typeof tagText !== 'string') {
+      console.log('[WebClip Popup] Tag not added - invalid input:', tagText);
+      return;
     }
+
+    const cleanTag = tagText.trim();
+    if (!cleanTag) {
+      console.log('[WebClip Popup] Tag not added - empty after trim');
+      return;
+    }
+
+    // Check for duplicates (case-insensitive)
+    const isDuplicate = this.currentData.tags.some(
+      existingTag => existingTag.toLowerCase() === cleanTag.toLowerCase()
+    );
+
+    if (isDuplicate) {
+      console.log('[WebClip Popup] Tag not added - duplicate:', cleanTag);
+      return;
+    }
+
+    // Add the tag
+    this.currentData.tags.push(cleanTag);
+    console.log('[WebClip Popup] Tags after adding:', this.currentData.tags);
+    this.renderTags();
   }
 
   /**
@@ -231,7 +298,14 @@ class PopupManager {
    * @param {string} tagText - Tag text to remove
    */
   removeTag(tagText) {
-    this.currentData.tags = this.currentData.tags.filter(tag => tag !== tagText);
+    console.log('[WebClip Popup] removeTag called with:', tagText);
+
+    // Remove tag case-insensitively
+    this.currentData.tags = this.currentData.tags.filter(
+      tag => tag.toLowerCase() !== tagText.toLowerCase()
+    );
+
+    console.log('[WebClip Popup] Tags after removal:', this.currentData.tags);
     this.renderTags();
   }
 

@@ -467,14 +467,28 @@ class WebClipAssistant {
       type: type === "markdown" ? "text/markdown" : "application/json",
     });
 
-    // Create object URL for download
-    const url = URL.createObjectURL(blob);
-    console.log("[WebClip Assistant] Created object URL for download");
+    // Convert blob to base64 for Chrome downloads API
+    const reader = new FileReader();
+    const base64Data = await new Promise((resolve, reject) => {
+      reader.onload = () => {
+        // Remove data URL prefix to get base64 content
+        const base64 = reader.result.split(',')[1];
+        resolve(base64);
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+
+    // Create data URL for download
+    const dataUrl = `data:${
+      type === "markdown" ? "text/markdown" : "application/json"
+    };base64,${base64Data}`;
+    console.log("[WebClip Assistant] Created data URL for download");
 
     try {
       // Initiate download using Chrome downloads API
       const downloadId = await chrome.downloads.download({
-        url: url,
+        url: dataUrl,
         filename: filename,
         saveAs: true,
       });
