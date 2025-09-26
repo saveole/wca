@@ -142,6 +142,20 @@ class PopupManager {
       }
     });
 
+    // Event delegation for tag removal buttons
+    const tagsContainer = document.getElementById('tags-container');
+    if (tagsContainer) {
+      tagsContainer.addEventListener('click', (e) => {
+        if (e.target.closest('.remove-tag')) {
+          const button = e.target.closest('.remove-tag');
+          const tagToRemove = button.getAttribute('data-tag');
+          if (tagToRemove) {
+            self.removeTag(tagToRemove);
+          }
+        }
+      });
+    }
+
     // Auto-save data on field changes
     const inputs = ['page-title', 'url', 'description', 'summary', 'notes'];
     inputs.forEach(id => {
@@ -218,20 +232,28 @@ class PopupManager {
       return;
     }
 
+    // Clear existing tags but preserve the input
+    const tagInput = document.getElementById('tag-input');
+    const inputPlaceholder = tagInput ? tagInput.placeholder : '';
     tagsContainer.innerHTML = '';
+
+    // Re-add the input element
+    if (tagInput) {
+      tagsContainer.appendChild(tagInput);
+    }
 
     // Create tag element for each tag
     this.currentData.tags.forEach(tag => {
       console.log('[WebClip Popup] Creating tag element for:', tag);
       const tagElement = document.createElement('span');
-      tagElement.className = 'bg-primary/20 text-primary text-xs font-semibold px-2 py-1 rounded-full flex items-center';
+      tagElement.className = 'tag';
       tagElement.innerHTML = `
         ${tag}
-        <button class="ml-1.5 text-primary/70 hover:text-primary" onclick="popupManager.removeTag('${tag}')">
-          <span class="material-symbols-outlined !text-sm">close</span>
+        <button class="tag-remove remove-tag" data-tag="${tag}" title="Remove tag">
+          <span class="material-symbols-outlined">close</span>
         </button>
       `;
-      tagsContainer.appendChild(tagElement);
+      tagsContainer.insertBefore(tagElement, tagInput);
     });
   }
 
