@@ -28,8 +28,8 @@ body {
 
 /* CSS Variables - Clean Light Theme */
 :root {
-  --primary: #4f46e5;
-  --primary-hover: #4338ca;
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
   --background: #fafafa;
   --surface: #ffffff;
   --surface-alt: #f9fafb;

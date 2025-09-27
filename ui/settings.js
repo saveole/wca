@@ -7,7 +7,7 @@
  * - Notion integration setup
  * - Field mapping configuration
  * - Connection testing for APIs
- * - Form validation and dirty state management
+ * - Form management
  *
  * @class SettingsManager
  */
@@ -24,9 +24,7 @@ class SettingsManager {
     /** @type {Object|null} Current database properties from schema detection */
     this.currentDatabaseProperties = null;
 
-    /** @type {Object} Initial form values to track changes */
-    this.initialValues = {};
-
+    
     this.init();
   }
 
@@ -40,8 +38,6 @@ class SettingsManager {
     await this.loadSettings();
     this.bindEvents();
     this.populateForm();
-    this.storeInitialValues();
-    this.setupButtonStateObserver();
 
     console.log('[WebClip Settings] Settings page initialization complete');
   }
@@ -50,25 +46,22 @@ class SettingsManager {
    * Bind all form event listeners
    * - Save button functionality
    * - API provider selection changes
-   * - Form field dirty state tracking
+   * - Form field management
    * - Preference toggle changes
    */
   bindEvents() {
     console.log('[WebClip Settings] Binding form event listeners...');
 
     // Save button click handler - use event delegation to handle dynamic visibility
-    document.addEventListener('click', (e) => {
-      if (e.target && e.target.id === 'save-settings') {
-        console.log('[WebClip Settings] Save settings button clicked');
+    document.getElementById('save-settings').addEventListener('click', (e) => {
+      console.log('[WebClip Settings] Save settings button clicked');
         this.saveSettings();
-      }
     });
 
     // API provider change handler - updates endpoint URL
     document.getElementById('api-provider').addEventListener('change', (e) => {
       console.log('[WebClip Settings] API provider changed to:', e.target.value);
       this.updateApiEndpoint(e.target.value);
-      this.markAsDirty();
     });
 
     // Track changes in all form fields
@@ -88,7 +81,6 @@ class SettingsManager {
     if (exportFormatField) {
       exportFormatField.addEventListener('change', () => {
         console.log('[WebClip Settings] Export format changed');
-        this.markAsDirty();
       });
     }
 
@@ -115,7 +107,6 @@ class SettingsManager {
       if (field) {
         field.addEventListener('change', () => {
           console.log('[WebClip Settings] Form field changed:', fieldId);
-          this.markAsDirty();
         });
       }
     });
@@ -123,7 +114,6 @@ class SettingsManager {
     // Auto-save preference toggle
     document.getElementById('auto-save').addEventListener('change', () => {
       console.log('[WebClip Settings] Auto-save preference changed');
-      this.markAsDirty();
     });
 
     console.log('[WebClip Settings] All form event listeners bound');
@@ -165,9 +155,6 @@ class SettingsManager {
   populateForm() {
     console.log('[WebClip Settings] Populating form fields with loaded settings...');
 
-    // Store initial values before populating
-    this.storeInitialValues();
-
     // API provider settings
     document.getElementById('api-provider').value = this.settings.apiProvider || 'openai';
     document.getElementById('api-endpoint').value = this.settings.apiEndpoint || 'https://api.openai.com/v1/chat/completions';
@@ -194,9 +181,6 @@ class SettingsManager {
     document.getElementById('default-export-format').value = this.settings.defaultExportFormat || 'markdown';
 
     console.log('[WebClip Settings] Form populated successfully');
-
-    // Hide save button until changes are made
-    this.hideSaveButton();
   }
 
   /**
@@ -229,13 +213,11 @@ class SettingsManager {
         console.log('[WebClip Settings] Set default OpenAI endpoint');
     }
 
-    // Mark form as dirty when endpoint changes
-    this.markAsDirty();
-  }
+    }
 
   /**
    * Save all settings to chrome.storage.sync
-   * Validates form data and shows appropriate feedback
+   * Shows appropriate feedback
    */
   async saveSettings() {
     console.log('[WebClip Settings] Starting settings save process...');
@@ -283,7 +265,6 @@ class SettingsManager {
         console.log('[WebClip Settings] Settings saved successfully');
         // Update local settings and show success
         this.settings = formData;
-        this.storeInitialValues(); // Reset initial values to newly saved values
         this.showSuccess('Settings saved successfully!');
       } else {
         console.error('[WebClip Settings] Failed to save settings:', response.error);
@@ -297,159 +278,8 @@ class SettingsManager {
   }
 
 
-  /**
-   * Store initial form values to track changes
-   * Prevents false dirty states when loading default values
-   */
-  storeInitialValues() {
-    this.initialValues = {
-      apiProvider: this.settings.apiProvider || 'openai',
-      apiEndpoint: this.settings.apiEndpoint || 'https://api.openai.com/v1/chat/completions',
-      apiKey: this.settings.apiKey || '',
-      notionToken: this.settings.notionToken || '',
-      notionDatabaseId: this.settings.notionDatabaseId || '',
-      autoSave: this.settings.autoSave || false,
-      defaultExportFormat: this.settings.defaultExportFormat || 'markdown',
-      fieldMapping: {
-        title: this.settings.fieldMapping?.title || '',
-        url: this.settings.fieldMapping?.url || '',
-        content: this.settings.fieldMapping?.content || '',
-        tags: this.settings.fieldMapping?.tags || ''
-      }
-    };
-
-    console.log('[WebClip Settings] Initial values stored:', {
-      hasApiKey: !!this.initialValues.apiKey,
-      hasNotionToken: !!this.initialValues.notionToken,
-      fieldMappingSet: Object.values(this.initialValues.fieldMapping).some(v => v)
-    });
-
-    this.hideSaveButton();
-  }
-
-  /**
-   * Mark form as dirty (has unsaved changes)
-   * Shows save button with pulsing animation only if values have actually changed
-   */
-  markAsDirty() {
-    console.log('[WebClip Settings] markAsDirty() called');
-
-    // Only show save button if form values have actually changed from initial values
-    if (this.hasFormChanged()) {
-      console.log('[WebClip Settings] Form has changed, showing save button');
-      const saveButton = document.getElementById('save-settings');
-
-      if (!saveButton) {
-        console.error('[WebClip Settings] Save button not found!');
-        return;
-      }
-
-      console.log('[WebClip Settings] Save button element:', saveButton);
-      console.log('[WebClip Settings] Save button current state - disabled:', saveButton.disabled, 'hidden class:', saveButton.classList.contains('hidden'));
-      console.log('[WebClip Settings] Save button computed style - pointerEvents:', getComputedStyle(saveButton).pointerEvents);
-
-      // Ensure button is fully enabled and visible
-      saveButton.classList.remove('hidden');
-      saveButton.disabled = false;
-      saveButton.classList.remove('opacity-75', 'cursor-not-allowed');
-      saveButton.classList.add('animate-pulse');
-
-      // Force browser to recognize the button as interactive
-      saveButton.style.display = 'inline-flex';
-      saveButton.style.pointerEvents = 'auto';
-      saveButton.style.cursor = 'pointer';
-
-      console.log('[WebClip Settings] Save button new state - disabled:', saveButton.disabled, 'hidden class:', saveButton.classList.contains('hidden'));
-      console.log('[WebClip Settings] Save button new computed style - pointerEvents:', getComputedStyle(saveButton).pointerEvents);
-
-      // Remove pulse animation after 2 seconds to prevent distraction
-      setTimeout(() => {
-        saveButton.classList.remove('animate-pulse');
-      }, 2000);
-    } else {
-      console.log('[WebClip Settings] Form has not changed from initial values');
-    }
-  }
-
-  /**
-   * Check if current form values differ from initial values
-   * @returns {boolean} True if form has changed, false otherwise
-   */
-  hasFormChanged() {
-    const currentValues = {
-      apiProvider: document.getElementById('api-provider').value,
-      apiKey: document.getElementById('llm-api-key').value,
-      apiEndpoint: document.getElementById('api-endpoint').value,
-      notionToken: document.getElementById('notion-token').value,
-      notionDatabaseId: document.getElementById('notion-db-id').value,
-      autoSave: document.getElementById('auto-save').checked,
-      defaultExportFormat: document.getElementById('default-export-format').value,
-      fieldMapping: {
-        title: document.getElementById('map-title').value,
-        url: document.getElementById('map-url').value,
-        content: document.getElementById('map-content').value,
-        tags: document.getElementById('map-tags').value
-      }
-    };
-
-    // Compare with initial values
-    const hasChanged = JSON.stringify(currentValues) !== JSON.stringify(this.initialValues);
-
-    // Debug logging to help troubleshoot
-    console.log('[WebClip Settings] Form change detection:', {
-      hasChanged,
-      currentApiProvider: currentValues.apiProvider,
-      initialApiProvider: this.initialValues.apiProvider,
-      hasApiKey: !!currentValues.apiKey,
-      initialHasKey: !!this.initialValues.apiKey,
-      currentNotionToken: !!currentValues.notionToken,
-      initialNotionToken: !!this.initialValues.notionToken
-    });
-
-    return hasChanged;
-  }
-
-  /**
-   * Set up observer to monitor save button state changes
-   */
-  setupButtonStateObserver() {
-    const saveButton = document.getElementById('save-settings');
-    if (!saveButton) return;
-
-    // Set up mutation observer to watch for attribute changes
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.type === 'attributes' && mutation.attributeName === 'disabled') {
-          console.log('[WebClip Settings] Save button disabled state changed to:', saveButton.disabled);
-        }
-        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-          console.log('[WebClip Settings] Save button class changed, contains hidden:', saveButton.classList.contains('hidden'));
-        }
-      });
-    });
-
-    observer.observe(saveButton, {
-      attributes: true,
-      attributeFilter: ['disabled', 'class']
-    });
-
-    console.log('[WebClip Settings] Button state observer set up');
-  }
-
-  /**
-   * Hide save button when no unsaved changes exist
-   */
-  hideSaveButton() {
-    const saveButton = document.getElementById('save-settings');
-    if (saveButton) {
-      saveButton.classList.add('hidden');
-      saveButton.disabled = true;
-    }
-
-    // Reset dirty state tracking
-    this.isDirty = false;
-  }
-
+  
+  
   /**
    * Show success toast notification
    * @param {string} message - Success message to display
@@ -824,7 +654,6 @@ class SettingsManager {
         select.addEventListener('change', () => {
           this.validateFieldMapping(fieldId, select);
           this.validateFieldMappingConfiguration();
-          this.markAsDirty();
         });
       }
     });
