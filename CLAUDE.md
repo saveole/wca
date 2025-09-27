@@ -114,7 +114,7 @@ Since this is a Chrome extension with no build system:
 - **Settings Management**: Chrome Storage API operations
 
 ### Popup Manager (`ui/popup.js`)
-- **UI State Management**: Maintains current clip data and loading states
+- **UI State Management**: Maintains current clip data
 - **Event Handling**: Binds all user interactions (buttons, inputs, tags)
 - **Tag System**: Interactive tag input with keyboard shortcuts
 - **Export Generation**: Creates Markdown and JSON export formats
@@ -148,7 +148,7 @@ Since this is a Chrome extension with no build system:
 - `https://fonts.gstatic.com/*`: Font resources
 
 ### API Integration Patterns
-- **AI Summarization**: Asynchronous requests with loading states and error handling
+- **AI Summarization**: Asynchronous requests with error handling
 - **Notion Integration**: Field mapping configuration and rich content creation
 - **Error Handling**: Graceful failure with user feedback and retry options
 
@@ -175,7 +175,7 @@ Since this is a Chrome extension with no build system:
 ## Troubleshooting
 
 ### Common Issues
-1. **Extension Not Loading**: Check manifest.json syntax and file paths
+1. **Extension Issues**: Check manifest.json syntax and file paths
 2. **API Failures**: Verify API keys and network connectivity
 3. **Notion Integration**: Confirm database ID and field mapping configuration
 4. **CSS Issues**: Ensure styles.css is properly referenced

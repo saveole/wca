@@ -41,8 +41,6 @@ class PopupManager {
     /** @type {Object} User settings from chrome.storage.sync */
     this.settings = {};
 
-    /** @type {boolean} Loading state for async operations */
-    this.isLoading = false;
 
     this.init();
   }
@@ -137,7 +135,7 @@ class PopupManager {
     });
 
     // Handle blur event for adding remaining tags when clicking away
-    tagInput.addEventListener('blur', (e) => {
+    tagInput.addEventListener('blur', () => {
       const tagValue = tagInput.value.trim();
       if (tagValue) {
         // If input contains spaces, treat as multiple tags
@@ -243,7 +241,6 @@ class PopupManager {
 
     // Clear existing tags but preserve the input
     const tagInput = document.getElementById('tag-input');
-    const inputPlaceholder = tagInput ? tagInput.placeholder : '';
     tagsContainer.innerHTML = '';
 
     // Re-add the input element
@@ -345,16 +342,6 @@ class PopupManager {
    * Shows loading state and handles errors gracefully
    */
   async summarizeContent() {
-    // Prevent multiple simultaneous requests
-    if (this.isLoading) return;
-
-    const button = document.getElementById('ai-summarize');
-    const spinner = button.querySelector('.animate-spin');
-    const buttonText = button.querySelector('span:last-child');
-
-    // Show loading state
-    this.setLoadingState(true, spinner, buttonText);
-
     try {
       // Combine title and description for summarization
       const content = `${this.currentData.title}\n\n${this.currentData.description}`;
@@ -375,32 +362,9 @@ class PopupManager {
       }
     } catch (error) {
       this.showError('Error summarizing content: ' + error.message);
-    } finally {
-      // Reset loading state
-      this.setLoadingState(false, spinner, buttonText);
     }
   }
 
-  /**
-   * Manage loading state for async operations
-   * @param {boolean} loading - Whether operation is in progress
-   * @param {HTMLElement} spinner - Loading spinner element
-   * @param {HTMLElement} buttonText - Button text element
-   */
-  setLoadingState(loading, spinner, buttonText) {
-    this.isLoading = loading;
-    if (loading) {
-      // Show loading state
-      spinner.classList.remove('hidden');
-      buttonText.textContent = 'Summarizing...';
-      document.getElementById('ai-summarize').disabled = true;
-    } else {
-      // Hide loading state
-      spinner.classList.add('hidden');
-      buttonText.textContent = 'AI Summarize';
-      document.getElementById('ai-summarize').disabled = false;
-    }
-  }
 
   /**
    * Export current data as Markdown file
@@ -453,22 +417,6 @@ class PopupManager {
    * Shows loading state and handles API errors
    */
   async saveToNotion() {
-    if (this.isLoading) return;
-
-    const button = document.getElementById('save-notion');
-    const originalText = button.innerHTML;
-
-    // Show loading state
-    this.isLoading = true;
-    button.innerHTML = `
-      <svg class="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-        <path class="opacity-75" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" fill="currentColor"></path>
-      </svg>
-      <span>Saving to Notion...</span>
-    `;
-    button.disabled = true;
-
     try {
       // Request Notion save from background service worker
       const response = await chrome.runtime.sendMessage({
@@ -484,11 +432,6 @@ class PopupManager {
       }
     } catch (error) {
       this.showError('Error saving to Notion: ' + error.message);
-    } finally {
-      // Reset button state
-      this.isLoading = false;
-      button.innerHTML = originalText;
-      button.disabled = false;
     }
   }
 

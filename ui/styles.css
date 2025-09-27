@@ -505,16 +505,6 @@ body {
   overflow: hidden;
 }
 
-/* Animation */
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.animate-spin {
-  animation: spin 1s linear infinite;
-}
 
 /* Tag styles - optimized for smaller delete buttons */
 .tag {

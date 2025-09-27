@@ -25,7 +25,7 @@ API keys MUST be stored securely using chrome.storage.sync; No sensitive data ev
 Extension MUST follow Manifest V3 standards; Required permissions MUST be minimal (activeTab, storage, downloads, scripting only); Content script injection MUST be used for page data extraction; Service worker pattern MUST handle background tasks and message routing.
 
 ### IV. API Integration Reliability
-All external API calls (AI summarization, Notion) MUST include proper error handling; Async operations MUST NOT block user interface; Loading states MUST be visible during API calls; Graceful failure with user-friendly error messages is REQUIRED.
+All external API calls (AI summarization, Notion) MUST include proper error handling; Async operations MUST NOT block user interface; Graceful failure with user-friendly error messages is REQUIRED.
 
 ### V. Export Flexibility
 Multiple export formats MUST be supported (Markdown, JSON, Notion API); Export templates MUST be configurable; File downloads MUST use Chrome Downloads API; Field mapping for external integrations MUST be user-configurable.

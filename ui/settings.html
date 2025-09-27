@@ -203,7 +203,7 @@
                                         <p class="text-sm text-[var(--text-secondary-light)] dark:text-[var(--text-secondary-dark)]">Automatically save web clips when captured.</p>
                                     </div>
                                     <label class="relative inline-flex items-center cursor-pointer">
-                                        <input id="auto-save" class="sr-only peer" type="checkbox"/>
+                                        <input id="auto-save" class="sr-only peer" type="checkbox" title="Enable Auto-Save Clips" aria-label="Auto-Save Clips" aria-checked="false"/>
                                         <div class="w-11 h-6 bg-[var(--border-light)] dark:bg-[var(--border-dark)] rounded-full peer peer-focus:ring-2 peer-focus:ring-[color:var(--primary)] peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-[var(--border-light)] after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:after:border-[var(--border-dark)] peer-checked:bg-[color:var(--primary)]"></div>
                                     </label>
                                 </li>
@@ -213,7 +213,7 @@
                                         <p class="text-sm text-[var(--text-secondary-light)] dark:text-[var(--text-secondary-dark)]">Choose the default format for exporting clips.</p>
                                     </div>
                                     <div class="flex items-center gap-2">
-                                        <select id="default-export-format" class="text-sm font-medium text-[var(--text-secondary-light)] dark:text-[var(--text-secondary-dark)] bg-transparent border-none focus:outline-none">
+                                        <select id="default-export-format" class="text-sm font-medium text-[var(--text-secondary-light)] dark:text-[var(--text-secondary-dark)] bg-transparent border-none focus:outline-none" title="Default Export Format" aria-label="Default Export Format">
                                             <option value="markdown">Markdown</option>
                                             <option value="json">JSON</option>
                                         </select>

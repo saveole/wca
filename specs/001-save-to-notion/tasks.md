@@ -55,7 +55,7 @@
 - [ ] T012 Add detailed progress indicators for Notion save operations in ui/popup.js
 - [ ] T013 Implement status updates during Notion API operations in ui/popup.js
 - [ ] T014 Enhance success/error feedback with actionable messages in ui/popup.js
-- [ ] T015 Add loading states and disable controls during operations in ui/popup.js
+- [ ] T015 Disable controls during operations in ui/popup.js
 
 ## Phase 3.5: Enhanced Notion API Integration
 - [ ] T016 Upgrade Notion API integration to support configurable field mappings in background.js

@@ -83,7 +83,6 @@ The Notion API v2 supports all required property types for this feature:
 ## User Experience Research
 
 ### Progress Indicators
-- **Loading States**: Visual feedback during API operations
 - **Success Confirmation**: Clear indication when save completes
 - **Error Messages**: User-friendly error descriptions with actionable steps
 - **Connection Testing**: Real-time validation of Notion configuration

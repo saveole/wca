@@ -122,7 +122,7 @@ This guide provides step-by-step instructions for testing the enhanced Notion in
 
 **Expected Results**:
 - Graceful error messages with actionable guidance
-- Progress indicators reflect error states
+- Error states are properly reflected
 - Retry mechanisms where appropriate
 - Data validation prevents invalid saves
 
@@ -131,7 +131,7 @@ This guide provides step-by-step instructions for testing the enhanced Notion in
 
 **Steps**:
 1. Test complete workflow from setup to save
-2. Verify all loading states and progress indicators
+2. Verify all progress indicators
 3. Test dark/light theme compatibility
 4. Verify responsive design on different screen sizes
 5. Test keyboard navigation and accessibility

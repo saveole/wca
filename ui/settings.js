@@ -20,8 +20,6 @@ class SettingsManager {
     /** @type {Object} Current settings from chrome.storage.sync */
     this.settings = {};
 
-    /** @type {boolean} Whether settings are currently being saved */
-    this.isSaving = false;
 
     /** @type {Object|null} Current database properties from schema detection */
     this.currentDatabaseProperties = null;
@@ -242,18 +240,6 @@ class SettingsManager {
   async saveSettings() {
     console.log('[WebClip Settings] Starting settings save process...');
 
-    if (this.isSaving) {
-      console.log('[WebClip Settings] Save already in progress, ignoring request');
-      return;
-    }
-
-    // Show saving state
-    this.setSavingState(true);
-    console.log('[WebClip Settings] Saving state activated');
-
-    // Debug: log that we're in the save method
-    console.log('[WebClip Settings] Save method execution started');
-
     try {
       // Collect all form data
       const formData = {
@@ -307,34 +293,9 @@ class SettingsManager {
     } catch (error) {
       console.error('[WebClip Settings] Error during save:', error);
       this.showError('Failed to save settings: ' + error.message);
-    } finally {
-      // Reset saving state
-      this.setSavingState(false);
-      console.log('[WebClip Settings] Saving state deactivated');
     }
   }
 
-  /**
-   * Manage saving state UI feedback
-   * @param {boolean} saving - Whether currently saving
-   */
-  setSavingState(saving) {
-    this.isSaving = saving;
-    const saveButton = document.getElementById('save-settings');
-    const buttonText = saveButton.querySelector('span');
-
-    if (saving) {
-      // Show saving state
-      saveButton.disabled = true;
-      buttonText.textContent = 'Saving...';
-      saveButton.classList.add('opacity-75', 'cursor-not-allowed');
-    } else {
-      // Reset to normal state
-      saveButton.disabled = false;
-      buttonText.textContent = 'Save Changes';
-      saveButton.classList.remove('opacity-75', 'cursor-not-allowed');
-    }
-  }
 
   /**
    * Store initial form values to track changes
@@ -657,21 +618,9 @@ class SettingsManager {
   async testNotionConnectionWithSchema() {
     console.log('[WebClip Settings] Starting Notion connection test with schema detection...');
 
-    const testButton = document.getElementById('test-notion-connection');
     const connectionStatus = document.getElementById('connection-status');
-    const originalButtonText = testButton.innerHTML;
 
     try {
-      // Show loading state
-      testButton.disabled = true;
-      testButton.innerHTML = `
-        <svg class="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-          <path class="opacity-75" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" fill="currentColor"></path>
-        </svg>
-        <span>Testing...</span>
-      `;
-
       const token = document.getElementById('notion-token').value;
       const databaseId = document.getElementById('notion-db-id').value;
 
@@ -714,10 +663,6 @@ class SettingsManager {
       this.showError('Connection test failed: ' + error.message);
       connectionStatus.className = 'text-red-600';
       connectionStatus.textContent = '✗ Failed';
-    } finally {
-      // Reset button state
-      testButton.disabled = false;
-      testButton.innerHTML = originalButtonText;
     }
   }
 

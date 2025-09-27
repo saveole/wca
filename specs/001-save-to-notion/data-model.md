@@ -119,8 +119,7 @@ Popup Data → NotionFormat → Notion API → Result → Toast Notification
 {
   currentData: { /* Web clip data */ },
   settings: { /* User settings including notionConfig */ },
-  isLoading: false,
-  notionStatus: 'idle' | 'validating' | 'saving' | 'success' | 'error'
+  notionStatus: 'idle' | 'saving' | 'success' | 'error'
 }
 
 // Settings Manager
