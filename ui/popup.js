@@ -96,6 +96,15 @@ class PopupManager {
       this.saveToNotion();
     });
 
+    // Settings button
+    const settingsButton = document.getElementById('settings-button');
+    if (settingsButton) {
+      settingsButton.addEventListener('click', () => {
+        console.log('[WebClip Popup] Settings button clicked');
+        this.openSettings();
+      });
+    }
+
     // Tag input system - supports Enter, comma, and space to add tags
     const tagInput = document.getElementById('tag-input');
 
@@ -480,6 +489,27 @@ class PopupManager {
       this.isLoading = false;
       button.innerHTML = originalText;
       button.disabled = false;
+    }
+  }
+
+  /**
+   * Open the extension settings page
+   * Uses Chrome Extension API to open options page
+   */
+  openSettings() {
+    console.log('[WebClip Popup] Opening settings page...');
+
+    try {
+      // Use Chrome Extension API to open the options page
+      chrome.runtime.openOptionsPage();
+
+      // Close the popup after opening settings
+      window.close();
+
+      console.log('[WebClip Popup] Settings page opened successfully');
+    } catch (error) {
+      console.error('[WebClip Popup] Failed to open settings page:', error);
+      this.showError('Failed to open settings page');
     }
   }
 

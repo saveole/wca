@@ -23,10 +23,10 @@ class WebClipAssistant {
       notionToken: "",
       notionDatabaseId: "",
       fieldMapping: {
-        title: "Title",
-        url: "URL",
-        content: "Page Content",
-        tags: "Tags",
+        title: "",
+        url: "",
+        content: "",
+        tags: "",
       },
       autoSave: false,
       defaultExportFormat: "markdown",
@@ -509,10 +509,30 @@ class WebClipAssistant {
   }
 
   /**
+   * Format content (summary + notes) for rich text property
+   * @param {string} summary - AI-generated summary
+   * @param {string} notes - User notes
+   * @returns {string} Formatted content string
+   */
+  formatContentForRichText(summary, notes) {
+    const parts = [];
+
+    if (summary) {
+      parts.push(`AI Summary: ${summary}`);
+    }
+
+    if (notes) {
+      parts.push(`My Notes: ${notes}`);
+    }
+
+    return parts.length > 0 ? parts.join('\n\n') : '';
+  }
+
+  /**
    * Save web clip data to Notion database
    * Creates a new page in the configured Notion database with:
-   * - Mapped properties (title, URL, tags)
-   * - Rich content blocks (AI summary, user notes)
+   * - Mapped properties (title, URL, tags, content)
+   * - Rich content blocks (AI summary, user notes) as fallback
    *
    * @param {Object} data - Web clip data including title, URL, summary, notes, tags
    * @param {Object} settings - User settings including Notion integration configuration
@@ -522,37 +542,44 @@ class WebClipAssistant {
   async saveToNotion(data, settings) {
     console.log("[WebClip Assistant] Starting Notion save process");
 
+    // Validate Notion integration configuration
     if (!settings.notionToken || !settings.notionDatabaseId) {
       console.error("[WebClip Assistant] Notion integration not configured");
       throw new Error("Notion integration not configured");
     }
 
-    const mapping = settings.fieldMapping;
+    // Validate field mapping configuration
+    const mapping = settings.fieldMapping || {};
     console.log("[WebClip Assistant] Using field mapping:", mapping);
+
+    if (!mapping.title || !mapping.content) {
+      console.error("[WebClip Assistant] Required field mappings not configured");
+      throw new Error("Required field mappings (title, content) are not configured. Please check your settings.");
+    }
 
     // Prepare properties based on user's field mapping configuration
     const properties = {};
 
-    // Map title property
+    // Map title property (required)
     if (mapping.title) {
       properties[mapping.title] = {
-        title: [{ text: { content: data.title } }],
+        title: [{ text: { content: data.title || "Untitled" } }],
       };
       console.log("[WebClip Assistant] Mapped title property:", mapping.title);
     }
 
-    // Map URL property
-    if (mapping.url) {
+    // Map URL property (optional)
+    if (mapping.url && data.url) {
       properties[mapping.url] = {
         url: data.url,
       };
       console.log("[WebClip Assistant] Mapped URL property:", mapping.url);
     }
 
-    // Map tags as multi-select if tags exist
+    // Map tags as multi-select if tags exist and mapping is configured
     if (mapping.tags && data.tags && data.tags.length > 0) {
       properties[mapping.tags] = {
-        multi_select: data.tags.map((tag) => ({ name: tag })),
+        multi_select: data.tags.map((tag) => ({ name: tag.trim() })),
       };
       console.log(
         "[WebClip Assistant] Mapped tags:",
@@ -562,45 +589,59 @@ class WebClipAssistant {
       );
     }
 
-    // Prepare rich content blocks for the page
-    const contentParts = [];
-
-    // Add AI summary section if available
-    if (data.summary) {
-      contentParts.push({
-        object: "block",
-        type: "heading_2",
-        heading_2: {
-          rich_text: [{ text: { content: "AI Summary" } }],
-        },
-      });
-      contentParts.push({
-        object: "block",
-        type: "paragraph",
-        paragraph: {
-          rich_text: [{ text: { content: data.summary } }],
-        },
-      });
-      console.log("[WebClip Assistant] Added AI summary content block");
+    // Map content to rich_text property if configured
+    if (mapping.content) {
+      const contentText = this.formatContentForRichText(data.summary, data.notes);
+      if (contentText) {
+        properties[mapping.content] = {
+          rich_text: [{ text: { content: contentText } }],
+        };
+        console.log("[WebClip Assistant] Mapped content property:", mapping.content);
+      }
     }
 
-    // Add user notes section if available
-    if (data.notes) {
-      contentParts.push({
-        object: "block",
-        type: "heading_2",
-        heading_2: {
-          rich_text: [{ text: { content: "My Notes" } }],
-        },
-      });
-      contentParts.push({
-        object: "block",
-        type: "paragraph",
-        paragraph: {
-          rich_text: [{ text: { content: data.notes } }],
-        },
-      });
-      console.log("[WebClip Assistant] Added user notes content block");
+    // Prepare rich content blocks for the page (fallback if no content mapping or for additional content)
+    const contentParts = [];
+
+    // Only add content blocks if content is not mapped to a property or if there's additional content
+    if (!mapping.content || (data.summary && data.notes)) {
+      // Add AI summary section if available and not already mapped
+      if (data.summary && !mapping.content) {
+        contentParts.push({
+          object: "block",
+          type: "heading_2",
+          heading_2: {
+            rich_text: [{ text: { content: "AI Summary" } }],
+          },
+        });
+        contentParts.push({
+          object: "block",
+          type: "paragraph",
+          paragraph: {
+            rich_text: [{ text: { content: data.summary } }],
+          },
+        });
+        console.log("[WebClip Assistant] Added AI summary content block");
+      }
+
+      // Add user notes section if available and not already mapped
+      if (data.notes && !mapping.content) {
+        contentParts.push({
+          object: "block",
+          type: "heading_2",
+          heading_2: {
+            rich_text: [{ text: { content: "My Notes" } }],
+          },
+        });
+        contentParts.push({
+          object: "block",
+          type: "paragraph",
+          paragraph: {
+            rich_text: [{ text: { content: data.notes } }],
+          },
+        });
+        console.log("[WebClip Assistant] Added user notes content block");
+      }
     }
 
     console.log(
