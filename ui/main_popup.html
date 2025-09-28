@@ -41,6 +41,16 @@
                         </div>
                         <h1 class="text-lg font-bold">WebClip Assistant</h1>
                     </div>
+                    <button
+                        id="settings-button"
+                        class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-[var(--border-light)] dark:hover:bg-[var(--border-dark)] transition-colors"
+                        title="Settings"
+                    >
+                        <span
+                            class="material-symbols-outlined text-[var(--text-secondary-light)] dark:text-[var(--text-secondary-dark)] text-xl"
+                            >settings</span
+                        >
+                    </button>
                 </header>
 
                 <div class="flex flex-col space-y-3">
@@ -188,28 +198,36 @@
                     </div>
                     <button
                         id="save-notion"
-                        class="w-full flex items-center justify-center space-x-2 py-2 px-4 rounded-DEFAULT bg-[color:var(--primary)]/10 dark:bg-[color:var(--primary)]/20 text-[color:var(--primary)] text-sm font-medium hover:bg-[color:var(--primary)]/20 dark:hover:bg-[color:var(--primary)]/30 transition-colors"
+                        class="w-full flex items-center justify-center space-x-2 py-2 px-4 rounded-DEFAULT bg-[color:var(--primary)]/10 dark:bg-[color:var(--primary)]/20 text-[color:var(--primary)] text-sm font-medium hover:bg-[color:var(--primary)]/20 dark:hover:bg-[color:var(--primary)]/30 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                        <svg
-                            class="text-[color:var(--primary)]"
-                            fill="none"
-                            height="16"
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            viewBox="0 0 24 24"
-                            width="16"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                                d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Z"
-                            ></path>
-                            <path
-                                d="M12 18a6 6 0 0 0-6-6 4 4 0 0 1 4-4 2 2 0 0 0 2-2 4 4 0 0 1 4 4 6 6 0 0 0-6 6Z"
-                            ></path>
-                        </svg>
-                        <span>Save to Notion</span>
+                        <span id="save-notion-icon">
+                            <svg
+                                class="text-[color:var(--primary)]"
+                                fill="none"
+                                height="16"
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                viewBox="0 0 24 24"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Z"
+                                ></path>
+                                <path
+                                    d="M12 18a6 6 0 0 0-6-6 4 4 0 0 1 4-4 2 2 0 0 0 2-2 4 4 0 0 1 4 4 6 6 0 0 0-6 6Z"
+                                ></path>
+                            </svg>
+                        </span>
+                        <span id="save-notion-spinner" class="hidden">
+                            <svg class="animate-spin h-4 w-4 text-[color:var(--primary)]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                        </span>
+                        <span id="save-notion-text">Save to Notion</span>
                     </button>
                 </div>
             </div>

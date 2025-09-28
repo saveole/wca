@@ -41,8 +41,6 @@ class PopupManager {
     /** @type {Object} User settings from chrome.storage.sync */
     this.settings = {};
 
-    /** @type {boolean} Loading state for async operations */
-    this.isLoading = false;
 
     this.init();
   }
@@ -96,6 +94,15 @@ class PopupManager {
       this.saveToNotion();
     });
 
+    // Settings button
+    const settingsButton = document.getElementById('settings-button');
+    if (settingsButton) {
+      settingsButton.addEventListener('click', () => {
+        console.log('[WebClip Popup] Settings button clicked');
+        this.openSettings();
+      });
+    }
+
     // Tag input system - supports Enter, comma, and space to add tags
     const tagInput = document.getElementById('tag-input');
 
@@ -128,7 +135,7 @@ class PopupManager {
     });
 
     // Handle blur event for adding remaining tags when clicking away
-    tagInput.addEventListener('blur', (e) => {
+    tagInput.addEventListener('blur', () => {
       const tagValue = tagInput.value.trim();
       if (tagValue) {
         // If input contains spaces, treat as multiple tags
@@ -234,7 +241,6 @@ class PopupManager {
 
     // Clear existing tags but preserve the input
     const tagInput = document.getElementById('tag-input');
-    const inputPlaceholder = tagInput ? tagInput.placeholder : '';
     tagsContainer.innerHTML = '';
 
     // Re-add the input element
@@ -336,16 +342,6 @@ class PopupManager {
    * Shows loading state and handles errors gracefully
    */
   async summarizeContent() {
-    // Prevent multiple simultaneous requests
-    if (this.isLoading) return;
-
-    const button = document.getElementById('ai-summarize');
-    const spinner = button.querySelector('.animate-spin');
-    const buttonText = button.querySelector('span:last-child');
-
-    // Show loading state
-    this.setLoadingState(true, spinner, buttonText);
-
     try {
       // Combine title and description for summarization
       const content = `${this.currentData.title}\n\n${this.currentData.description}`;
@@ -366,32 +362,9 @@ class PopupManager {
       }
     } catch (error) {
       this.showError('Error summarizing content: ' + error.message);
-    } finally {
-      // Reset loading state
-      this.setLoadingState(false, spinner, buttonText);
     }
   }
 
-  /**
-   * Manage loading state for async operations
-   * @param {boolean} loading - Whether operation is in progress
-   * @param {HTMLElement} spinner - Loading spinner element
-   * @param {HTMLElement} buttonText - Button text element
-   */
-  setLoadingState(loading, spinner, buttonText) {
-    this.isLoading = loading;
-    if (loading) {
-      // Show loading state
-      spinner.classList.remove('hidden');
-      buttonText.textContent = 'Summarizing...';
-      document.getElementById('ai-summarize').disabled = true;
-    } else {
-      // Hide loading state
-      spinner.classList.add('hidden');
-      buttonText.textContent = 'AI Summarize';
-      document.getElementById('ai-summarize').disabled = false;
-    }
-  }
 
   /**
    * Export current data as Markdown file
@@ -444,23 +417,18 @@ class PopupManager {
    * Shows loading state and handles API errors
    */
   async saveToNotion() {
-    if (this.isLoading) return;
-
     const button = document.getElementById('save-notion');
-    const originalText = button.innerHTML;
-
-    // Show loading state
-    this.isLoading = true;
-    button.innerHTML = `
-      <svg class="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-        <path class="opacity-75" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" fill="currentColor"></path>
-      </svg>
-      <span>Saving to Notion...</span>
-    `;
-    button.disabled = true;
+    const icon = document.getElementById('save-notion-icon');
+    const spinner = document.getElementById('save-notion-spinner');
+    const text = document.getElementById('save-notion-text');
 
     try {
+      // Show loading state
+      button.disabled = true;
+      icon.classList.add('hidden');
+      spinner.classList.remove('hidden');
+      text.textContent = 'Saving to Notion...';
+
       // Request Notion save from background service worker
       const response = await chrome.runtime.sendMessage({
         action: 'saveToNotion',
@@ -469,7 +437,13 @@ class PopupManager {
       });
 
       if (response.success) {
-        this.showSuccess('Saved to Notion successfully!');
+        const pageTitle = this.currentData.title || 'Page';
+        this.showSuccess(`✓ Saved "${pageTitle}" to Notion`);
+
+        // Close popup after 1 second
+        setTimeout(() => {
+          window.close();
+        }, 1000);
       } else {
         this.showError('Failed to save to Notion: ' + response.error);
       }
@@ -477,9 +451,31 @@ class PopupManager {
       this.showError('Error saving to Notion: ' + error.message);
     } finally {
       // Reset button state
-      this.isLoading = false;
-      button.innerHTML = originalText;
       button.disabled = false;
+      icon.classList.remove('hidden');
+      spinner.classList.add('hidden');
+      text.textContent = 'Save to Notion';
+    }
+  }
+
+  /**
+   * Open the extension settings page
+   * Uses Chrome Extension API to open options page
+   */
+  openSettings() {
+    console.log('[WebClip Popup] Opening settings page...');
+
+    try {
+      // Use Chrome Extension API to open the options page
+      chrome.runtime.openOptionsPage();
+
+      // Close the popup after opening settings
+      window.close();
+
+      console.log('[WebClip Popup] Settings page opened successfully');
+    } catch (error) {
+      console.error('[WebClip Popup] Failed to open settings page:', error);
+      this.showError('Failed to open settings page');
     }
   }
 
@@ -556,25 +552,29 @@ ${this.currentData.notes || 'No personal notes added'}
 
   /**
    * Show toast notification with specified type
-   * Auto-dismisses after 3 seconds
-   * @param {string} message - Message to display
+     * Auto-dismisses after 1 second
+     * @param {string} message - Message to display
    * @param {string} type - Notification type ('success', 'error', 'info')
    */
   showToast(message, type = 'info') {
     const toast = document.createElement('div');
-    toast.className = `fixed top-4 right-4 px-4 py-3 rounded-lg shadow-lg z-50 ${
-      type === 'success' ? 'bg-green-500 text-white' :
-      type === 'error' ? 'bg-red-500 text-white' :
-      'bg-blue-500 text-white'
-    }`;
-    toast.textContent = message;
+    toast.className = `fixed inset-0 flex items-center justify-center pointer-events-none z-50`;
 
+    const toastContent = document.createElement('div');
+    toastContent.className = `px-6 py-4 rounded-lg shadow-lg text-white text-sm font-medium ${
+      type === 'success' ? 'bg-green-500' :
+      type === 'error' ? 'bg-red-500' :
+      'bg-blue-500'
+    }`;
+    toastContent.textContent = message;
+
+    toast.appendChild(toastContent);
     document.body.appendChild(toast);
 
-    // Auto-remove toast after 3 seconds
+    // Auto-remove toast after 1 second
     setTimeout(() => {
       toast.remove();
-    }, 3000);
+    }, 1000);
   }
 }
 

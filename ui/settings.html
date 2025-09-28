@@ -93,36 +93,139 @@
                                     </div>
                                     <div>
                                         <h4 class="text-base font-semibold text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)] mb-2">Field Mapping</h4>
-                                        <p class="text-sm text-[var(--text-secondary-light)] dark:text-[var(--text-secondary-dark)] mb-4">Map WebClip fields to your Notion database properties.</p>
+                                        <p class="text-sm text-[var(--text-secondary-light)] dark:text-[var(--text-secondary-dark)] mb-4">Map WebClip fields to your Notion database properties. Configure your Notion integration first to detect available properties automatically.</p>
+
+                                        <!-- Database Schema Status -->
+                                        <div id="schema-status" class="hidden mb-4 p-3 rounded-lg border">
+                                            <div class="flex items-center justify-between">
+                                                <div class="flex items-center space-x-2">
+                                                    <span id="schema-status-icon" class="material-symbols-outlined"></span>
+                                                    <span id="schema-status-text" class="text-sm font-medium"></span>
+                                                </div>
+                                                <button id="refresh-schema" class="text-sm text-[color:var(--primary)] hover:underline">Refresh</button>
+                                            </div>
+                                            <div id="schema-details" class="mt-2 text-xs text-[var(--text-secondary-light)] dark:text-[var(--text-secondary-dark)]"></div>
+                                        </div>
+
+                                        <!-- Field Mapping Configuration -->
                                         <div class="space-y-4">
                                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
-                                                <label class="text-sm font-medium text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]" for="map-title">Page Title</label>
-                                                <select class="block w-full rounded-lg border-[var(--border-light)] dark:border-[var(--border-dark)] bg-[var(--background-light)] dark:bg-[var(--background-dark)] py-3 px-4 shadow-sm focus:border-[color:var(--primary)] focus:ring-[color:var(--primary)] text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]" id="map-title">
-                                                    <option value="Title" selected>Title</option>
-                                                    <option value="Name">Name</option>
-                                                </select>
+                                                <label class="text-sm font-medium text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]" for="map-title">
+                                                    Page Title
+                                                    <span class="text-red-500">*</span>
+                                                </label>
+                                                <div class="relative">
+                                                    <select class="block w-full rounded-lg border-[var(--border-light)] dark:border-[var(--border-dark)] bg-[var(--background-light)] dark:bg-[var(--background-dark)] py-3 px-4 shadow-sm focus:border-[color:var(--primary)] focus:ring-[color:var(--primary)] text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]" id="map-title" required>
+                                                        <option value="">Select a property...</option>
+                                                        <option value="Title">Title</option>
+                                                        <option value="Name">Name</option>
+                                                        <option value="Page Title">Page Title</option>
+                                                    </select>
+                                                    <div id="title-validation" class="hidden mt-1 text-xs"></div>
+                                                </div>
                                             </div>
+
                                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
                                                 <label class="text-sm font-medium text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]" for="map-url">URL</label>
-                                                <select class="block w-full rounded-lg border-[var(--border-light)] dark:border-[var(--border-dark)] bg-[var(--background-light)] dark:bg-[var(--background-dark)] py-3 px-4 shadow-sm focus:border-[color:var(--primary)] focus:ring-[color:var(--primary)] text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]" id="map-url">
-                                                    <option value="URL" selected>URL</option>
-                                                    <option value="Link">Link</option>
-                                                </select>
+                                                <div class="relative">
+                                                    <select class="block w-full rounded-lg border-[var(--border-light)] dark:border-[var(--border-dark)] bg-[var(--background-light)] dark:bg-[var(--background-dark)] py-3 px-4 shadow-sm focus:border-[color:var(--primary)] focus:ring-[color:var(--primary)] text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]" id="map-url">
+                                                        <option value="">Select a property...</option>
+                                                        <option value="URL">URL</option>
+                                                        <option value="Link">Link</option>
+                                                        <option value="Web URL">Web URL</option>
+                                                    </select>
+                                                    <div id="url-validation" class="hidden mt-1 text-xs"></div>
+                                                </div>
                                             </div>
+
                                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
-                                                <label class="text-sm font-medium text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]" for="map-content">Content</label>
-                                                <select class="block w-full rounded-lg border-[var(--border-light)] dark:border-[var(--border-dark)] bg-[var(--background-light)] dark:bg-[var(--background-dark)] py-3 px-4 shadow-sm focus:border-[color:var(--primary)] focus:ring-[color:var(--primary)] text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]" id="map-content">
-                                                    <option value="Rich Text">Rich Text</option>
-                                                    <option value="Page Content" selected>Page Content</option>
-                                                </select>
+                                                <label class="text-sm font-medium text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]" for="map-description">Description</label>
+                                                <div class="relative">
+                                                    <select class="block w-full rounded-lg border-[var(--border-light)] dark:border-[var(--border-dark)] bg-[var(--background-light)] dark:bg-[var(--background-dark)] py-3 px-4 shadow-sm focus:border-[color:var(--primary)] focus:ring-[color:var(--primary)] text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]" id="map-description">
+                                                        <option value="">Select a property...</option>
+                                                        <option value="Description">Description</option>
+                                                        <option value="Summary">Summary</option>
+                                                        <option value="Excerpt">Excerpt</option>
+                                                        <option value="Rich Text">Rich Text</option>
+                                                    </select>
+                                                    <div id="description-validation" class="hidden mt-1 text-xs"></div>
+                                                </div>
                                             </div>
+
+                                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+                                                <label class="text-sm font-medium text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]" for="map-summary">AI Summary</label>
+                                                <div class="relative">
+                                                    <select class="block w-full rounded-lg border-[var(--border-light)] dark:border-[var(--border-dark)] bg-[var(--background-light)] dark:bg-[var(--background-dark)] py-3 px-4 shadow-sm focus:border-[color:var(--primary)] focus:ring-[color:var(--primary)] text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]" id="map-summary">
+                                                        <option value="">Select a property...</option>
+                                                        <option value="AI Summary">AI Summary</option>
+                                                        <option value="Summary">Summary</option>
+                                                        <option value="Rich Text">Rich Text</option>
+                                                        <option value="Content">Content</option>
+                                                    </select>
+                                                    <div id="summary-validation" class="hidden mt-1 text-xs"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+                                                <label class="text-sm font-medium text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]" for="map-notes">My Notes</label>
+                                                <div class="relative">
+                                                    <select class="block w-full rounded-lg border-[var(--border-light)] dark:border-[var(--border-dark)] bg-[var(--background-light)] dark:bg-[var(--background-dark)] py-3 px-4 shadow-sm focus:border-[color:var(--primary)] focus:ring-[color:var(--primary)] text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]" id="map-notes">
+                                                        <option value="">Select a property...</option>
+                                                        <option value="Notes">Notes</option>
+                                                        <option value="My Notes">My Notes</option>
+                                                        <option value="Comments">Comments</option>
+                                                        <option value="Rich Text">Rich Text</option>
+                                                    </select>
+                                                    <div id="notes-validation" class="hidden mt-1 text-xs"></div>
+                                                </div>
+                                            </div>
+
+  
                                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
                                                 <label class="text-sm font-medium text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]" for="map-tags">Tags</label>
-                                                <select class="block w-full rounded-lg border-[var(--border-light)] dark:border-[var(--border-dark)] bg-[var(--background-light)] dark:bg-[var(--background-dark)] py-3 px-4 shadow-sm focus:border-[color:var(--primary)] focus:ring-[color:var(--primary)] text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]" id="map-tags">
-                                                    <option value="Multi-select">Multi-select</option>
-                                                    <option value="Tags" selected>Tags</option>
-                                                </select>
+                                                <div class="relative">
+                                                    <select class="block w-full rounded-lg border-[var(--border-light)] dark:border-[var(--border-dark)] bg-[var(--background-light)] dark:bg-[var(--background-dark)] py-3 px-4 shadow-sm focus:border-[color:var(--primary)] focus:ring-[color:var(--primary)] text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]" id="map-tags">
+                                                        <option value="">Select a property...</option>
+                                                        <option value="Multi-select">Multi-select</option>
+                                                        <option value="Tags">Tags</option>
+                                                        <option value="Category">Category</option>
+                                                        <option value="Label">Label</option>
+                                                    </select>
+                                                    <div id="tags-validation" class="hidden mt-1 text-xs"></div>
+                                                </div>
                                             </div>
+
+                                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+                                                <label class="text-sm font-medium text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]" for="map-created-date">Create Date</label>
+                                                <div class="relative">
+                                                    <select class="block w-full rounded-lg border-[var(--border-light)] dark:border-[var(--border-dark)] bg-[var(--background-light)] dark:bg-[var(--background-dark)] py-3 px-4 shadow-sm focus:border-[color:var(--primary)] focus:ring-[color:var(--primary)] text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]" id="map-created-date">
+                                                        <option value="">Select a property...</option>
+                                                        <option value="Created Date">Created Date</option>
+                                                        <option value="Create Date">Create Date</option>
+                                                        <option value="Date">Date</option>
+                                                        <option value="Created">Created</option>
+                                                    </select>
+                                                    <div id="created-date-validation" class="hidden mt-1 text-xs"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Validation Summary -->
+                                        <div id="mapping-validation" class="hidden mt-4 p-3 rounded-lg text-sm">
+                                            <div class="flex items-center space-x-2 mb-2">
+                                                <span id="validation-icon" class="material-symbols-outlined"></span>
+                                                <span id="validation-text" class="font-medium"></span>
+                                            </div>
+                                            <div id="validation-details" class="text-xs space-y-1"></div>
+                                        </div>
+
+                                        <!-- Test Connection Button -->
+                                        <div class="mt-4 flex items-center space-x-3">
+                                            <button id="test-notion-connection" class="inline-flex items-center justify-center rounded-lg bg-[color:var(--primary)]/10 dark:bg-[color:var(--primary)]/20 text-[color:var(--primary)] px-4 py-2 text-sm font-medium hover:bg-[color:var(--primary)]/20 dark:hover:bg-[color:var(--primary)]/30 transition-colors">
+                                                <span class="material-symbols-outlined text-base mr-2">wifi_tethering</span>
+                                                Test Connection & Detect Properties
+                                            </button>
+                                            <div id="connection-status" class="hidden text-sm"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -142,7 +245,7 @@
                                         <p class="text-sm text-[var(--text-secondary-light)] dark:text-[var(--text-secondary-dark)]">Automatically save web clips when captured.</p>
                                     </div>
                                     <label class="relative inline-flex items-center cursor-pointer">
-                                        <input id="auto-save" class="sr-only peer" type="checkbox"/>
+                                        <input id="auto-save" class="sr-only peer" type="checkbox" title="Enable Auto-Save Clips" aria-label="Auto-Save Clips" aria-checked="false"/>
                                         <div class="w-11 h-6 bg-[var(--border-light)] dark:bg-[var(--border-dark)] rounded-full peer peer-focus:ring-2 peer-focus:ring-[color:var(--primary)] peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-[var(--border-light)] after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:after:border-[var(--border-dark)] peer-checked:bg-[color:var(--primary)]"></div>
                                     </label>
                                 </li>
@@ -152,7 +255,7 @@
                                         <p class="text-sm text-[var(--text-secondary-light)] dark:text-[var(--text-secondary-dark)]">Choose the default format for exporting clips.</p>
                                     </div>
                                     <div class="flex items-center gap-2">
-                                        <select id="default-export-format" class="text-sm font-medium text-[var(--text-secondary-light)] dark:text-[var(--text-secondary-dark)] bg-transparent border-none focus:outline-none">
+                                        <select id="default-export-format" class="text-sm font-medium text-[var(--text-secondary-light)] dark:text-[var(--text-secondary-dark)] bg-transparent border-none focus:outline-none" title="Default Export Format" aria-label="Default Export Format">
                                             <option value="markdown">Markdown</option>
                                             <option value="json">JSON</option>
                                         </select>
@@ -162,7 +265,7 @@
                         </section>
 
                         <div class="flex justify-end pt-4">
-                            <button id="save-settings" class="hidden inline-flex items-center justify-center rounded-lg bg-[color:var(--primary)] px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[color:var(--primary)]/80 focus:outline-none focus:ring-2 focus:ring-[color:var(--primary)] focus:ring-offset-2 focus:ring-offset-[var(--background-light)] dark:focus:ring-offset-[var(--background-dark)]" type="button">
+                            <button id="save-settings" class="inline-flex items-center justify-center rounded-lg bg-[color:var(--primary)] px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[color:var(--primary)]/80 focus:outline-none focus:ring-2 focus:ring-[color:var(--primary)] focus:ring-offset-2 focus:ring-offset-[var(--background-light)] dark:focus:ring-offset-[var(--background-dark)]" type="button">
                                 <span>Save Changes</span>
                             </button>
                         </div>
