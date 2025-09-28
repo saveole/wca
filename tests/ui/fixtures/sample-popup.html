@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebClip Assistant - Sample Popup Fixture</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --secondary: #6b7280;
+            --success: #10b981;
+            --error: #ef4444;
+            --warning: #f59e0b;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f9fafb;
+            --bg-tertiary: #f3f4f6;
+            --text-primary: #111827;
+            --text-secondary: #6b7280;
+            --border: #e5e7eb;
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --bg-tertiary: #374151;
+            --text-primary: #f9fafb;
+            --text-secondary: #9ca3af;
+            --border: #4b5563;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            width: 360px;
+            min-height: 600px;
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header h1 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header .material-symbols-outlined {
+            font-size: 20px;
+            color: var(--primary);
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group label {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 14px;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background-color: #4b5563;
+        }
+
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .btn-error {
+            background-color: var(--error);
+            color: white;
+        }
+
+        .tag-input-container {
+            position: relative;
+        }
+
+        .tag-input {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding: 8px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background-color: var(--bg-primary);
+            min-height: 40px;
+            align-items: center;
+        }
+
+        .tag {
+            background-color: var(--primary);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .tag .remove-tag {
+            cursor: pointer;
+            font-size: 16px;
+            line-height: 1;
+        }
+
+        .tag-input input {
+            border: none;
+            outline: none;
+            background: transparent;
+            color: var(--text-primary);
+            flex: 1;
+            min-width: 100px;
+            padding: 4px;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid var(--border);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 12px 16px;
+            border-radius: 6px;
+            color: white;
+            font-size: 14px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 200px;
+        }
+
+        .toast-success {
+            background-color: var(--success);
+        }
+
+        .toast-error {
+            background-color: var(--error);
+        }
+
+        .toast-warning {
+            background-color: var(--warning);
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+            color: var(--text-secondary);
+        }
+
+        .theme-toggle:hover {
+            color: var(--primary);
+        }
+
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--success);
+        }
+
+        .status-dot.error {
+            background-color: var(--error);
+        }
+
+        .status-dot.warning {
+            background-color: var(--warning);
+        }
+    </style>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+</head>
+<body data-theme="light">
+    <div class="container">
+        <div class="header">
+            <h1>
+                <span class="material-symbols-outlined">content_cut</span>
+                WebClip Assistant
+            </h1>
+            <div class="status-indicator">
+                <span class="status-dot"></span>
+                <span>Ready</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" placeholder="Enter page title" value="Sample Page Title">
+        </div>
+
+        <div class="form-group">
+            <label for="url">URL</label>
+            <input type="url" id="url" name="url" placeholder="https://example.com" value="https://example.com/sample-page">
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" placeholder="Enter page description">This is a sample page description for testing purposes.</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="summary">AI Summary</label>
+            <textarea id="summary" name="summary" placeholder="AI-generated summary will appear here">This is a sample AI-generated summary for testing the popup interface and functionality.</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="notes">Personal Notes</label>
+            <textarea id="notes" name="notes" placeholder="Add your personal notes here">These are personal notes for testing the notes functionality.</textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Tags</label>
+            <div class="tag-input-container">
+                <div class="tag-input">
+                    <span class="tag">
+                        testing
+                        <span class="material-symbols-outlined remove-tag">close</span>
+                    </span>
+                    <span class="tag">
+                        sample
+                        <span class="material-symbols-outlined remove-tag">close</span>
+                    </span>
+                    <span class="tag">
+                        fixture
+                        <span class="material-symbols-outlined remove-tag">close</span>
+                    </span>
+                    <input type="text" placeholder="Add tags..." />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button class="btn btn-primary" id="generateSummary">
+                <span class="material-symbols-outlined">auto_awesome</span>
+                Generate Summary
+            </button>
+            <button class="btn btn-secondary" id="clearForm">
+                <span class="material-symbols-outlined">clear</span>
+                Clear Form
+            </button>
+        </div>
+
+        <div class="form-actions">
+            <button class="btn btn-success" id="saveMarkdown">
+                <span class="material-symbols-outlined">description</span>
+                Save as Markdown
+            </button>
+            <button class="btn btn-success" id="saveJson">
+                <span class="material-symbols-outlined">data_object</span>
+                Save as JSON
+            </button>
+            <button class="btn btn-primary" id="saveNotion">
+                <span class="material-symbols-outlined">cloud_upload</span>
+                Save to Notion
+            </button>
+        </div>
+    </div>
+
+    <button class="theme-toggle" id="themeToggle">
+        <span class="material-symbols-outlined">light_mode</span>
+    </button>
+
+    <script>
+        // Sample JavaScript for testing interactions
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.getElementById('themeToggle');
+            const body = document.body;
+            const themeIcon = themeToggle.querySelector('.material-symbols-outlined');
+
+            themeToggle.addEventListener('click', function() {
+                const currentTheme = body.getAttribute('data-theme');
+                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+
+                body.setAttribute('data-theme', newTheme);
+                themeIcon.textContent = newTheme === 'light' ? 'light_mode' : 'dark_mode';
+            });
+
+            // Tag removal functionality
+            document.querySelectorAll('.remove-tag').forEach(removeBtn => {
+                removeBtn.addEventListener('click', function() {
+                    this.parentElement.remove();
+                });
+            });
+
+            // Form interaction handlers
+            document.getElementById('generateSummary').addEventListener('click', function() {
+                const btn = this;
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<span class="loading"></span> Generating...';
+                btn.disabled = true;
+
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                }, 2000);
+            });
+
+            document.getElementById('clearForm').addEventListener('click', function() {
+                document.getElementById('title').value = '';
+                document.getElementById('url').value = '';
+                document.getElementById('description').value = '';
+                document.getElementById('summary').value = '';
+                document.getElementById('notes').value = '';
+            });
+
+            // Toast notification function
+            function showToast(message, type = 'success') {
+                const toast = document.createElement('div');
+                toast.className = `toast toast-${type}`;
+                toast.innerHTML = `
+                    <span class="material-symbols-outlined">${type === 'success' ? 'check_circle' : 'error'}</span>
+                    ${message}
+                `;
+                document.body.appendChild(toast);
+
+                setTimeout(() => {
+                    toast.remove();
+                }, 3000);
+            }
+
+            // Save handlers
+            document.getElementById('saveMarkdown').addEventListener('click', function() {
+                showToast('Markdown file saved successfully!', 'success');
+            });
+
+            document.getElementById('saveJson').addEventListener('click', function() {
+                showToast('JSON file saved successfully!', 'success');
+            });
+
+            document.getElementById('saveNotion').addEventListener('click', function() {
+                showToast('Saved to Notion successfully!', 'success');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+{
+  "name": "webclip-assistant-tests",
+  "version": "1.0.0",
+  "description": "UI Testing Infrastructure for WebClip Assistant Chrome Extension",
+  "type": "module",
+  "scripts": {
+    "test": "npm run test:visual && npm run test:accessibility && npm run test:interactions",
+    "test:visual": "playwright test tests/ui/visual/",
+    "test:accessibility": "playwright test tests/ui/accessibility/",
+    "test:interactions": "playwright test tests/ui/interactions/",
+    "test:unit": "playwright test tests/unit/",
+    "test:performance": "playwright test tests/performance/",
+    "test:api": "playwright test tests/api/",
+    "test:integration": "playwright test tests/integration/",
+    "test:ci": "playwright test --reporter=json --reporter=list",
+    "test:report": "node tests/infrastructure/test-aggregator.js",
+    "test:report:json": "node tests/infrastructure/test-aggregator.js --format=json --ai-optimized",
+    "test:report:html": "node tests/infrastructure/test-aggregator.js --format=html",
+    "test:debug": "playwright test --debug",
+    "test:debug:visual": "playwright test tests/ui/visual/ --debug",
+    "test:debug:accessibility": "playwright test tests/ui/accessibility/ --debug",
+    "test:debug:interactions": "playwright test tests/ui/interactions/ --debug",
+    "test:update-baselines": "playwright test tests/ui/visual/ --update-snapshots",
+    "test:update-baseline": "playwright test --update-snapshots",
+    "test:suite": "node tests/infrastructure/test-runner.js",
+    "test:suite:visual": "node tests/infrastructure/test-runner.js --type=visual",
+    "test:suite:accessibility": "node tests/infrastructure/test-runner.js --type=accessibility",
+    "test:suite:interactions": "node tests/infrastructure/test-runner.js --type=interactions",
+    "test:parallel": "node tests/infrastructure/parallel-coordinator.js",
+    "test:monitor": "node tests/infrastructure/test-monitor.js",
+    "test:component": "playwright test --grep",
+    "test:feature": "playwright test --grep",
+    "test:smoke": "playwright test tests/ui/visual/popup-visual.spec.js tests/ui/accessibility/popup-a11y.spec.js tests/ui/interactions/popup-buttons.spec.js",
+    "test:smoke:quick": "playwright test tests/ui/visual/ --grep=\"popup\" --reporter=dot",
+    "install:browsers": "playwright install chrome",
+    "install:all": "npm install && npm run install:browsers",
+    "lint": "eslint tests/",
+    "lint:fix": "eslint tests/ --fix",
+    "clean": "rm -rf test-results/ test-output/ reports/ coverage/",
+    "clean:all": "npm run clean && rm -rf node_modules/ package-lock.json",
+    "setup": "npm run install:all && npm run lint",
+    "setup:ci": "npm ci && npm run install:browsers"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "axe-core": "^4.8.2",
+    "pixelmatch": "^5.3.0",
+    "pngjs": "^7.0.0",
+    "@eslint/js": "^9.0.0",
+    "eslint": "^9.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "chrome-extension",
+    "ui-testing",
+    "accessibility",
+    "visual-regression",
+    "playwright",
+    "axe-core"
+  ],
+  "author": "WebClip Assistant Team",
+  "license": "MIT",
+  "playwright": {
+    "testDir": "./tests",
+    "timeout": 5000,
+    "expect": {
+      "timeout": 5000
+    },
+    "use": {
+      "headless": false,
+      "viewport": { "width": 1280, "height": 720 },
+      "screenshot": "only-on-failure",
+      "video": "retain-on-failure"
+    },
+    "projects": [
+      {
+        "name": "chrome-extension",
+        "use": {
+          "browserName": "chromium",
+          "channel": "chrome",
+          "headless": false
+        }
+      }
+    ]
+  }
+}

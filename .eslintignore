@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+test-results/
+playwright-report/
+dist/
+build/
+
+# Cache
+.cache/
+*.cache
+
+# Visual testing baselines
+tests/ui/visual/baseline/
+tests/ui/visual/current/
+
+# Playwright trace files
+trace.zip
+
+# Extension build files (if any)
+*.crx
+*.xpi
+
+# Generated files
+*.log
+*.tmp
+
+# Documentation
+docs/
+README.md
+
+# Configuration files
+manifest.json
+*.config.js
+
+# Test fixtures that might have non-standard code
+tests/ui/fixtures/

@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebClip Assistant - Settings - Sample Fixture</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --secondary: #6b7280;
+            --success: #10b981;
+            --error: #ef4444;
+            --warning: #f59e0b;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f9fafb;
+            --bg-tertiary: #f3f4f6;
+            --text-primary: #111827;
+            --text-secondary: #6b7280;
+            --border: #e5e7eb;
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --bg-tertiary: #374151;
+            --text-primary: #f9fafb;
+            --text-secondary: #9ca3af;
+            --border: #4b5563;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            width: 500px;
+            min-height: 600px;
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header h1 {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header .material-symbols-outlined {
+            font-size: 24px;
+            color: var(--primary);
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+            gap: 0;
+        }
+
+        .tab {
+            padding: 12px 20px;
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tab:hover {
+            color: var(--text-primary);
+        }
+
+        .tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 14px;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-group small {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background-color: #4b5563;
+        }
+
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .btn-error {
+            background-color: var(--error);
+            color: white;
+        }
+
+        .field-mapping {
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 16px;
+            background-color: var(--bg-secondary);
+        }
+
+        .field-mapping h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .field-row {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 12px;
+            margin-bottom: 12px;
+            align-items: center;
+        }
+
+        .field-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .field-row label {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .field-row select {
+            padding: 6px 8px;
+            font-size: 13px;
+        }
+
+        .connection-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+
+        .connection-status.success {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .connection-status.error {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--error);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .connection-status .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: currentColor;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid var(--border);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+            color: var(--text-secondary);
+        }
+
+        .theme-toggle:hover {
+            color: var(--primary);
+        }
+
+        .help-text {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        .divider {
+            height: 1px;
+            background-color: var(--border);
+            margin: 20px 0;
+        }
+    </style>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+</head>
+<body data-theme="light">
+    <div class="container">
+        <div class="header">
+            <h1>
+                <span class="material-symbols-outlined">settings</span>
+                Settings
+            </h1>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" data-tab="ai-config">AI Configuration</button>
+            <button class="tab" data-tab="notion-config">Notion Integration</button>
+            <button class="tab" data-tab="field-mapping">Field Mapping</button>
+        </div>
+
+        <!-- AI Configuration Tab -->
+        <div class="tab-content active" id="ai-config">
+            <div class="form-group">
+                <label for="aiProvider">AI Provider</label>
+                <select id="aiProvider" name="aiProvider">
+                    <option value="openai">OpenAI (GPT-4)</option>
+                    <option value="anthropic">Anthropic (Claude)</option>
+                    <option value="custom">Custom API</option>
+                </select>
+                <small>Choose your preferred AI provider for content summarization</small>
+            </div>
+
+            <div class="form-group">
+                <label for="apiKey">API Key</label>
+                <input type="password" id="apiKey" name="apiKey" placeholder="Enter your API key" value="sk-test-api-key-sample">
+                <small>Your API key is stored securely in Chrome storage</small>
+            </div>
+
+            <div class="form-group">
+                <label for="apiEndpoint">API Endpoint</label>
+                <input type="url" id="apiEndpoint" name="apiEndpoint" placeholder="https://api.example.com/v1" value="https://api.openai.com/v1">
+                <small>Custom endpoint for your AI provider (if applicable)</small>
+            </div>
+
+            <div class="form-group">
+                <label for="model">Model</label>
+                <input type="text" id="model" name="model" placeholder="gpt-4" value="gpt-4">
+                <small>Specific model to use for summarization</small>
+            </div>
+
+            <div class="form-actions">
+                <button class="btn btn-secondary" id="testApi">
+                    <span class="material-symbols-outlined">wifi_tethering_error</span>
+                    Test Connection
+                </button>
+                <button class="btn btn-primary" id="saveAiConfig">
+                    <span class="material-symbols-outlined">save</span>
+                    Save Configuration
+                </button>
+            </div>
+        </div>
+
+        <!-- Notion Integration Tab -->
+        <div class="tab-content" id="notion-config">
+            <div class="connection-status success">
+                <span class="status-indicator"></span>
+                <span>Connected to Notion API</span>
+            </div>
+
+            <div class="form-group">
+                <label for="notionToken">Notion Integration Token</label>
+                <input type="password" id="notionToken" name="notionToken" placeholder="secret_xxxxx" value="secret_notion-token-sample">
+                <small>Your Notion integration token with database access</small>
+            </div>
+
+            <div class="form-group">
+                <label for="databaseId">Database ID</label>
+                <input type="text" id="databaseId" name="databaseId" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" value="12345678-1234-1234-1234-123456789abc">
+                <small>The ID of your Notion database for saving clips</small>
+            </div>
+
+            <div class="form-group">
+                <label for="notionVersion">Notion API Version</label>
+                <select id="notionVersion" name="notionVersion">
+                    <option value="2022-06-28">2022-06-28</option>
+                    <option value="2022-02-22">2022-02-22</option>
+                </select>
+            </div>
+
+            <div class="form-actions">
+                <button class="btn btn-secondary" id="testNotion">
+                    <span class="material-symbols-outlined">wifi_tethering_error</span>
+                    Test Connection
+                </button>
+                <button class="btn btn-primary" id="saveNotionConfig">
+                    <span class="material-symbols-outlined">save</span>
+                    Save Configuration
+                </button>
+            </div>
+        </div>
+
+        <!-- Field Mapping Tab -->
+        <div class="tab-content" id="field-mapping">
+            <div class="field-mapping">
+                <h3>Notion Database Field Mapping</h3>
+                <p class="help-text">Map WebClip Assistant fields to your Notion database properties</p>
+
+                <div class="field-row">
+                    <label>Title Field</label>
+                    <select id="titleField">
+                        <option value="Name">Name (Title)</option>
+                        <option value="Title">Title</option>
+                        <option value="Page Title">Page Title</option>
+                    </select>
+                </div>
+
+                <div class="field-row">
+                    <label>URL Field</label>
+                    <select id="urlField">
+                        <option value="URL">URL</option>
+                        <option value="Link">Link</option>
+                        <option value="Source">Source</option>
+                    </select>
+                </div>
+
+                <div class="field-row">
+                    <label>Description Field</label>
+                    <select id="descriptionField">
+                        <option value="Description">Description</option>
+                        <option value="Summary">Summary</option>
+                        <option value="Content">Content</option>
+                    </select>
+                </div>
+
+                <div class="field-row">
+                    <label>AI Summary Field</label>
+                    <select id="summaryField">
+                        <option value="AI Summary">AI Summary</option>
+                        <option value="Generated Summary">Generated Summary</option>
+                        <option value="Summary">Summary</option>
+                    </select>
+                </div>
+
+                <div class="field-row">
+                    <label>Notes Field</label>
+                    <select id="notesField">
+                        <option value="Notes">Notes</option>
+                        <option value="Personal Notes">Personal Notes</option>
+                        <option value="Comments">Comments</option>
+                    </select>
+                </div>
+
+                <div class="field-row">
+                    <label>Tags Field</label>
+                    <select id="tagsField">
+                        <option value="Tags">Tags</option>
+                        <option value="Categories">Categories</option>
+                        <option value="Labels">Labels</option>
+                    </select>
+                </div>
+
+                <div class="field-row">
+                    <label>Create Date Field</label>
+                    <select id="createDateField">
+                        <option value="Created">Created (Date)</option>
+                        <option value="Create Date">Create Date</option>
+                        <option value="Date Added">Date Added</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button class="btn btn-primary" id="saveFieldMapping">
+                    <span class="material-symbols-outlined">save</span>
+                    Save Field Mapping
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <button class="theme-toggle" id="themeToggle">
+        <span class="material-symbols-outlined">light_mode</span>
+    </button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab functionality
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const targetTab = this.getAttribute('data-tab');
+
+                    // Remove active class from all tabs and contents
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(tc => tc.classList.remove('active'));
+
+                    // Add active class to clicked tab and corresponding content
+                    this.classList.add('active');
+                    document.getElementById(targetTab).classList.add('active');
+                });
+            });
+
+            // Theme toggle
+            const themeToggle = document.getElementById('themeToggle');
+            const body = document.body;
+            const themeIcon = themeToggle.querySelector('.material-symbols-outlined');
+
+            themeToggle.addEventListener('click', function() {
+                const currentTheme = body.getAttribute('data-theme');
+                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+
+                body.setAttribute('data-theme', newTheme);
+                themeIcon.textContent = newTheme === 'light' ? 'light_mode' : 'dark_mode';
+            });
+
+            // Test connection functionality
+            document.getElementById('testApi').addEventListener('click', function() {
+                const btn = this;
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<span class="loading"></span> Testing...';
+                btn.disabled = true;
+
+                setTimeout(() => {
+                    btn.innerHTML = '<span class="material-symbols-outlined">check_circle</span> Connected';
+                    btn.classList.add('btn-success');
+                    btn.disabled = false;
+
+                    setTimeout(() => {
+                        btn.innerHTML = originalText;
+                        btn.classList.remove('btn-success');
+                    }, 3000);
+                }, 1500);
+            });
+
+            document.getElementById('testNotion').addEventListener('click', function() {
+                const btn = this;
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<span class="loading"></span> Testing...';
+                btn.disabled = true;
+
+                setTimeout(() => {
+                    btn.innerHTML = '<span class="material-symbols-outlined">check_circle</span> Connected';
+                    btn.classList.add('btn-success');
+                    btn.disabled = false;
+
+                    setTimeout(() => {
+                        btn.innerHTML = originalText;
+                        btn.classList.remove('btn-success');
+                    }, 3000);
+                }, 1500);
+            });
+
+            // Save functionality
+            function showSaveSuccess(button) {
+                const originalText = button.innerHTML;
+                button.innerHTML = '<span class="material-symbols-outlined">check_circle</span> Saved';
+                button.classList.add('btn-success');
+                button.disabled = true;
+
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                    button.classList.remove('btn-success');
+                    button.disabled = false;
+                }, 2000);
+            }
+
+            document.getElementById('saveAiConfig').addEventListener('click', function() {
+                showSaveSuccess(this);
+            });
+
+            document.getElementById('saveNotionConfig').addEventListener('click', function() {
+                showSaveSuccess(this);
+            });
+
+            document.getElementById('saveFieldMapping').addEventListener('click', function() {
+                showSaveSuccess(this);
+            });
+        });
+    </script>
+</body>
+</html>
