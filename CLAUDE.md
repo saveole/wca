@@ -22,9 +22,10 @@ WebClip Assistant is a Chrome browser extension designed to help users capture, 
 2. **AI Summarization**: Integrates with LLM APIs (OpenAI, Anthropic, Custom) to generate content summaries
 3. **Manual Editing**: All captured fields are editable with support for personal notes and tags
 4. **Export Options**: Supports Markdown and JSON export formats with automatic downloads
-5. **Notion Integration**: Direct saving to Notion databases with configurable field mapping
+5. **Notion Integration**: Direct saving to Notion databases with comprehensive field mapping (7 fields including Create Date) and enhanced UX
 6. **Dark/Light Theme**: Built-in theme support using CSS custom properties
 7. **Tag Management**: Interactive tag system with keyboard shortcuts
+8. **Enhanced User Feedback**: Loading indicators, button state management, centered success notifications with page titles, and auto-close functionality
 
 ### Technical Stack
 - **Frontend**: HTML5, Custom CSS (Tailwind utility classes), ES6+ JavaScript
@@ -121,10 +122,11 @@ Since this is a Chrome extension with no build system:
 - **User Feedback**: Toast notifications for success/error states
 
 ### Settings Manager (`ui/settings.js`)
-- **Form Management**: Population, validation, and dirty state tracking
+- **Form Management**: Population and saving of configuration data
 - **API Configuration**: Provider selection and endpoint management
 - **Connection Testing**: Validates API and Notion integration
-- **Field Mapping**: Configurable Notion database property mapping
+- **Field Mapping**: Configurable Notion database property mapping with 7 fields:
+  - Title, URL, Description, Summary, Notes, Tags, Create Date
 
 ### CSS Architecture (`ui/styles.css`)
 - **Utility Classes**: Tailwind-equivalent classes for consistency
@@ -151,6 +153,7 @@ Since this is a Chrome extension with no build system:
 - **AI Summarization**: Asynchronous requests with error handling
 - **Notion Integration**: Field mapping configuration and rich content creation
 - **Error Handling**: Graceful failure with user feedback and retry options
+- **Enhanced UX**: Loading indicators, button state management, and auto-close functionality
 
 ## Code Quality Standards
 

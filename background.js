@@ -552,9 +552,9 @@ class WebClipAssistant {
     const mapping = settings.fieldMapping || {};
     console.log("[WebClip Assistant] Using field mapping:", mapping);
 
-    if (!mapping.title || !mapping.content) {
+    if (!mapping.title) {
       console.error("[WebClip Assistant] Required field mappings not configured");
-      throw new Error("Required field mappings (title, content) are not configured. Please check your settings.");
+      throw new Error("Required field mapping (title) is not configured. Please check your settings.");
     }
 
     // Prepare properties based on user's field mapping configuration
@@ -589,6 +589,30 @@ class WebClipAssistant {
       );
     }
 
+    // Map description to rich_text property if configured
+    if (mapping.description && data.description) {
+      properties[mapping.description] = {
+        rich_text: [{ text: { content: data.description } }],
+      };
+      console.log("[WebClip Assistant] Mapped description property:", mapping.description);
+    }
+
+    // Map summary to rich_text property if configured
+    if (mapping.summary && data.summary) {
+      properties[mapping.summary] = {
+        rich_text: [{ text: { content: data.summary } }],
+      };
+      console.log("[WebClip Assistant] Mapped summary property:", mapping.summary);
+    }
+
+    // Map notes to rich_text property if configured
+    if (mapping.notes && data.notes) {
+      properties[mapping.notes] = {
+        rich_text: [{ text: { content: data.notes } }],
+      };
+      console.log("[WebClip Assistant] Mapped notes property:", mapping.notes);
+    }
+
     // Map content to rich_text property if configured
     if (mapping.content) {
       const contentText = this.formatContentForRichText(data.summary, data.notes);
@@ -598,6 +622,15 @@ class WebClipAssistant {
         };
         console.log("[WebClip Assistant] Mapped content property:", mapping.content);
       }
+    }
+
+    // Map created date to date property if configured
+    if (mapping.createdDate) {
+      const today = new Date().toISOString().split('T')[0]; // Format as yyyy-MM-dd
+      properties[mapping.createdDate] = {
+        date: { start: today }
+      };
+      console.log("[WebClip Assistant] Mapped created date property:", mapping.createdDate, "with value:", today);
     }
 
     // Prepare rich content blocks for the page (fallback if no content mapping or for additional content)

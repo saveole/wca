@@ -119,6 +119,7 @@
                                                         <option value="">Select a property...</option>
                                                         <option value="Title">Title</option>
                                                         <option value="Name">Name</option>
+                                                        <option value="Page Title">Page Title</option>
                                                     </select>
                                                     <div id="title-validation" class="hidden mt-1 text-xs"></div>
                                                 </div>
@@ -131,28 +132,55 @@
                                                         <option value="">Select a property...</option>
                                                         <option value="URL">URL</option>
                                                         <option value="Link">Link</option>
+                                                        <option value="Web URL">Web URL</option>
                                                     </select>
                                                     <div id="url-validation" class="hidden mt-1 text-xs"></div>
                                                 </div>
                                             </div>
 
                                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
-                                                <label class="text-sm font-medium text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]" for="map-content">
-                                                    Content
-                                                    <span class="text-red-500">*</span>
-                                                </label>
+                                                <label class="text-sm font-medium text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]" for="map-description">Description</label>
                                                 <div class="relative">
-                                                    <select class="block w-full rounded-lg border-[var(--border-light)] dark:border-[var(--border-dark)] bg-[var(--background-light)] dark:bg-[var(--background-dark)] py-3 px-4 shadow-sm focus:border-[color:var(--primary)] focus:ring-[color:var(--primary)] text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]" id="map-content" required>
+                                                    <select class="block w-full rounded-lg border-[var(--border-light)] dark:border-[var(--border-dark)] bg-[var(--background-light)] dark:bg-[var(--background-dark)] py-3 px-4 shadow-sm focus:border-[color:var(--primary)] focus:ring-[color:var(--primary)] text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]" id="map-description">
                                                         <option value="">Select a property...</option>
-                                                        <option value="Rich Text">Rich Text</option>
-                                                        <option value="Page Content">Page Content</option>
-                                                        <option value="Content">Content</option>
                                                         <option value="Description">Description</option>
+                                                        <option value="Summary">Summary</option>
+                                                        <option value="Excerpt">Excerpt</option>
+                                                        <option value="Rich Text">Rich Text</option>
                                                     </select>
-                                                    <div id="content-validation" class="hidden mt-1 text-xs"></div>
+                                                    <div id="description-validation" class="hidden mt-1 text-xs"></div>
                                                 </div>
                                             </div>
 
+                                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+                                                <label class="text-sm font-medium text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]" for="map-summary">AI Summary</label>
+                                                <div class="relative">
+                                                    <select class="block w-full rounded-lg border-[var(--border-light)] dark:border-[var(--border-dark)] bg-[var(--background-light)] dark:bg-[var(--background-dark)] py-3 px-4 shadow-sm focus:border-[color:var(--primary)] focus:ring-[color:var(--primary)] text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]" id="map-summary">
+                                                        <option value="">Select a property...</option>
+                                                        <option value="AI Summary">AI Summary</option>
+                                                        <option value="Summary">Summary</option>
+                                                        <option value="Rich Text">Rich Text</option>
+                                                        <option value="Content">Content</option>
+                                                    </select>
+                                                    <div id="summary-validation" class="hidden mt-1 text-xs"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+                                                <label class="text-sm font-medium text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]" for="map-notes">My Notes</label>
+                                                <div class="relative">
+                                                    <select class="block w-full rounded-lg border-[var(--border-light)] dark:border-[var(--border-dark)] bg-[var(--background-light)] dark:bg-[var(--background-dark)] py-3 px-4 shadow-sm focus:border-[color:var(--primary)] focus:ring-[color:var(--primary)] text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]" id="map-notes">
+                                                        <option value="">Select a property...</option>
+                                                        <option value="Notes">Notes</option>
+                                                        <option value="My Notes">My Notes</option>
+                                                        <option value="Comments">Comments</option>
+                                                        <option value="Rich Text">Rich Text</option>
+                                                    </select>
+                                                    <div id="notes-validation" class="hidden mt-1 text-xs"></div>
+                                                </div>
+                                            </div>
+
+  
                                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
                                                 <label class="text-sm font-medium text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]" for="map-tags">Tags</label>
                                                 <div class="relative">
@@ -164,6 +192,20 @@
                                                         <option value="Label">Label</option>
                                                     </select>
                                                     <div id="tags-validation" class="hidden mt-1 text-xs"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+                                                <label class="text-sm font-medium text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]" for="map-created-date">Create Date</label>
+                                                <div class="relative">
+                                                    <select class="block w-full rounded-lg border-[var(--border-light)] dark:border-[var(--border-dark)] bg-[var(--background-light)] dark:bg-[var(--background-dark)] py-3 px-4 shadow-sm focus:border-[color:var(--primary)] focus:ring-[color:var(--primary)] text-[var(--text-primary-light)] dark:text-[var(--text-primary-dark)]" id="map-created-date">
+                                                        <option value="">Select a property...</option>
+                                                        <option value="Created Date">Created Date</option>
+                                                        <option value="Create Date">Create Date</option>
+                                                        <option value="Date">Date</option>
+                                                        <option value="Created">Created</option>
+                                                    </select>
+                                                    <div id="created-date-validation" class="hidden mt-1 text-xs"></div>
                                                 </div>
                                             </div>
                                         </div>

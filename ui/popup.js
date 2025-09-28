@@ -417,7 +417,18 @@ class PopupManager {
    * Shows loading state and handles API errors
    */
   async saveToNotion() {
+    const button = document.getElementById('save-notion');
+    const icon = document.getElementById('save-notion-icon');
+    const spinner = document.getElementById('save-notion-spinner');
+    const text = document.getElementById('save-notion-text');
+
     try {
+      // Show loading state
+      button.disabled = true;
+      icon.classList.add('hidden');
+      spinner.classList.remove('hidden');
+      text.textContent = 'Saving to Notion...';
+
       // Request Notion save from background service worker
       const response = await chrome.runtime.sendMessage({
         action: 'saveToNotion',
@@ -426,12 +437,24 @@ class PopupManager {
       });
 
       if (response.success) {
-        this.showSuccess('Saved to Notion successfully!');
+        const pageTitle = this.currentData.title || 'Page';
+        this.showSuccess(`✓ Saved "${pageTitle}" to Notion`);
+
+        // Close popup after 1 second
+        setTimeout(() => {
+          window.close();
+        }, 1000);
       } else {
         this.showError('Failed to save to Notion: ' + response.error);
       }
     } catch (error) {
       this.showError('Error saving to Notion: ' + error.message);
+    } finally {
+      // Reset button state
+      button.disabled = false;
+      icon.classList.remove('hidden');
+      spinner.classList.add('hidden');
+      text.textContent = 'Save to Notion';
     }
   }
 
@@ -529,25 +552,29 @@ ${this.currentData.notes || 'No personal notes added'}
 
   /**
    * Show toast notification with specified type
-   * Auto-dismisses after 3 seconds
-   * @param {string} message - Message to display
+     * Auto-dismisses after 1 second
+     * @param {string} message - Message to display
    * @param {string} type - Notification type ('success', 'error', 'info')
    */
   showToast(message, type = 'info') {
     const toast = document.createElement('div');
-    toast.className = `fixed top-4 right-4 px-4 py-3 rounded-lg shadow-lg z-50 ${
-      type === 'success' ? 'bg-green-500 text-white' :
-      type === 'error' ? 'bg-red-500 text-white' :
-      'bg-blue-500 text-white'
-    }`;
-    toast.textContent = message;
+    toast.className = `fixed inset-0 flex items-center justify-center pointer-events-none z-50`;
 
+    const toastContent = document.createElement('div');
+    toastContent.className = `px-6 py-4 rounded-lg shadow-lg text-white text-sm font-medium ${
+      type === 'success' ? 'bg-green-500' :
+      type === 'error' ? 'bg-red-500' :
+      'bg-blue-500'
+    }`;
+    toastContent.textContent = message;
+
+    toast.appendChild(toastContent);
     document.body.appendChild(toast);
 
-    // Auto-remove toast after 3 seconds
+    // Auto-remove toast after 1 second
     setTimeout(() => {
       toast.remove();
-    }, 3000);
+    }, 1000);
   }
 }
 

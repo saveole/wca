@@ -72,8 +72,12 @@ class SettingsManager {
       'notion-db-id',
       'map-title',
       'map-url',
+      'map-description',
+      'map-summary',
+      'map-notes',
       'map-content',
-      'map-tags'
+      'map-tags',
+      'map-created-date'
     ];
 
     // Track changes for export format (auto-save is already handled below)
@@ -165,12 +169,35 @@ class SettingsManager {
     document.getElementById('notion-db-id').value = this.settings.notionDatabaseId || '';
 
     // Field mapping configuration
+    const defaultFieldMapping = {
+      title: 'Name',
+      url: 'URL',
+      description: 'Description',
+      summary: 'Summary',
+      notes: 'Notes',
+      tags: 'Tags',
+      createdDate: 'Created Date'
+    };
+
     if (this.settings.fieldMapping) {
-      document.getElementById('map-title').value = this.settings.fieldMapping.title || '';
-      document.getElementById('map-url').value = this.settings.fieldMapping.url || '';
-      document.getElementById('map-content').value = this.settings.fieldMapping.content || '';
-      document.getElementById('map-tags').value = this.settings.fieldMapping.tags || '';
+      document.getElementById('map-title').value = this.settings.fieldMapping.title || defaultFieldMapping.title;
+      document.getElementById('map-url').value = this.settings.fieldMapping.url || defaultFieldMapping.url;
+      document.getElementById('map-description').value = this.settings.fieldMapping.description || defaultFieldMapping.description;
+      document.getElementById('map-summary').value = this.settings.fieldMapping.summary || defaultFieldMapping.summary;
+      document.getElementById('map-notes').value = this.settings.fieldMapping.notes || defaultFieldMapping.notes;
+      document.getElementById('map-tags').value = this.settings.fieldMapping.tags || defaultFieldMapping.tags;
+      document.getElementById('map-created-date').value = this.settings.fieldMapping.createdDate || defaultFieldMapping.createdDate;
       console.log('[WebClip Settings] Field mapping populated:', this.settings.fieldMapping);
+    } else {
+      // Set default field mapping values
+      document.getElementById('map-title').value = defaultFieldMapping.title;
+      document.getElementById('map-url').value = defaultFieldMapping.url;
+      document.getElementById('map-description').value = defaultFieldMapping.description;
+      document.getElementById('map-summary').value = defaultFieldMapping.summary;
+      document.getElementById('map-notes').value = defaultFieldMapping.notes;
+      document.getElementById('map-tags').value = defaultFieldMapping.tags;
+      document.getElementById('map-created-date').value = defaultFieldMapping.createdDate;
+      console.log('[WebClip Settings] Default field mapping set:', defaultFieldMapping);
     }
 
     // Initialize field mapping validation
@@ -233,8 +260,11 @@ class SettingsManager {
         fieldMapping: {
           title: document.getElementById('map-title').value,
           url: document.getElementById('map-url').value,
-          content: document.getElementById('map-content').value,
-          tags: document.getElementById('map-tags').value
+          description: document.getElementById('map-description').value,
+          summary: document.getElementById('map-summary').value,
+          notes: document.getElementById('map-notes').value,
+          tags: document.getElementById('map-tags').value,
+          createdDate: document.getElementById('map-created-date').value
         },
         autoSave: document.getElementById('auto-save').checked,
         defaultExportFormat: document.getElementById('default-export-format').value
@@ -531,8 +561,11 @@ class SettingsManager {
     const fieldMappings = {
       'map-title': { type: 'title', required: true },
       'map-url': { type: 'url', required: false },
-      'map-content': { type: 'rich_text', required: true },
-      'map-tags': { type: 'multi_select', required: false }
+      'map-description': { type: 'rich_text', required: false },
+      'map-summary': { type: 'rich_text', required: false },
+      'map-notes': { type: 'rich_text', required: false },
+      'map-tags': { type: 'multi_select', required: false },
+      'map-created-date': { type: 'date', required: false }
     };
 
     Object.entries(fieldMappings).forEach(([fieldId, config]) => {
@@ -557,7 +590,8 @@ class SettingsManager {
               (config.type === 'title' && propName.toLowerCase().includes('title')) ||
               (config.type === 'url' && propName.toLowerCase().includes('url') || propName.toLowerCase().includes('link')) ||
               (config.type === 'rich_text' && (propName.toLowerCase().includes('content') || propName.toLowerCase().includes('description'))) ||
-              (config.type === 'multi_select' && (propName.toLowerCase().includes('tag') || propName.toLowerCase().includes('category') || propName.toLowerCase().includes('label')))) {
+              (config.type === 'multi_select' && (propName.toLowerCase().includes('tag') || propName.toLowerCase().includes('category') || propName.toLowerCase().includes('label'))) ||
+              (config.type === 'date' && (propName.toLowerCase().includes('date') || propName.toLowerCase().includes('created') || propName.toLowerCase().includes('时间') || propName.toLowerCase().includes('日期')))) {
             option.selected = true;
           }
 
@@ -585,6 +619,7 @@ class SettingsManager {
       'url': ['url'],
       'rich_text': ['rich_text'],
       'multi_select': ['multi_select'],
+      'date': ['date'],
       'text': ['rich_text'], // Allow text properties for rich_text fields
       'select': ['multi_select'] // Allow select properties for multi_select fields
     };
@@ -618,6 +653,12 @@ class SettingsManager {
         }
         break;
 
+      case 'date':
+        if (property.date?.type !== 'date') {
+          return 'Property must be a date type';
+        }
+        break;
+
       case 'multi_select':
         if (property.multi_select?.type !== 'multi_select') {
           return 'Property must be a multi-select type';
@@ -646,7 +687,7 @@ class SettingsManager {
    * Initialize field mapping validation event listeners
    */
   initializeFieldMappingValidation() {
-    const fieldMappingSelects = ['map-title', 'map-url', 'map-content', 'map-tags'];
+    const fieldMappingSelects = ['map-title', 'map-url', 'map-description', 'map-summary', 'map-notes', 'map-tags', 'map-created-date'];
 
     fieldMappingSelects.forEach(fieldId => {
       const select = document.getElementById(fieldId);
@@ -678,8 +719,12 @@ class SettingsManager {
     const fieldConfig = {
       'map-title': { required: true, type: 'title' },
       'map-url': { required: false, type: 'url' },
+      'map-description': { required: false, type: 'rich_text' },
+      'map-summary': { required: false, type: 'rich_text' },
+      'map-notes': { required: false, type: 'rich_text' },
       'map-content': { required: true, type: 'rich_text' },
-      'map-tags': { required: false, type: 'multi_select' }
+      'map-tags': { required: false, type: 'multi_select' },
+      'map-created-date': { required: false, type: 'date' }
     }[fieldId];
 
     if (!value) {
@@ -726,8 +771,11 @@ class SettingsManager {
     const mappings = {
       title: document.getElementById('map-title').value,
       url: document.getElementById('map-url').value,
-      content: document.getElementById('map-content').value,
-      tags: document.getElementById('map-tags').value
+      description: document.getElementById('map-description').value,
+      summary: document.getElementById('map-summary').value,
+      notes: document.getElementById('map-notes').value,
+      tags: document.getElementById('map-tags').value,
+      createdDate: document.getElementById('map-created-date').value
     };
 
     const issues = [];
@@ -740,7 +788,6 @@ class SettingsManager {
 
     // Check required fields
     if (!mappings.title) issues.push('Title mapping is required');
-    if (!mappings.content) issues.push('Content mapping is required');
 
     // Check for duplicate mappings
     const usedProperties = Object.values(mappings).filter(v => v);
@@ -760,11 +807,14 @@ class SettingsManager {
             const fieldConfig = {
               title: { type: 'title' },
               url: { type: 'url' },
-              content: { type: 'rich_text' },
-              tags: { type: 'multi_select' }
+              description: { type: 'rich_text' },
+              summary: { type: 'rich_text' },
+              notes: { type: 'rich_text' },
+              tags: { type: 'multi_select' },
+              createdDate: { type: 'date' }
             }[fieldType];
 
-            if (!this.isPropertyCompatible(property.type, fieldConfig.type)) {
+            if (fieldConfig && !this.isPropertyCompatible(property.type, fieldConfig.type)) {
               issues.push(`${propertyName} (${property.type}) is not compatible with ${fieldType} field`);
             }
 

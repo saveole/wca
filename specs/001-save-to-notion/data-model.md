@@ -31,14 +31,18 @@ Configuration for mapping extension fields to Notion database properties.
 **Fields**:
 - `title` (string): Name of Notion title property (default: "Name")
 - `url` (string): Name of Notion URL property (default: "URL")
+- `description` (string): Name of Notion rich text property (default: "Description")
+- `summary` (string): Name of Notion rich text property (default: "Summary")
+- `notes` (string): Name of Notion rich text property (default: "Notes")
 - `tags` (string): Name of Notion multi-select property (default: "Tags")
-- `content` (string): Name of Notion rich text property (default: "Page Content")
+- `createdDate` (string): Name of Notion date property (default: "Created Date")
 - `customMappings` (Object[]): Additional field mappings beyond defaults
 
 **Validation Rules**:
 - All mapped property names must exist in target Notion database
-- Property types must match expected data types (title, URL, multi-select, rich_text)
-- Required properties must be mapped (title, content)
+- Property types must match expected data types (title, URL, multi-select, rich_text, date)
+- Required properties must be mapped (title)
+- Date fields must use "yyyy-MM-dd" format for createdDate
 
 ### 3. ValidationResult
 Represents the result of validating Notion configuration against database schema.
@@ -104,8 +108,11 @@ Popup Data → NotionFormat → Notion API → Result → Toast Notification
     "fieldMapping": {
       "title": "Name",
       "url": "URL",
+      "description": "Description",
+      "summary": "Summary",
+      "notes": "Notes",
       "tags": "Tags",
-      "content": "Page Content"
+      "createdDate": "Created Date"
     },
     "connectionStatus": "connected",
     "lastTested": "2025-09-27T10:30:00.000Z"
@@ -138,6 +145,7 @@ Popup Data → NotionFormat → Notion API → Result → Toast Notification
 2. **Type Compatibility**: Mapped properties must support the expected data type
 3. **Required Fields**: Title and content properties must be mapped
 4. **Name Uniqueness**: Property names must be unique within database
+5. **Date Format**: createdDate field must use "yyyy-MM-dd" format
 
 ### Configuration Validation
 1. **Token Format**: Must be valid Notion integration token
@@ -160,8 +168,12 @@ Popup Data → NotionFormat → Notion API → Result → Toast Notification
   "properties": {
     "Name": { "title": [{ "text": { "content": "Page Title" } }] },
     "URL": { "url": "https://example.com" },
+    "Description": { "rich_text": [{ "text": { "content": "Page description" } }] },
+    "Summary": { "rich_text": [{ "text": { "content": "AI-generated summary" } }] },
+    "Notes": { "rich_text": [{ "text": { "content": "User notes" } }] },
+    "Page Content": { "rich_text": [{ "text": { "content": "Combined content text" } }] },
     "Tags": { "multi_select": [{ "name": "tag1" }, { "name": "tag2" }] },
-    "Page Content": { "rich_text": [{ "text": { "content": "Content text" } }] }
+    "Created Date": { "date": { "start": "2025-09-27" } }
   }
 }
 ```

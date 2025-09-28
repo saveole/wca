@@ -37,8 +37,11 @@ This guide provides step-by-step instructions for testing the enhanced Notion in
 2. Ensure database has these properties:
    - **Name** (Title property, required)
    - **URL** (URL property)
+   - **Description** (Rich text property)
+   - **Summary** (Rich text property)
+   - **Notes** (Rich text property)
    - **Tags** (Multi-select property)
-   - **Page Content** (Rich text property)
+   - **Created Date** (Date property)
 3. Share database with your integration:
    - Click "Share" → "Invite"
    - Select your integration name
@@ -68,10 +71,12 @@ This guide provides step-by-step instructions for testing the enhanced Notion in
 7. Check Notion database for new entry
 
 **Expected Results**:
-- Progress indicator shows during save operation
-- Success message with checkmark appears
+- Loading spinner appears on "Save to Notion" button during operation
+- Button is disabled during save to prevent duplicate submissions
+- Success message appears in center of popup with page title format: "✓ Saved '[Page Title]' to Notion"
+- Popup automatically closes after 1 second on successful save
 - New page created in Notion with all mapped fields
-- Title, URL, and content properly formatted
+- Title, URL, Description, Summary, Notes, Tags, and Created Date properly formatted
 
 ### T002: Configuration Validation
 **Objective**: Test configuration validation and error handling
@@ -131,14 +136,20 @@ This guide provides step-by-step instructions for testing the enhanced Notion in
 
 **Steps**:
 1. Test complete workflow from setup to save
-2. Verify all progress indicators
-3. Test dark/light theme compatibility
-4. Verify responsive design on different screen sizes
-5. Test keyboard navigation and accessibility
+2. Verify all progress indicators and loading states
+3. Test button state management during save operations
+4. Test centered success notifications with page titles
+5. Verify auto-close functionality after successful save
+6. Test dark/light theme compatibility
+7. Verify responsive design on different screen sizes
+8. Test keyboard navigation and accessibility
 
 **Expected Results**:
-- Smooth, intuitive user experience
-- Clear visual feedback for all operations
+- Smooth, intuitive user experience with minimal user interaction
+- Clear visual feedback for all operations including loading states
+- Button properly disabled during save to prevent duplicates
+- Success notifications appear in center with specific page titles
+- Popup automatically closes after successful Notion save
 - Consistent design across themes
 - Accessible interface for all users
 
