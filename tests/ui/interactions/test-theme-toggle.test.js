@@ -32,7 +32,7 @@ test.describe('Theme Toggle Interactions @interaction @failing', () => {
     test.fail(true, 'Test designed to fail - theme toggle functionality not yet implemented');
 
     // Navigate to popup
-    await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+    await page.goto('/ui/main_popup.html
 
     // Wait for popup to load
     await page.waitForSelector('.popup-container', { timeout: config.timeout });
@@ -70,7 +70,7 @@ test.describe('Theme Toggle Interactions @interaction @failing', () => {
     test.fail(true, 'Test designed to fail - theme toggle button states not yet implemented');
 
     // Navigate to popup
-    await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+    await page.goto('/ui/main_popup.html
 
     // Wait for popup to load
     await page.waitForSelector('.popup-container', { timeout: config.timeout });
@@ -103,7 +103,7 @@ test.describe('Theme Toggle Interactions @interaction @failing', () => {
     test.fail(true, 'Test designed to fail - theme transition animations not yet implemented');
 
     // Navigate to popup
-    await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+    await page.goto('/ui/main_popup.html
 
     // Wait for popup to load
     await page.waitForSelector('.popup-container', { timeout: config.timeout });
@@ -136,7 +136,7 @@ test.describe('Theme Toggle Interactions @interaction @failing', () => {
     test.fail(true, 'Test designed to fail - theme persistence not yet implemented');
 
     // Navigate to popup
-    await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+    await page.goto('/ui/main_popup.html
 
     // Wait for popup to load
     await page.waitForSelector('.popup-container', { timeout: config.timeout });
@@ -157,7 +157,7 @@ test.describe('Theme Toggle Interactions @interaction @failing', () => {
 
     // Navigate away and back
     await page.goto('about:blank');
-    await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+    await page.goto('/ui/main_popup.html
 
     // Wait for popup to load
     await page.waitForSelector('.popup-container', { timeout: config.timeout });
@@ -174,7 +174,7 @@ test.describe('Theme Toggle Interactions @interaction @failing', () => {
     test.fail(true, 'Test designed to fail - theme-specific styling not yet implemented');
 
     // Navigate to popup
-    await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+    await page.goto('/ui/main_popup.html
 
     // Wait for popup to load
     await page.waitForSelector('.popup-container', { timeout: config.timeout });
@@ -210,7 +210,7 @@ test.describe('Theme Toggle Interactions @interaction @failing', () => {
     test.fail(true, 'Test designed to fail - theme toggle accessibility not yet implemented');
 
     // Navigate to popup
-    await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+    await page.goto('/ui/main_popup.html
 
     // Wait for popup to load
     await page.waitForSelector('.popup-container', { timeout: config.timeout });
@@ -248,7 +248,7 @@ test.describe('Theme Toggle Interactions @interaction @failing', () => {
     await page.emulateMedia({ colorScheme: 'dark' });
 
     // Navigate to popup
-    await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+    await page.goto('/ui/main_popup.html
 
     // Wait for popup to load
     await page.waitForSelector('.popup-container', { timeout: config.timeout });
@@ -279,7 +279,7 @@ test.describe('Theme Toggle Interactions @interaction @failing', () => {
     test.fail(true, 'Test designed to fail - theme consistency not yet implemented');
 
     // Navigate to popup
-    await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+    await page.goto('/ui/main_popup.html
 
     // Wait for popup to load
     await page.waitForSelector('.popup-container', { timeout: config.timeout });
@@ -299,7 +299,7 @@ test.describe('Theme Toggle Interactions @interaction @failing', () => {
     expect(popupTheme).toBe('dark');
 
     // Navigate to settings page
-    await page.goto('chrome-extension://__MSG_@@extension_id__/ui/settings.html');
+    await page.goto('/ui/main_popup.html
 
     // Wait for settings to load
     await page.waitForSelector('.settings-container', { timeout: config.timeout });
@@ -321,7 +321,7 @@ test.describe('Theme Toggle Interactions @interaction @failing', () => {
     test.fail(true, 'Test designed to fail - theme toggle performance not yet optimized');
 
     // Navigate to popup
-    await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+    await page.goto('/ui/main_popup.html
 
     // Wait for popup to load
     await page.waitForSelector('.popup-container', { timeout: config.timeout });
@@ -366,7 +366,7 @@ test.describe('Theme Toggle Interactions @interaction @failing', () => {
       test.fail(true, 'Test designed to fail - theme storage not yet implemented');
 
       // Navigate to popup
-      await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+      await page.goto('/ui/main_popup.html
 
       // Wait for popup to load
       await page.waitForSelector('.popup-container', { timeout: config.timeout });
@@ -394,7 +394,7 @@ test.describe('Theme Toggle Interactions @interaction @failing', () => {
       test.fail(true, 'Test designed to fail - theme sync not yet implemented');
 
       // Navigate to popup
-      await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+      await page.goto('/ui/main_popup.html
 
       // Wait for popup to load
       await page.waitForSelector('.popup-container', { timeout: config.timeout });
@@ -429,7 +429,7 @@ test.describe('Theme Toggle Interactions @interaction @failing', () => {
       test.fail(true, 'Test designed to fail - theme toggle visual feedback not yet implemented');
 
       // Navigate to popup
-      await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+      await page.goto('/ui/main_popup.html
 
       // Wait for popup to load
       await page.waitForSelector('.popup-container', { timeout: config.timeout });
@@ -460,7 +460,7 @@ test.describe('Theme Toggle Interactions @interaction @failing', () => {
       test.fail(true, 'Test designed to fail - theme change announcement not yet implemented');
 
       // Navigate to popup
-      await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+      await page.goto('/ui/main_popup.html
 
       // Wait for popup to load
       await page.waitForSelector('.popup-container', { timeout: config.timeout });

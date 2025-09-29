@@ -25,7 +25,7 @@ test.describe('Visual Regression Test Examples', () => {
       await page.emulateMedia({ colorScheme: 'light' });
 
       // Navigate to popup
-      await page.goto('chrome-extension://YOUR_EXTENSION_ID/ui/main_popup.html');
+      await page.goto('/ui/main_popup.html
 
       // Wait for content to load with error handling
       try {
@@ -83,7 +83,7 @@ test.describe('Visual Regression Test Examples', () => {
       await page.emulateMedia({ colorScheme: 'dark' });
 
       // Navigate to settings
-      await page.goto('chrome-extension://YOUR_EXTENSION_ID/ui/settings.html');
+      await page.goto('/ui/main_popup.html
 
       // Wait for settings to load
       await page.waitForSelector('.settings-container', {
@@ -130,7 +130,7 @@ test.describe('Visual Regression Test Examples', () => {
 
       for (const theme of themes) {
         await page.emulateMedia({ colorScheme: theme });
-        await page.goto('chrome-extension://YOUR_EXTENSION_ID/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html
 
         await page.waitForSelector('.popup-container', { timeout: config.defaultTimeout });
 
@@ -163,7 +163,7 @@ test.describe('Visual Regression Test Examples', () => {
 
   test.describe('Dynamic Content States', () => {
     test('loading states should display correctly with proper spinners', async ({ page }) => {
-      await page.goto('chrome-extension://YOUR_EXTENSION_ID/ui/main_popup.html');
+      await page.goto('/ui/main_popup.html
 
       // Simulate loading state
       await page.evaluate(() => {
@@ -193,7 +193,7 @@ test.describe('Visual Regression Test Examples', () => {
     });
 
     test('error states should display user-friendly messages', async ({ page }) => {
-      await page.goto('chrome-extension://YOUR_EXTENSION_ID/ui/main_popup.html');
+      await page.goto('/ui/main_popup.html
 
       // Simulate error state
       await page.evaluate(() => {
@@ -225,7 +225,7 @@ test.describe('Visual Regression Test Examples', () => {
     });
 
     test('success states should show confirmation messages', async ({ page }) => {
-      await page.goto('chrome-extension://YOUR_EXTENSION_ID/ui/main_popup.html');
+      await page.goto('/ui/main_popup.html
 
       // Simulate success state
       await page.evaluate(() => {
@@ -267,7 +267,7 @@ test.describe('Visual Regression Test Examples', () => {
     viewports.forEach(viewport => {
       test(`popup should adapt to ${viewport.name} viewport (${viewport.width}x${viewport.height})`, async ({ page }) => {
         await page.setViewportSize({ width: viewport.width, height: viewport.height });
-        await page.goto('chrome-extension://YOUR_EXTENSION_ID/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html
 
         await page.waitForSelector('.popup-container', { timeout: config.defaultTimeout });
 

@@ -43,7 +43,7 @@ test.describe('Form Validation Interactions @interaction @implementation', () =>
   test.beforeEach(async ({ page }) => {
     try {
       // Navigate to popup and wait for load
-      await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+      await page.goto('/ui/main_popup.html
       await page.waitForSelector('.popup-container', { timeout: config.timeout });
 
       // Reset form state

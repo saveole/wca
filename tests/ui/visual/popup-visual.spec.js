@@ -44,7 +44,7 @@ test.describe('Popup Visual Regression Tests', () => {
     test('should capture popup initial state screenshot @visual', async ({ page }) => {
       try {
         // Navigate to extension popup
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html');
 
         // Wait for popup to load
         await page.waitForSelector('.popup-container', { state: 'visible' });
@@ -81,7 +81,7 @@ test.describe('Popup Visual Regression Tests', () => {
 
     test('should validate all popup elements are visible @visual', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html');
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
         const elements = {
@@ -129,7 +129,7 @@ test.describe('Popup Visual Regression Tests', () => {
   test.describe('Dark Mode Rendering', () => {
     test('should capture popup dark mode screenshot @visual @dark-mode', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html');
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
         // Enable dark mode
@@ -165,7 +165,7 @@ test.describe('Popup Visual Regression Tests', () => {
 
     test('should validate text contrast in dark mode @accessibility @dark-mode', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html');
         await page.emulateMedia({ colorScheme: 'dark' });
 
         const contrastValidation = await screenshotUtils.validateTextContrast(
@@ -196,7 +196,7 @@ test.describe('Popup Visual Regression Tests', () => {
   test.describe('Loading State Rendering', () => {
     test('should capture loading state screenshot @visual @loading', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html');
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
         // Trigger loading state
@@ -234,7 +234,7 @@ test.describe('Popup Visual Regression Tests', () => {
 
     test('should validate loading spinner animation @visual @loading', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html');
         await page.click('.save-button');
         await page.waitForSelector('.loading-spinner', { state: 'visible', timeout: 2000 });
 
@@ -266,7 +266,7 @@ test.describe('Popup Visual Regression Tests', () => {
   test.describe('Error State Rendering', () => {
     test('should capture error state screenshot @visual @error', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html');
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
         // Simulate error state
@@ -305,7 +305,7 @@ test.describe('Popup Visual Regression Tests', () => {
 
     test('should validate error message visibility and styling @visual @error', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html');
         await page.evaluate(() => {
           window.showErrorState('validation');
         });
@@ -346,7 +346,7 @@ test.describe('Popup Visual Regression Tests', () => {
   test.describe('Success State Rendering', () => {
     test('should capture success notification screenshot @visual @success', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html');
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
         // Simulate success state
@@ -385,7 +385,7 @@ test.describe('Popup Visual Regression Tests', () => {
 
     test('should validate success message auto-hide behavior @visual @success', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html');
         await page.evaluate(() => {
           window.showSuccessState();
         });
@@ -421,7 +421,7 @@ test.describe('Popup Visual Regression Tests', () => {
   test.describe('Performance Benchmarks', () => {
     test('should meet screenshot capture performance target @performance @visual', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html');
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
         const startTime = Date.now();

@@ -43,7 +43,7 @@ test.describe('Theme Switching Visual Tests', () => {
   test.describe('Popup Theme Switching', () => {
     test('should validate popup light theme consistency @visual', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('http://localhost:8080/ui/main_popup.html');
         await page.emulateMedia({ colorScheme: 'light' });
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
@@ -82,7 +82,7 @@ test.describe('Theme Switching Visual Tests', () => {
 
     test('should validate popup dark theme consistency @visual @dark-mode', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('http://localhost:8080/ui/main_popup.html');
         await page.emulateMedia({ colorScheme: 'dark' });
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
@@ -121,7 +121,7 @@ test.describe('Theme Switching Visual Tests', () => {
 
     test('should validate theme transition smoothness @visual', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('http://localhost:8080/ui/main_popup.html');
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
         const themeToggle = await page.$('.theme-toggle');
@@ -163,7 +163,7 @@ test.describe('Theme Switching Visual Tests', () => {
 
     test('should validate theme preference persistence @visual', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('http://localhost:8080/ui/main_popup.html');
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
         const themeToggle = await page.$('.theme-toggle');
@@ -206,7 +206,7 @@ test.describe('Theme Switching Visual Tests', () => {
   test.describe('Settings Page Theme Switching', () => {
     test('should validate settings light theme consistency @visual', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
         await page.emulateMedia({ colorScheme: 'light' });
         await page.waitForSelector('.settings-container', { state: 'visible' });
 
@@ -245,7 +245,7 @@ test.describe('Theme Switching Visual Tests', () => {
 
     test('should validate settings dark theme consistency @visual @dark-mode', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
         await page.emulateMedia({ colorScheme: 'dark' });
         await page.waitForSelector('.settings-container', { state: 'visible' });
 
@@ -284,7 +284,7 @@ test.describe('Theme Switching Visual Tests', () => {
 
     test('should validate form field theme adaptation @visual', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
         await page.waitForSelector('.settings-container', { state: 'visible' });
 
         const formFields = {
@@ -358,7 +358,7 @@ test.describe('Theme Switching Visual Tests', () => {
 
     test('should validate table theme adaptation in dark mode @visual @dark-mode', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
         await page.emulateMedia({ colorScheme: 'dark' });
         await page.waitForSelector('.settings-container', { state: 'visible' });
 
@@ -409,7 +409,7 @@ test.describe('Theme Switching Visual Tests', () => {
     test('should validate consistent color scheme across components @visual', async ({ page }) => {
       try {
         // Test popup color scheme
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('http://localhost:8080/ui/main_popup.html');
         await page.emulateMedia({ colorScheme: 'light' });
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
@@ -425,7 +425,7 @@ test.describe('Theme Switching Visual Tests', () => {
         });
 
         // Test settings color scheme
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
         await page.emulateMedia({ colorScheme: 'light' });
         await page.waitForSelector('.settings-container', { state: 'visible' });
 
@@ -469,7 +469,7 @@ test.describe('Theme Switching Visual Tests', () => {
 
     test('should validate consistent spacing across themes @visual', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('http://localhost:8080/ui/main_popup.html');
         await page.emulateMedia({ colorScheme: 'light' });
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
@@ -484,7 +484,7 @@ test.describe('Theme Switching Visual Tests', () => {
           };
         });
 
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
         await page.emulateMedia({ colorScheme: 'light' });
         await page.waitForSelector('.settings-container', { state: 'visible' });
 
@@ -528,7 +528,7 @@ test.describe('Theme Switching Visual Tests', () => {
 
     test('should validate consistent border radius and shadows @visual', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('http://localhost:8080/ui/main_popup.html');
         await page.emulateMedia({ colorScheme: 'light' });
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
@@ -544,7 +544,7 @@ test.describe('Theme Switching Visual Tests', () => {
           };
         });
 
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
         await page.emulateMedia({ colorScheme: 'light' });
         await page.waitForSelector('.settings-container', { state: 'visible' });
 
@@ -593,7 +593,7 @@ test.describe('Theme Switching Visual Tests', () => {
     test('should respect system light theme preference @visual', async ({ page }) => {
       try {
         await page.emulateMedia({ colorScheme: 'light' });
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('http://localhost:8080/ui/main_popup.html');
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
         const appliedTheme = await page.evaluate(() => {
@@ -622,7 +622,7 @@ test.describe('Theme Switching Visual Tests', () => {
     test('should respect system dark theme preference @visual @dark-mode', async ({ page }) => {
       try {
         await page.emulateMedia({ colorScheme: 'dark' });
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('http://localhost:8080/ui/main_popup.html');
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
         const appliedTheme = await page.evaluate(() => {
@@ -650,7 +650,7 @@ test.describe('Theme Switching Visual Tests', () => {
 
     test('should handle system theme changes gracefully @visual', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('http://localhost:8080/ui/main_popup.html');
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
         // Start with light theme
@@ -694,7 +694,7 @@ test.describe('Theme Switching Visual Tests', () => {
   test.describe('Performance Under Theme Switching', () => {
     test('should validate theme switch performance @performance @visual', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('http://localhost:8080/ui/main_popup.html');
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
         const themeToggle = await page.$('.theme-toggle');
@@ -727,7 +727,7 @@ test.describe('Theme Switching Visual Tests', () => {
 
     test('should validate no cumulative layout shift during theme change @performance @visual', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('http://localhost:8080/ui/main_popup.html');
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
         const themeToggle = await page.$('.theme-toggle');

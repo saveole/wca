@@ -146,7 +146,7 @@ class EnvironmentConfig {
         excludeUrls: [
           'localhost',
           '127.0.0.1',
-          'chrome-extension://'
+          '/ui/main_popup.html
         ],
         sensitiveDataPatterns: [
           /password/i,

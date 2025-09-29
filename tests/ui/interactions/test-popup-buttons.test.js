@@ -31,7 +31,7 @@ test.describe('Popup Button Interactions @interaction @failing', () => {
     test.fail(true, 'Test designed to fail - popup button interactions not yet implemented');
 
     // Navigate to popup
-    await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+    await page.goto('/ui/main_popup.html
 
     // Wait for popup to load
     await page.waitForSelector('.popup-container', { timeout: config.timeout });
@@ -61,7 +61,7 @@ test.describe('Popup Button Interactions @interaction @failing', () => {
     test.fail(true, 'Test designed to fail - copy button interactions not yet implemented');
 
     // Navigate to popup
-    await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+    await page.goto('/ui/main_popup.html
 
     // Wait for popup to load
     await page.waitForSelector('.popup-container', { timeout: config.timeout });
@@ -87,7 +87,7 @@ test.describe('Popup Button Interactions @interaction @failing', () => {
     test.fail(true, 'Test designed to fail - theme toggle interactions not yet implemented');
 
     // Navigate to popup
-    await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+    await page.goto('/ui/main_popup.html
 
     // Wait for popup to load
     await page.waitForSelector('.popup-container', { timeout: config.timeout });
@@ -124,7 +124,7 @@ test.describe('Popup Button Interactions @interaction @failing', () => {
     test.fail(true, 'Test designed to fail - loading state interactions not yet implemented');
 
     // Navigate to popup
-    await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+    await page.goto('/ui/main_popup.html
 
     // Wait for popup to load
     await page.waitForSelector('.popup-container', { timeout: config.timeout });
@@ -154,7 +154,7 @@ test.describe('Popup Button Interactions @interaction @failing', () => {
     test.fail(true, 'Test designed to fail - error state interactions not yet implemented');
 
     // Navigate to popup
-    await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+    await page.goto('/ui/main_popup.html
 
     // Wait for popup to load
     await page.waitForSelector('.popup-container', { timeout: config.timeout });
@@ -181,7 +181,7 @@ test.describe('Popup Button Interactions @interaction @failing', () => {
     test.fail(true, 'Test designed to fail - keyboard navigation not yet implemented');
 
     // Navigate to popup
-    await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+    await page.goto('/ui/main_popup.html
 
     // Wait for popup to load
     await page.waitForSelector('.popup-container', { timeout: config.timeout });
@@ -218,7 +218,7 @@ test.describe('Popup Button Interactions @interaction @failing', () => {
     test.fail(true, 'Test designed to fail - hover and focus states not yet implemented');
 
     // Navigate to popup
-    await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+    await page.goto('/ui/main_popup.html
 
     // Wait for popup to load
     await page.waitForSelector('.popup-container', { timeout: config.timeout });
@@ -249,7 +249,7 @@ test.describe('Popup Button Interactions @interaction @failing', () => {
     test.fail(true, 'Test designed to fail - button accessibility attributes not yet implemented');
 
     // Navigate to popup
-    await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+    await page.goto('/ui/main_popup.html
 
     // Wait for popup to load
     await page.waitForSelector('.popup-container', { timeout: config.timeout });
@@ -276,7 +276,7 @@ test.describe('Popup Button Interactions @interaction @failing', () => {
     test.fail(true, 'Test designed to fail - button animations not yet implemented');
 
     // Navigate to popup
-    await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+    await page.goto('/ui/main_popup.html
 
     // Wait for popup to load
     await page.waitForSelector('.popup-container', { timeout: config.timeout });
@@ -305,7 +305,7 @@ test.describe('Popup Button Interactions @interaction @failing', () => {
     test.fail(true, 'Test designed to fail - responsive behavior not yet implemented');
 
     // Navigate to popup
-    await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+    await page.goto('/ui/main_popup.html
 
     // Wait for popup to load
     await page.waitForSelector('.popup-container', { timeout: config.timeout });
@@ -335,7 +335,7 @@ test.describe('Popup Button Interactions @interaction @failing', () => {
       test.fail(true, 'Test designed to fail - button performance not yet optimized');
 
       // Navigate to popup
-      await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+      await page.goto('/ui/main_popup.html
 
       // Wait for popup to load
       await page.waitForSelector('.popup-container', { timeout: config.timeout });
@@ -375,7 +375,7 @@ test.describe('Popup Button Interactions @interaction @failing', () => {
       test.fail(true, 'Test designed to fail - button error recovery not yet implemented');
 
       // Navigate to popup
-      await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+      await page.goto('/ui/main_popup.html
 
       // Wait for popup to load
       await page.waitForSelector('.popup-container', { timeout: config.timeout });

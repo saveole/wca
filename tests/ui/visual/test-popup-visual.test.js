@@ -5,15 +5,15 @@
  * Tests popup component visual consistency across different states and themes.
  */
 
-import { expect } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 import { VisualBaseline } from '../../models/VisualBaseline.js';
 import { TestConfiguration } from '../../models/test-configuration.js';
 
-describe('Popup Rendering - Visual Regression', () => {
+test.describe('Popup Rendering - Visual Regression', () => {
   let testConfig;
   let baselineManager;
 
-  beforeAll(() => {
+  test.beforeAll(() => {
     testConfig = new TestConfiguration({
       viewport: { width: 360, height: 600 },
       theme: 'light',
@@ -31,7 +31,7 @@ describe('Popup Rendering - Visual Regression', () => {
     });
   });
 
-  describe('Initial State Rendering', () => {
+  test.describe('Initial State Rendering', () => {
     test('should capture popup initial state screenshot', async ({ page }) => {
       // This test will fail because visual comparison utilities don't exist yet
       const screenshotPath = await takeScreenshot(page, '.popup-container');
@@ -59,7 +59,7 @@ describe('Popup Rendering - Visual Regression', () => {
     });
   });
 
-  describe('Dark Mode Rendering', () => {
+  test.describe('Dark Mode Rendering', () => {
     test('should capture popup dark mode screenshot', async ({ page }) => {
       await page.emulateMedia({ colorScheme: 'dark' });
 
@@ -84,7 +84,7 @@ describe('Popup Rendering - Visual Regression', () => {
     });
   });
 
-  describe('Loading State Rendering', () => {
+  test.describe('Loading State Rendering', () => {
     test('should capture loading state screenshot', async ({ page }) => {
       await page.click('.save-button');
 
@@ -109,7 +109,7 @@ describe('Popup Rendering - Visual Regression', () => {
     });
   });
 
-  describe('Error State Rendering', () => {
+  test.describe('Error State Rendering', () => {
     test('should capture error state screenshot', async ({ page }) => {
       await simulateErrorState(page, 'network');
 
@@ -135,7 +135,7 @@ describe('Popup Rendering - Visual Regression', () => {
     });
   });
 
-  describe('Success State Rendering', () => {
+  test.describe('Success State Rendering', () => {
     test('should capture success notification screenshot', async ({ page }) => {
       await simulateSuccessState(page);
 

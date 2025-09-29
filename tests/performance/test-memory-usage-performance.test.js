@@ -33,7 +33,7 @@ test.describe('Performance Validation - Memory Usage for Large Test Suites', () 
   test.describe('Memory Usage During Large Test Suite Execution', () => {
     test('should maintain memory efficiency during large visual test suite execution', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://YOUR_EXTENSION_ID/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html
         await page.waitForSelector('.popup-container', {
           timeout: config.defaultTimeout,
           state: 'visible'
@@ -120,7 +120,7 @@ test.describe('Performance Validation - Memory Usage for Large Test Suites', () 
 
     test('should validate memory usage during parallel test execution', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://YOUR_EXTENSION_ID/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html
         await page.waitForSelector('.popup-container', { timeout: config.defaultTimeout });
 
         const initialMemory = await memoryManager.getMemoryUsage();
@@ -187,7 +187,7 @@ test.describe('Performance Validation - Memory Usage for Large Test Suites', () 
 
     test('should validate memory management under resource constraints', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://YOUR_EXTENSION_ID/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html
         await page.waitForSelector('.popup-container', { timeout: config.defaultTimeout });
 
         // Configure memory manager with strict limits
@@ -270,7 +270,7 @@ test.describe('Performance Validation - Memory Usage for Large Test Suites', () 
 
     test('should validate memory leak detection and prevention', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://YOUR_EXTENSION_ID/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html
         await page.waitForSelector('.popup-container', { timeout: config.defaultTimeout });
 
         const leakDetectionCycles = 20;
@@ -357,7 +357,7 @@ test.describe('Performance Validation - Memory Usage for Large Test Suites', () 
   test.describe('Memory Optimization Validation', () => {
     test('should validate caching memory efficiency', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://YOUR_EXTENSION_ID/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html
         await page.waitForSelector('.popup-container', { timeout: config.defaultTimeout });
 
         const cacheIterations = 25;
@@ -427,7 +427,7 @@ test.describe('Performance Validation - Memory Usage for Large Test Suites', () 
 
     test('should validate garbage collection effectiveness', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://YOUR_EXTENSION_ID/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html
         await page.waitForSelector('.popup_container', { timeout: config.defaultTimeout });
 
         const gcTestCycles = 15;

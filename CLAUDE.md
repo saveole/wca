@@ -189,9 +189,46 @@ Since this is a Chrome extension with no build system:
 - Use console.log statements for debugging background script operations
 - Test API connections using the built-in connection testers in settings
 
-### Testing
-- Test all export formats (Markdown, JSON)
-- Verify Notion integration with different field mappings
-- Test dark/light theme switching
-- Validate tag management functionality
-- Test error scenarios (network failures, invalid API keys)
+### Testing Strategy
+
+The WebClip Assistant uses a component isolation testing strategy with mocked Chrome APIs. This approach allows for reliable, fast, and maintainable testing without requiring Chrome extension environments.
+
+#### Test Architecture
+- **Component Tests**: Individual UI components tested in isolation with mocked APIs
+- **Integration Tests**: Component interactions and data flow validation
+- **Visual Regression**: Automated screenshot comparison for UI consistency
+- **Accessibility Testing**: WCAG compliance and keyboard navigation validation
+
+#### Test Structure
+```
+tests/
+├── mocks/           # Chrome API and external API mocks
+├── components/      # Individual component tests
+├── integration/     # Component interaction tests
+├── visual/          # Visual regression tests
+├── accessibility/   # Accessibility tests
+└── utils/           # Testing utilities and helpers
+```
+
+#### Running Tests
+- **All Tests**: `npm test`
+- **Component Tests**: `npm run test:components`
+- **Visual Tests**: `npm run test:visual`
+- **Accessibility Tests**: `npm run test:accessibility`
+- **Integration Tests**: `npm run test:integration`
+
+#### Test Development
+When developing new features:
+1. Create component tests first (TDD approach)
+2. Mock all Chrome APIs using provided mock utilities
+3. Test both success and error scenarios
+4. Include visual regression tests for UI changes
+5. Ensure accessibility compliance for new features
+
+#### Key Testing Areas
+- **Form Handling**: Input validation, data binding, error states
+- **Tag Management**: Add/remove tags, keyboard shortcuts
+- **Export Functionality**: Markdown/JSON generation, file downloads
+- **API Integration**: OpenAI summarization, Notion database operations
+- **Theme System**: Dark/light mode switching, CSS custom properties
+- **User Feedback**: Toast notifications, loading states, error messages

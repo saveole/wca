@@ -42,7 +42,7 @@ test.describe('Performance Validation - Test Execution', () => {
 
       try {
         // Navigate to test page
-        await page.goto('chrome-extension://YOUR_EXTENSION_ID/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html
         await page.waitForSelector('.popup-container', {
           timeout: config.defaultTimeout,
           state: 'visible'
@@ -104,7 +104,7 @@ test.describe('Performance Validation - Test Execution', () => {
 
     test('should handle parallel test execution efficiently', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://YOUR_EXTENSION_ID/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html
         await page.waitForSelector('.popup-container', { timeout: config.defaultTimeout });
 
         // Test parallel execution with multiple workers
@@ -154,7 +154,7 @@ test.describe('Performance Validation - Test Execution', () => {
 
     test('should maintain performance with selective test execution', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://YOUR_EXTENSION_ID/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html
         await page.waitForSelector('.popup-container', { timeout: config.defaultTimeout });
 
         // Simulate changed files and test selection
@@ -208,7 +208,7 @@ test.describe('Performance Validation - Test Execution', () => {
 
     test('should handle large test suite execution', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://YOUR_EXTENSION_ID/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html
         await page.waitForSelector('.popup-container', { timeout: config.defaultTimeout });
 
         // Test different suite sizes
@@ -285,7 +285,7 @@ test.describe('Performance Validation - Test Execution', () => {
 
     test('should maintain performance with mixed component types', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://YOUR_EXTENSION_ID/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html
         await page.waitForSelector('.popup-container', { timeout: config.defaultTimeout });
 
         // Test execution with mixed component types
@@ -335,7 +335,7 @@ test.describe('Performance Validation - Test Execution', () => {
 
     test('should handle resource-constrained execution', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://YOUR_EXTENSION_ID/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html
         await page.waitForSelector('.popup-container', { timeout: config.defaultTimeout });
 
         // Enable aggressive memory management
@@ -391,7 +391,7 @@ test.describe('Performance Validation - Test Execution', () => {
   test.describe('Test Execution Throughput Analysis', () => {
     test('should maintain consistent throughput across execution patterns', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://YOUR_EXTENSION_ID/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html
         await page.waitForSelector('.popup-container', { timeout: config.defaultTimeout });
 
         const executionPatterns = [

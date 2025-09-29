@@ -21,7 +21,7 @@ test.describe('Keyboard Navigation Accessibility Tests - Failing', () => {
       test.fail(true, 'Test designed to fail - popup keyboard navigation not implemented');
 
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('http://localhost:8080/ui/main_popup.html');
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
         // Test popup keyboard navigation
@@ -70,7 +70,7 @@ test.describe('Keyboard Navigation Accessibility Tests - Failing', () => {
       test.fail(true, 'Test designed to fail - logical tab order not implemented');
 
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('http://localhost:8080/ui/main_popup.html');
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
         // Test tab order logic
@@ -123,7 +123,7 @@ test.describe('Keyboard Navigation Accessibility Tests - Failing', () => {
       test.fail(true, 'Test designed to fail - keyboard shortcuts not implemented');
 
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('http://localhost:8080/ui/main_popup.html');
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
         // Test keyboard shortcuts
@@ -167,7 +167,7 @@ test.describe('Keyboard Navigation Accessibility Tests - Failing', () => {
       test.fail(true, 'Test designed to fail - settings keyboard navigation not implemented');
 
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
         await page.waitForSelector('.settings-container', { state: 'visible' });
 
         // Test settings keyboard navigation
@@ -218,7 +218,7 @@ test.describe('Keyboard Navigation Accessibility Tests - Failing', () => {
       test.fail(true, 'Test designed to fail - form keyboard navigation not implemented');
 
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
         await page.waitForSelector('.settings-container', { state: 'visible' });
 
         // Test form keyboard navigation
@@ -264,7 +264,7 @@ test.describe('Keyboard Navigation Accessibility Tests - Failing', () => {
       test.fail(true, 'Test designed to fail - focus management not implemented');
 
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('http://localhost:8080/ui/main_popup.html');
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
         // Test focus management
@@ -313,7 +313,7 @@ test.describe('Keyboard Navigation Accessibility Tests - Failing', () => {
       test.fail(true, 'Test designed to fail - screen reader keyboard support not implemented');
 
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('http://localhost:8080/ui/main_popup.html');
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
         // Test screen reader keyboard support
@@ -361,7 +361,7 @@ test.describe('Keyboard Navigation Accessibility Tests - Failing', () => {
       test.fail(true, 'Test designed to fail - keyboard navigation patterns not implemented');
 
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('http://localhost:8080/ui/main_popup.html');
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
         // Test keyboard navigation patterns
@@ -403,7 +403,7 @@ test.describe('Keyboard Navigation Accessibility Tests - Failing', () => {
       test.fail(true, 'Test designed to fail - keyboard accessibility testing not implemented');
 
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('http://localhost:8080/ui/main_popup.html');
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
         // Test keyboard accessibility testing capabilities
@@ -447,7 +447,7 @@ test.describe('Keyboard Navigation Accessibility Tests - Failing', () => {
       test.fail(true, 'Test designed to fail - keyboard navigation performance poor');
 
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('http://localhost:8080/ui/main_popup.html');
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
         const startTime = Date.now();

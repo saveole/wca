@@ -32,7 +32,7 @@ test.describe('Form Validation Interactions @interaction @failing', () => {
     test.fail(true, 'Test designed to fail - title field validation not yet implemented');
 
     // Navigate to popup
-    await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+    await page.goto('/ui/main_popup.html
 
     // Wait for popup to load
     await page.waitForSelector('.popup-container', { timeout: config.timeout });
@@ -65,7 +65,7 @@ test.describe('Form Validation Interactions @interaction @failing', () => {
     test.fail(true, 'Test designed to fail - URL field validation not yet implemented');
 
     // Navigate to popup
-    await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+    await page.goto('/ui/main_popup.html
 
     // Wait for popup to load
     await page.waitForSelector('.popup-container', { timeout: config.timeout });
@@ -118,7 +118,7 @@ test.describe('Form Validation Interactions @interaction @failing', () => {
     test.fail(true, 'Test designed to fail - real-time validation not yet implemented');
 
     // Navigate to popup
-    await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+    await page.goto('/ui/main_popup.html
 
     // Wait for popup to load
     await page.waitForSelector('.popup-container', { timeout: config.timeout });
@@ -150,7 +150,7 @@ test.describe('Form Validation Interactions @interaction @failing', () => {
     test.fail(true, 'Test designed to fail - description field validation not yet implemented');
 
     // Navigate to popup
-    await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+    await page.goto('/ui/main_popup.html
 
     // Wait for popup to load
     await page.waitForSelector('.popup-container', { timeout: config.timeout });
@@ -187,7 +187,7 @@ test.describe('Form Validation Interactions @interaction @failing', () => {
     test.fail(true, 'Test designed to fail - tag input validation not yet implemented');
 
     // Navigate to popup
-    await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+    await page.goto('/ui/main_popup.html
 
     // Wait for popup to load
     await page.waitForSelector('.popup-container', { timeout: config.timeout });
@@ -219,7 +219,7 @@ test.describe('Form Validation Interactions @interaction @failing', () => {
     test.fail(true, 'Test designed to fail - form submission validation not yet implemented');
 
     // Navigate to popup
-    await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+    await page.goto('/ui/main_popup.html
 
     // Wait for popup to load
     await page.waitForSelector('.popup-container', { timeout: config.timeout });
@@ -259,7 +259,7 @@ test.describe('Form Validation Interactions @interaction @failing', () => {
     test.fail(true, 'Test designed to fail - validation persistence not yet implemented');
 
     // Navigate to popup
-    await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+    await page.goto('/ui/main_popup.html
 
     // Wait for popup to load
     await page.waitForSelector('.popup-container', { timeout: config.timeout });
@@ -277,7 +277,7 @@ test.describe('Form Validation Interactions @interaction @failing', () => {
 
     // Navigate away and back (simulate tab switching)
     await page.goto('about:blank');
-    await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+    await page.goto('/ui/main_popup.html
 
     // Wait for popup to load
     await page.waitForSelector('.popup-container', { timeout: config.timeout });
@@ -292,7 +292,7 @@ test.describe('Form Validation Interactions @interaction @failing', () => {
     test.fail(true, 'Test designed to fail - validation accessibility not yet implemented');
 
     // Navigate to popup
-    await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+    await page.goto('/ui/main_popup.html
 
     // Wait for popup to load
     await page.waitForSelector('.popup-container', { timeout: config.timeout });
@@ -328,7 +328,7 @@ test.describe('Form Validation Interactions @interaction @failing', () => {
     test.fail(true, 'Test designed to fail - validation performance not yet optimized');
 
     // Navigate to popup
-    await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+    await page.goto('/ui/main_popup.html
 
     // Wait for popup to load
     await page.waitForSelector('.popup-container', { timeout: config.timeout });
@@ -369,7 +369,7 @@ test.describe('Form Validation Interactions @interaction @failing', () => {
       test.fail(true, 'Test designed to fail - URL auto-formatting not yet implemented');
 
       // Navigate to popup
-      await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+      await page.goto('/ui/main_popup.html
 
       // Wait for popup to load
       await page.waitForSelector('.popup-container', { timeout: config.timeout });
@@ -396,7 +396,7 @@ test.describe('Form Validation Interactions @interaction @failing', () => {
       test.fail(true, 'Test designed to fail - title auto-capitalization not yet implemented');
 
       // Navigate to popup
-      await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+      await page.goto('/ui/main_popup.html
 
       // Wait for popup to load
       await page.waitForSelector('.popup-container', { timeout: config.timeout });
@@ -419,7 +419,7 @@ test.describe('Form Validation Interactions @interaction @failing', () => {
       test.fail(true, 'Test designed to fail - validation state sync not yet implemented');
 
       // Navigate to popup
-      await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+      await page.goto('/ui/main_popup.html
 
       // Wait for popup to load
       await page.waitForSelector('.popup-container', { timeout: config.timeout });

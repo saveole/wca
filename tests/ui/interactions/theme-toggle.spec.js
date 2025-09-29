@@ -51,7 +51,7 @@ test.describe('Theme Toggle Interactions @interaction @implementation', () => {
       });
 
       // Navigate to popup and wait for load
-      await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+      await page.goto('/ui/main_popup.html
       await page.waitForSelector('.popup-container', { timeout: config.timeout });
     } catch (error) {
       errorHandler.handleError('Failed to setup theme toggle page', error);
@@ -327,7 +327,7 @@ test.describe('Theme Toggle Interactions @interaction @implementation', () => {
       await page.emulateMedia({ colorScheme: 'dark' });
 
       // Navigate to popup with dark system preference
-      await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+      await page.goto('/ui/main_popup.html
       await page.waitForSelector('.popup-container', { timeout: config.timeout });
 
       // Check if system preference is detected
@@ -379,7 +379,7 @@ test.describe('Theme Toggle Interactions @interaction @implementation', () => {
       expect(popupTheme).toBe('dark');
 
       // Navigate to settings page
-      await page.goto('chrome-extension://__MSG_@@extension_id__/ui/settings.html');
+      await page.goto('/ui/main_popup.html
 
       // Wait for settings to load
       await page.waitForSelector('.settings-container', { timeout: config.timeout });
@@ -408,7 +408,7 @@ test.describe('Theme Toggle Interactions @interaction @implementation', () => {
       expect(newSettingsTheme).toBe('light');
 
       // Navigate back to popup
-      await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+      await page.goto('/ui/main_popup.html
       await page.waitForSelector('.popup-container', { timeout: config.timeout });
 
       // Check if popup theme synced

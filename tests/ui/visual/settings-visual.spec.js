@@ -44,7 +44,7 @@ test.describe('Settings Page Visual Regression Tests', () => {
     test('should capture settings page initial state screenshot @visual', async ({ page }) => {
       try {
         // Navigate to extension settings
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
 
         // Wait for settings page to load
         await page.waitForSelector('.settings-container', { state: 'visible' });
@@ -80,7 +80,7 @@ test.describe('Settings Page Visual Regression Tests', () => {
 
     test('should validate all settings sections are visible @visual', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
         await page.waitForSelector('.settings-container', { state: 'visible' });
 
         const sections = {
@@ -126,7 +126,7 @@ test.describe('Settings Page Visual Regression Tests', () => {
 
     test('should validate form field consistency @visual', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
         await page.waitForSelector('.settings-container', { state: 'visible' });
 
         const fieldTypes = {
@@ -189,7 +189,7 @@ test.describe('Settings Page Visual Regression Tests', () => {
   test.describe('API Configuration Section', () => {
     test('should capture API configuration section screenshot @visual', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
         await page.waitForSelector('.settings-container', { state: 'visible' });
 
         const apiBaseline = new VisualBaseline({
@@ -221,7 +221,7 @@ test.describe('Settings Page Visual Regression Tests', () => {
 
     test('should validate API provider dropdown states @visual', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
         await page.waitForSelector('.settings-container', { state: 'visible' });
 
         const dropdownSelector = '#api-provider-select';
@@ -269,7 +269,7 @@ test.describe('Settings Page Visual Regression Tests', () => {
 
     test('should validate conditional field display @visual', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
         await page.waitForSelector('.settings-container', { state: 'visible' });
 
         // Test custom API endpoint field appears when Custom is selected
@@ -310,7 +310,7 @@ test.describe('Settings Page Visual Regression Tests', () => {
   test.describe('Notion Integration Section', () => {
     test('should capture Notion integration section screenshot @visual', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
         await page.waitForSelector('.settings-container', { state: 'visible' });
 
         const notionBaseline = new VisualBaseline({
@@ -342,7 +342,7 @@ test.describe('Settings Page Visual Regression Tests', () => {
 
     test('should validate connection test button states @visual', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
         await page.waitForSelector('.settings-container', { state: 'visible' });
 
         const testButton = await page.$('.test-connection-btn');
@@ -386,7 +386,7 @@ test.describe('Settings Page Visual Regression Tests', () => {
 
     test('should validate field mapping table display @visual', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
         await page.waitForSelector('.settings-container', { state: 'visible' });
 
         const mappingTable = await page.$('.field-mapping-table');
@@ -429,7 +429,7 @@ test.describe('Settings Page Visual Regression Tests', () => {
   test.describe('Theme Settings Section', () => {
     test('should capture theme settings section screenshot @visual', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
         await page.waitForSelector('.settings-container', { state: 'visible' });
 
         const themeBaseline = new VisualBaseline({
@@ -461,7 +461,7 @@ test.describe('Settings Page Visual Regression Tests', () => {
 
     test('should validate theme toggle functionality @visual', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
         await page.waitForSelector('.settings-container', { state: 'visible' });
 
         const themeToggle = await page.$('.theme-toggle');
@@ -503,7 +503,7 @@ test.describe('Settings Page Visual Regression Tests', () => {
   test.describe('Form Validation States', () => {
     test('should capture validation error states screenshot @visual', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
         await page.waitForSelector('.settings-container', { state: 'visible' });
 
         // Trigger validation error
@@ -542,7 +542,7 @@ test.describe('Settings Page Visual Regression Tests', () => {
 
     test('should validate error message display and positioning @visual', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
         await page.waitForSelector('.settings-container', { state: 'visible' });
 
         // Trigger validation error
@@ -585,7 +585,7 @@ test.describe('Settings Page Visual Regression Tests', () => {
 
     test('should capture success state screenshot @visual', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
         await page.waitForSelector('.settings-container', { state: 'visible' });
 
         // Simulate successful save
@@ -626,7 +626,7 @@ test.describe('Settings Page Visual Regression Tests', () => {
   test.describe('Dark Mode Settings', () => {
     test('should capture settings page dark mode screenshot @visual @dark-mode', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
         await page.waitForSelector('.settings-container', { state: 'visible' });
 
         // Enable dark mode
@@ -660,7 +660,7 @@ test.describe('Settings Page Visual Regression Tests', () => {
 
     test('should validate form field contrast in dark mode @accessibility @dark-mode', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
         await page.emulateMedia({ colorScheme: 'dark' });
 
         const contrastValidation = await screenshotUtils.validateTextContrast(
@@ -691,7 +691,7 @@ test.describe('Settings Page Visual Regression Tests', () => {
   test.describe('Performance Benchmarks', () => {
     test('should meet screenshot capture performance target @performance @visual', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
         await page.waitForSelector('.settings-container', { state: 'visible' });
 
         const startTime = Date.now();

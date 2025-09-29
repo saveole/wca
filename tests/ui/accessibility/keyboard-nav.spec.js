@@ -49,7 +49,7 @@ test.describe('Keyboard Navigation Accessibility Tests', () => {
   test.describe('Popup Keyboard Navigation', () => {
     test('should validate comprehensive popup keyboard navigation @accessibility @keyboard @popup', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('http://localhost:8080/ui/main_popup.html');
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
         // Get all focusable elements in popup
@@ -149,7 +149,7 @@ test.describe('Keyboard Navigation Accessibility Tests', () => {
 
     test('should validate logical tab order in popup @accessibility @keyboard @popup', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('http://localhost:8080/ui/main_popup.html');
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
         // Get focusable elements with their positions
@@ -241,7 +241,7 @@ test.describe('Keyboard Navigation Accessibility Tests', () => {
 
     test('should validate keyboard shortcuts in popup @accessibility @keyboard @shortcuts @popup', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('http://localhost:8080/ui/main_popup.html');
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
         // Test common keyboard shortcuts
@@ -327,7 +327,7 @@ test.describe('Keyboard Navigation Accessibility Tests', () => {
   test.describe('Settings Page Keyboard Navigation', () => {
     test('should validate settings page keyboard navigation @accessibility @keyboard @settings', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
         await page.waitForSelector('.settings-container', { state: 'visible' });
 
         // Get all focusable elements in settings
@@ -426,7 +426,7 @@ test.describe('Keyboard Navigation Accessibility Tests', () => {
 
     test('should validate form keyboard navigation @accessibility @keyboard @forms @settings', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
         await page.waitForSelector('.settings-container', { state: 'visible' });
 
         // Test form-specific keyboard navigation
@@ -520,7 +520,7 @@ test.describe('Keyboard Navigation Accessibility Tests', () => {
   test.describe('Focus Management Tests', () => {
     test('should validate comprehensive focus management @accessibility @focus', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('http://localhost:8080/ui/main_popup.html');
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
         // Test focus management
@@ -601,7 +601,7 @@ test.describe('Keyboard Navigation Accessibility Tests', () => {
 
     test('should validate screen reader keyboard support @accessibility @screen-reader @keyboard', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('http://localhost:8080/ui/main_popup.html');
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
         // Test screen reader keyboard support
@@ -683,7 +683,7 @@ test.describe('Keyboard Navigation Accessibility Tests', () => {
   test.describe('Advanced Keyboard Navigation', () => {
     test('should validate advanced keyboard navigation patterns @accessibility @keyboard @patterns', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('http://localhost:8080/ui/main_popup.html');
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
         // Test advanced keyboard navigation patterns
@@ -768,7 +768,7 @@ test.describe('Keyboard Navigation Accessibility Tests', () => {
 
     test('should validate keyboard accessibility testing utilities @accessibility @keyboard @testing', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('http://localhost:8080/ui/main_popup.html');
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
         // Test keyboard accessibility testing utilities
@@ -848,7 +848,7 @@ test.describe('Keyboard Navigation Accessibility Tests', () => {
   test.describe('Performance Benchmarks', () => {
     test('should meet keyboard navigation performance target @accessibility @keyboard @performance', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('http://localhost:8080/ui/main_popup.html');
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
         const startTime = Date.now();

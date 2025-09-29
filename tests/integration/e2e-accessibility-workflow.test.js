@@ -164,7 +164,7 @@ describe('End-to-End Accessibility Testing Workflow', () => {
 
     try {
       // Create a page with known accessibility violations for testing
-      await page.goto(`chrome-extension://${extensionId}/ui/main_popup.html`);
+      await page.goto(`/ui/main_popup.html
 
       // Inject accessibility violations for testing (in real scenario, these would be actual violations)
       await page.evaluate(() => {
@@ -323,7 +323,7 @@ describe('End-to-End Accessibility Testing Workflow', () => {
 
   // Helper function to test accessibility navigation
   async function testAccessibilityNavigation(page, testData) {
-    await page.goto(`chrome-extension://${extensionId}/${testData.config.url}`);
+    await page.goto(`/ui/main_popup.html
     await page.waitForSelector('.popup-container, .settings-container', { timeout: 5000 });
 
     const contentType = await page.evaluate(() => {

@@ -22,7 +22,7 @@ test.describe('Settings Page Accessibility Tests - Failing', () => {
 
       try {
         // Navigate to settings page
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
 
         // Wait for settings page to load
         await page.waitForSelector('.settings-container', { state: 'visible' });
@@ -61,7 +61,7 @@ test.describe('Settings Page Accessibility Tests - Failing', () => {
       test.fail(true, 'Test designed to fail - form accessibility not implemented');
 
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
         await page.waitForSelector('.settings-container', { state: 'visible' });
 
         // Test form accessibility - should fail due to missing implementation
@@ -121,7 +121,7 @@ test.describe('Settings Page Accessibility Tests - Failing', () => {
       test.fail(true, 'Test designed to fail - navigation accessibility not implemented');
 
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
         await page.waitForSelector('.settings-container', { state: 'visible' });
 
         // Test navigation accessibility
@@ -167,7 +167,7 @@ test.describe('Settings Page Accessibility Tests - Failing', () => {
       test.fail(true, 'Test designed to fail - table accessibility not implemented');
 
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
         await page.waitForSelector('.settings-container', { state: 'visible' });
 
         // Test table accessibility if tables exist
@@ -211,7 +211,7 @@ test.describe('Settings Page Accessibility Tests - Failing', () => {
       test.fail(true, 'Test designed to fail - button accessibility not implemented');
 
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
         await page.waitForSelector('.settings-container', { state: 'visible' });
 
         // Test button accessibility
@@ -265,7 +265,7 @@ test.describe('Settings Page Accessibility Tests - Failing', () => {
       test.fail(true, 'Test designed to fail - color and contrast accessibility not implemented');
 
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
         await page.waitForSelector('.settings-container', { state: 'visible' });
 
         // Test color accessibility
@@ -312,7 +312,7 @@ test.describe('Settings Page Accessibility Tests - Failing', () => {
       test.fail(true, 'Test designed to fail - responsive accessibility not implemented');
 
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
         await page.waitForSelector('.settings-container', { state: 'visible' });
 
         // Test responsive accessibility
@@ -357,7 +357,7 @@ test.describe('Settings Page Accessibility Tests - Failing', () => {
       test.fail(true, 'Test designed to fail - form validation accessibility not implemented');
 
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
         await page.waitForSelector('.settings-container', { state: 'visible' });
 
         // Test form validation accessibility
@@ -400,7 +400,7 @@ test.describe('Settings Page Accessibility Tests - Failing', () => {
       test.fail(true, 'Test designed to fail - accessibility scan performance poor');
 
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
         await page.waitForSelector('.settings-container', { state: 'visible' });
 
         const startTime = Date.now();

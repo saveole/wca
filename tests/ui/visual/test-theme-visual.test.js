@@ -5,15 +5,15 @@
  * Tests theme switching consistency across both popup and settings page.
  */
 
-import { expect } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 import { VisualBaseline } from '../../models/VisualBaseline.js';
 import { TestConfiguration } from '../../models/test-configuration.js';
 
-describe('Theme Consistency - Visual Regression', () => {
+test.describe('Theme Consistency - Visual Regression', () => {
   let testConfig;
   let baselineManager;
 
-  beforeAll(() => {
+  test.beforeAll(() => {
     testConfig = new TestConfiguration({
       viewport: { width: 1280, height: 720 },
       theme: 'light',
@@ -31,9 +31,9 @@ describe('Theme Consistency - Visual Regression', () => {
     });
   });
 
-  describe('Popup Theme Switching', () => {
+  test.describe('Popup Theme Switching', () => {
     test('should validate popup light theme consistency', async ({ page }) => {
-      await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+      await page.goto('http://localhost:8080/ui/main_popup.html');
       await page.emulateMedia({ colorScheme: 'light' });
 
       const lightBaseline = new VisualBaseline({
@@ -50,7 +50,7 @@ describe('Theme Consistency - Visual Regression', () => {
     });
 
     test('should validate popup dark theme consistency', async ({ page }) => {
-      await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+      await page.goto('http://localhost:8080/ui/main_popup.html');
       await page.emulateMedia({ colorScheme: 'dark' });
 
       const darkBaseline = new VisualBaseline({
@@ -83,9 +83,9 @@ describe('Theme Consistency - Visual Regression', () => {
     });
   });
 
-  describe('Settings Page Theme Switching', () => {
+  test.describe('Settings Page Theme Switching', () => {
     test('should validate settings light theme consistency', async ({ page }) => {
-      await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+      await page.goto('http://localhost:8080/ui/settings.html');
       await page.emulateMedia({ colorScheme: 'light' });
 
       const lightBaseline = new VisualBaseline({
@@ -102,7 +102,7 @@ describe('Theme Consistency - Visual Regression', () => {
     });
 
     test('should validate settings dark theme consistency', async ({ page }) => {
-      await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+      await page.goto('http://localhost:8080/ui/settings.html');
       await page.emulateMedia({ colorScheme: 'dark' });
 
       const darkBaseline = new VisualBaseline({
@@ -138,7 +138,7 @@ describe('Theme Consistency - Visual Regression', () => {
     });
   });
 
-  describe('Cross-Component Theme Consistency', () => {
+  test.describe('Cross-Component Theme Consistency', () => {
     test('should validate consistent color scheme across components', async ({ page }) => {
       const consistencyReport = await validateCrossComponentConsistency(page);
 
@@ -169,7 +169,7 @@ describe('Theme Consistency - Visual Regression', () => {
     });
   });
 
-  describe('System Theme Preference Integration', () => {
+  test.describe('System Theme Preference Integration', () => {
     test('should respect system light theme preference', async ({ page }) => {
       await page.emulateMedia({ colorScheme: 'light' });
 
@@ -199,7 +199,7 @@ describe('Theme Consistency - Visual Regression', () => {
     });
   });
 
-  describe('Theme-Specific Visual Elements', () => {
+  test.describe('Theme-Specific Visual Elements', () => {
     test('should validate icon visibility and contrast in light theme', async ({ page }) => {
       await page.emulateMedia({ colorScheme: 'light' });
 
@@ -229,7 +229,7 @@ describe('Theme Consistency - Visual Regression', () => {
     });
   });
 
-  describe('Performance Under Theme Switching', () => {
+  test.describe('Performance Under Theme Switching', () => {
     test('should validate theme switch performance', async ({ page }) => {
       const performanceReport = await validateThemeSwitchPerformance(page);
 

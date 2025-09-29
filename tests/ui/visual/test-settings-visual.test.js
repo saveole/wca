@@ -5,15 +5,15 @@
  * Tests settings page visual consistency across different states and form configurations.
  */
 
-import { expect } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 import { VisualBaseline } from '../../models/VisualBaseline.js';
 import { TestConfiguration } from '../../models/test-configuration.js';
 
-describe('Settings Page - Visual Regression', () => {
+test.describe('Settings Page - Visual Regression', () => {
   let testConfig;
   let baselineManager;
 
-  beforeAll(() => {
+  test.beforeAll(() => {
     testConfig = new TestConfiguration({
       viewport: { width: 800, height: 600 },
       theme: 'light',
@@ -31,7 +31,7 @@ describe('Settings Page - Visual Regression', () => {
     });
   });
 
-  describe('Initial Settings Page Rendering', () => {
+  test.describe('Initial Settings Page Rendering', () => {
     test('should capture settings page initial state screenshot', async ({ page }) => {
       // This test will fail because visual comparison utilities don't exist yet
       const screenshotPath = await takeFullPageScreenshot(page);
@@ -72,7 +72,7 @@ describe('Settings Page - Visual Regression', () => {
     });
   });
 
-  describe('API Configuration Section', () => {
+  test.describe('API Configuration Section', () => {
     test('should capture API configuration section screenshot', async ({ page }) => {
       const apiBaseline = new VisualBaseline({
         component: 'settings-api',
@@ -112,7 +112,7 @@ describe('Settings Page - Visual Regression', () => {
     });
   });
 
-  describe('Notion Integration Section', () => {
+  test.describe('Notion Integration Section', () => {
     test('should capture Notion integration section screenshot', async ({ page }) => {
       const notionBaseline = new VisualBaseline({
         component: 'settings-notion',
@@ -146,7 +146,7 @@ describe('Settings Page - Visual Regression', () => {
     });
   });
 
-  describe('Theme Settings Section', () => {
+  test.describe('Theme Settings Section', () => {
     test('should capture theme settings section screenshot', async ({ page }) => {
       const themeBaseline = new VisualBaseline({
         component: 'settings-theme',
@@ -171,7 +171,7 @@ describe('Settings Page - Visual Regression', () => {
     });
   });
 
-  describe('Form Validation States', () => {
+  test.describe('Form Validation States', () => {
     test('should capture validation error states screenshot', async ({ page }) => {
       await page.fill('#api-key-input', '');
       await page.click('#save-settings-btn');
@@ -215,7 +215,7 @@ describe('Settings Page - Visual Regression', () => {
     });
   });
 
-  describe('Dark Mode Settings', () => {
+  test.describe('Dark Mode Settings', () => {
     test('should capture settings page dark mode screenshot', async ({ page }) => {
       await page.emulateMedia({ colorScheme: 'dark' });
 

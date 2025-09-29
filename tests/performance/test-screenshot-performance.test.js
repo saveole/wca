@@ -26,7 +26,7 @@ test.describe('Performance Validation - Screenshot Capture', () => {
 
       try {
         // Navigate to test page
-        await page.goto('chrome-extension://YOUR_EXTENSION_ID/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html
         await page.waitForSelector('.popup-container', {
           timeout: config.defaultTimeout,
           state: 'visible'
@@ -96,7 +96,7 @@ test.describe('Performance Validation - Screenshot Capture', () => {
 
     test('should maintain performance with caching enabled', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://YOUR_EXTENSION_ID/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html
         await page.waitForSelector('.popup-container', { timeout: config.defaultTimeout });
 
         const cacheKey = 'performance-test-screenshot';
@@ -142,7 +142,7 @@ test.describe('Performance Validation - Screenshot Capture', () => {
 
     test('should handle large element screenshots efficiently', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://YOUR_EXTENSION_ID/ui/settings.html');
+        await page.goto('/ui/main_popup.html
         await page.waitForSelector('.settings-container', { timeout: config.defaultTimeout });
 
         // Test screenshot of potentially large settings area
@@ -175,7 +175,7 @@ test.describe('Performance Validation - Screenshot Capture', () => {
 
     test('should validate memory usage during screenshot operations', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://YOUR_EXTENSION_ID/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html
         await page.waitForSelector('.popup-container', { timeout: config.defaultTimeout });
 
         const initialMemory = await memoryManager.getMemoryUsage();
@@ -223,7 +223,7 @@ test.describe('Performance Validation - Screenshot Capture', () => {
   test.describe('Screenshot Performance Under Load', () => {
     test('should maintain performance with concurrent screenshot operations', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://YOUR_EXTENSION_ID/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html
         await page.waitForSelector('.popup-container', { timeout: config.defaultTimeout });
 
         // Test concurrent screenshot capture
@@ -272,7 +272,7 @@ test.describe('Performance Validation - Screenshot Capture', () => {
 
     test('should handle screenshot capture with page complexity', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://YOUR_EXTENSION_ID/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html
         await page.waitForSelector('.popup-container', { timeout: config.defaultTimeout });
 
         // Add complexity to the page

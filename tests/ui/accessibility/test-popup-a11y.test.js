@@ -22,7 +22,7 @@ test.describe('Popup Accessibility Tests - Failing', () => {
 
       try {
         // Navigate to extension popup
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('http://localhost:8080/ui/main_popup.html');
 
         // Wait for popup to load
         await page.waitForSelector('.popup-container', { state: 'visible' });
@@ -61,7 +61,7 @@ test.describe('Popup Accessibility Tests - Failing', () => {
       test.fail(true, 'Test designed to fail - keyboard navigation not implemented');
 
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('http://localhost:8080/ui/main_popup.html');
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
         // Test keyboard navigation - should fail due to missing implementation
@@ -115,7 +115,7 @@ test.describe('Popup Accessibility Tests - Failing', () => {
       test.fail(true, 'Test designed to fail - screen reader support not implemented');
 
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('http://localhost:8080/ui/main_popup.html');
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
         // Test ARIA labels - should fail due to missing implementation
@@ -177,7 +177,7 @@ test.describe('Popup Accessibility Tests - Failing', () => {
       test.fail(true, 'Test designed to fail - color contrast issues expected');
 
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('http://localhost:8080/ui/main_popup.html');
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
         // Test color contrast - should fail due to poor contrast
@@ -219,7 +219,7 @@ test.describe('Popup Accessibility Tests - Failing', () => {
       test.fail(true, 'Test designed to fail - focus management not implemented');
 
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('http://localhost:8080/ui/main_popup.html');
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
         // Test focus management - should fail due to missing implementation
@@ -257,7 +257,7 @@ test.describe('Popup Accessibility Tests - Failing', () => {
       test.fail(true, 'Test designed to fail - accessibility attributes missing');
 
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('http://localhost:8080/ui/main_popup.html');
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
         // Test accessibility attributes - should fail due to missing implementation
@@ -305,7 +305,7 @@ test.describe('Popup Accessibility Tests - Failing', () => {
       test.fail(true, 'Test designed to fail - accessibility scan performance poor');
 
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('http://localhost:8080/ui/main_popup.html');
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
         const startTime = Date.now();

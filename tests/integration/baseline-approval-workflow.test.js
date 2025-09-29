@@ -461,7 +461,7 @@ describe('Baseline Approval Workflow Integration', () => {
     const startTime = Date.now();
 
     // Simulate navigating to extension popup
-    await page.goto(`chrome-extension://${generateTestId('extension')}/ui/main_popup.html`);
+    await page.goto(`/ui/main_popup.html
 
     // Wait for content to load
     await page.waitForSelector('.popup-container', { timeout: 5000 });

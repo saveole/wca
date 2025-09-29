@@ -38,7 +38,7 @@ test.describe('Interaction Test Examples', () => {
       const startTime = performance.now();
 
       try {
-        await page.goto('chrome-extension://YOUR_EXTENSION_ID/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html
 
         await page.waitForSelector('.popup-container', { timeout: config.defaultTimeout });
 
@@ -105,7 +105,7 @@ test.describe('Interaction Test Examples', () => {
 
     test('should handle tag input with keyboard shortcuts', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://YOUR_EXTENSION_ID/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html
 
         await page.waitForSelector('.popup-container', { timeout: config.defaultTimeout });
 
@@ -163,7 +163,7 @@ test.describe('Interaction Test Examples', () => {
 
     test('should handle character limits and input validation', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://YOUR_EXTENSION_ID/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html
 
         await page.waitForSelector('.popup-container', { timeout: config.defaultTimeout });
 
@@ -198,7 +198,7 @@ test.describe('Interaction Test Examples', () => {
   test.describe('Button Interactions', () => {
     test('should handle button states and loading indicators', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://YOUR_EXTENSION_ID/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html
 
         await page.waitForSelector('.popup-container', { timeout: config.defaultTimeout });
 
@@ -246,7 +246,7 @@ test.describe('Interaction Test Examples', () => {
 
     test('should handle dropdown and selection interactions', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://YOUR_EXTENSION_ID/ui/settings.html');
+        await page.goto('/ui/main_popup.html
 
         await page.waitForSelector('.settings-container', { timeout: config.defaultTimeout });
 
@@ -295,7 +295,7 @@ test.describe('Interaction Test Examples', () => {
   test.describe('Theme and Layout Interactions', () => {
     test('should handle theme switching with smooth transitions', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://YOUR_EXTENSION_ID/ui/settings.html');
+        await page.goto('/ui/main_popup.html
 
         await page.waitForSelector('.settings-container', { timeout: config.defaultTimeout });
 
@@ -344,7 +344,7 @@ test.describe('Interaction Test Examples', () => {
 
     test('should handle responsive layout adjustments', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://YOUR_EXTENSION_ID/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html
 
         await page.waitForSelector('.popup-container', { timeout: config.defaultTimeout });
 
@@ -383,7 +383,7 @@ test.describe('Interaction Test Examples', () => {
   test.describe('Advanced Interactions', () => {
     test('should handle drag and drop operations', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://YOUR_EXTENSION_ID/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html
 
         await page.waitForSelector('.popup-container', { timeout: config.defaultTimeout });
 
@@ -423,7 +423,7 @@ test.describe('Interaction Test Examples', () => {
 
     test('should handle modal dialogs and overlays', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://YOUR_EXTENSION_ID/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html
 
         await page.waitForSelector('.popup-container', { timeout: config.defaultTimeout });
 
@@ -467,7 +467,7 @@ test.describe('Interaction Test Examples', () => {
 
     test('should handle clipboard operations', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://YOUR_EXTENSION_ID/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html
 
         await page.waitForSelector('.popup-container', { timeout: config.defaultTimeout });
 

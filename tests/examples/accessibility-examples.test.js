@@ -19,7 +19,7 @@ test.describe('Accessibility Test Examples', () => {
   test.describe('Chrome Extension Accessibility Compliance', () => {
     test('popup should meet WCAG 2.1 Level AA standards', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://YOUR_EXTENSION_ID/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html
 
         await page.waitForSelector('.popup-container', {
           timeout: config.defaultTimeout,
@@ -80,7 +80,7 @@ test.describe('Accessibility Test Examples', () => {
 
     test('form controls should have proper labels and ARIA attributes', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://YOUR_EXTENSION_ID/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html
 
         await page.waitForSelector('.popup-container', { timeout: config.defaultTimeout });
 
@@ -145,7 +145,7 @@ test.describe('Accessibility Test Examples', () => {
 
     test('color contrast should meet WCAG requirements', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://YOUR_EXTENSION_ID/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html
 
         await page.waitForSelector('.popup-container', { timeout: config.defaultTimeout });
 
@@ -186,7 +186,7 @@ test.describe('Accessibility Test Examples', () => {
   test.describe('Keyboard Navigation Testing', () => {
     test('should be fully operable using keyboard only', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://YOUR_EXTENSION_ID/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html
 
         await page.waitForSelector('.popup-container', { timeout: config.defaultTimeout });
 
@@ -233,7 +233,7 @@ test.describe('Accessibility Test Examples', () => {
 
     test('focus should be visible and properly managed', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://YOUR_EXTENSION_ID/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html
 
         await page.waitForSelector('.popup-container', { timeout: config.defaultTimeout });
 
@@ -269,7 +269,7 @@ test.describe('Accessibility Test Examples', () => {
   test.describe('Screen Reader Compatibility', () => {
     test('should have proper ARIA landmarks and roles', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://YOUR_EXTENSION_ID/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html
 
         await page.waitForSelector('.popup-container', { timeout: config.defaultTimeout });
 
@@ -321,7 +321,7 @@ test.describe('Accessibility Test Examples', () => {
 
     test('should provide proper status and alert notifications', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://YOUR_EXTENSION_ID/ui/main_popup.html');
+        await page.goto('/ui/main_popup.html
 
         await page.waitForSelector('.popup-container', { timeout: config.defaultTimeout });
 

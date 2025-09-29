@@ -284,7 +284,7 @@ describe('End-to-End Visual Regression Workflow', () => {
     const startTime = Date.now();
 
     // Simulate navigating to extension popup
-    await page.goto(`chrome-extension://${extensionId}/ui/main_popup.html`);
+    await page.goto(`/ui/main_popup.html
 
     // Wait for content to load
     await page.waitForSelector('.popup-container', { timeout: 5000 });

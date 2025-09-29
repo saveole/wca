@@ -43,7 +43,7 @@ test.describe('Loading State Interactions @interaction @implementation', () => {
   test.beforeEach(async ({ page }) => {
     try {
       // Navigate to popup and wait for load
-      await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+      await page.goto('/ui/main_popup.html
       await page.waitForSelector('.popup-container', { timeout: config.timeout });
 
       // Clear any existing loading states
@@ -485,7 +485,7 @@ test.describe('Loading State Interactions @interaction @implementation', () => {
       await page.goto('about:blank');
 
       // Navigate back to popup
-      await page.goto('chrome-extension://__MSG_@@extension_id__/ui/main_popup.html');
+      await page.goto('/ui/main_popup.html
       await page.waitForSelector('.popup-container', { timeout: config.timeout });
 
       // Check if loading state persisted (implementation dependent)

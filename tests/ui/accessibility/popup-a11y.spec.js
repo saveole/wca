@@ -50,7 +50,7 @@ test.describe('Popup Accessibility Tests', () => {
     test('should pass accessibility validation with axe-core @accessibility @a11y', async ({ page }) => {
       try {
         // Navigate to extension popup
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('http://localhost:8080/ui/main_popup.html');
 
         // Wait for popup to load
         await page.waitForSelector('.popup-container', { state: 'visible' });
@@ -144,7 +144,7 @@ test.describe('Popup Accessibility Tests', () => {
 
     test('should validate keyboard navigation @accessibility @keyboard', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('http://localhost:8080/ui/main_popup.html');
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
         // Get all focusable elements
@@ -225,7 +225,7 @@ test.describe('Popup Accessibility Tests', () => {
 
     test('should validate screen reader compatibility @accessibility @screen-reader', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('http://localhost:8080/ui/main_popup.html');
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
         // Test ARIA attributes
@@ -290,7 +290,7 @@ test.describe('Popup Accessibility Tests', () => {
 
     test('should validate color contrast @accessibility @contrast', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('http://localhost:8080/ui/main_popup.html');
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
         // Run focused color contrast check
@@ -341,7 +341,7 @@ test.describe('Popup Accessibility Tests', () => {
 
     test('should validate focus management @accessibility @focus', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('http://localhost:8080/ui/main_popup.html');
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
         // Test focus styles
@@ -398,7 +398,7 @@ test.describe('Popup Accessibility Tests', () => {
 
     test('should validate responsive design accessibility @accessibility @responsive', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('http://localhost:8080/ui/main_popup.html');
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
         // Test different viewport sizes
@@ -456,7 +456,7 @@ test.describe('Popup Accessibility Tests', () => {
   test.describe('Interactive Element Testing', () => {
     test('should validate button accessibility @accessibility @buttons', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('http://localhost:8080/ui/main_popup.html');
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
         // Test button accessibility
@@ -508,7 +508,7 @@ test.describe('Popup Accessibility Tests', () => {
 
     test('should validate form accessibility @accessibility @forms', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('http://localhost:8080/ui/main_popup.html');
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
         // Test form accessibility
@@ -557,7 +557,7 @@ test.describe('Popup Accessibility Tests', () => {
   test.describe('Performance Benchmarks', () => {
     test('should meet accessibility scan performance target @accessibility @performance', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/main_popup.html');
+        await page.goto('http://localhost:8080/ui/main_popup.html');
         await page.waitForSelector('.popup-container', { state: 'visible' });
 
         const startTime = Date.now();

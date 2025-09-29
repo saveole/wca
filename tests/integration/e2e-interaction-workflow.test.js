@@ -306,7 +306,7 @@ describe('End-to-End Interaction Testing Workflow', () => {
     const startTime = Date.now();
 
     // Simulate navigating to extension popup
-    await page.goto(`chrome-extension://${extensionId}/ui/main_popup.html`);
+    await page.goto(`/ui/main_popup.html
 
     // Wait for content to load
     await page.waitForSelector('.popup-container', { timeout: 5000 });
@@ -344,7 +344,7 @@ describe('End-to-End Interaction Testing Workflow', () => {
     const startTime = Date.now();
 
     // Navigate to settings page for form testing
-    await page.goto(`chrome-extension://${extensionId}/ui/settings.html`);
+    await page.goto(`/ui/main_popup.html
 
     // Wait for form to load
     await page.waitForSelector('.settings-form', { timeout: 5000 });
@@ -394,7 +394,7 @@ describe('End-to-End Interaction Testing Workflow', () => {
     const startTime = Date.now();
 
     // Navigate to popup
-    await page.goto(`chrome-extension://${extensionId}/ui/main_popup.html`);
+    await page.goto(`/ui/main_popup.html
 
     // Wait for content to load
     await page.waitForSelector('.popup-container', { timeout: 5000 });
@@ -431,7 +431,7 @@ describe('End-to-End Interaction Testing Workflow', () => {
     const startTime = Date.now();
 
     // Navigate to popup
-    await page.goto(`chrome-extension://${extensionId}/ui/main_popup.html`);
+    await page.goto(`/ui/main_popup.html
 
     // Wait for content to load
     await page.waitForSelector('.popup-container', { timeout: 5000 });
@@ -480,7 +480,7 @@ describe('End-to-End Interaction Testing Workflow', () => {
     const startTime = Date.now();
 
     // Navigate to popup
-    await page.goto(`chrome-extension://${extensionId}/ui/main_popup.html`);
+    await page.goto(`/ui/main_popup.html
 
     // Wait for content to load
     await page.waitForSelector('.popup-container', { timeout: 5000 });

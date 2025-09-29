@@ -24,7 +24,7 @@ export async function getExtensionId() {
  */
 export async function navigateToExtensionPage(page, pagePath) {
   const extensionId = await getExtensionId();
-  const url = `chrome-extension://${extensionId}/${pagePath}`;
+  const url = `/ui/main_popup.html
 
   // Navigate with extended timeout for extension pages
   await page.goto(url, {
@@ -113,5 +113,5 @@ export async function setupExtensionTest(page) {
   await page.setViewportSize({ width: 1280, height: 720 });
 
   // Configure for extension testing
-  await page.context().route('chrome-extension://**/*', route => route.continue());
+  await page.context().route('/ui/main_popup.html
 }

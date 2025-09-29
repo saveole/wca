@@ -50,7 +50,7 @@ test.describe('Settings Page Accessibility Tests', () => {
     test('should pass accessibility validation with axe-core @accessibility @a11y', async ({ page }) => {
       try {
         // Navigate to settings page
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
 
         // Wait for settings page to load
         await page.waitForSelector('.settings-container', { state: 'visible' });
@@ -144,7 +144,7 @@ test.describe('Settings Page Accessibility Tests', () => {
 
     test('should validate form accessibility @accessibility @forms', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
         await page.waitForSelector('.settings-container', { state: 'visible' });
 
         // Test form accessibility
@@ -212,7 +212,7 @@ test.describe('Settings Page Accessibility Tests', () => {
 
     test('should validate settings navigation accessibility @accessibility @navigation', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
         await page.waitForSelector('.settings-container', { state: 'visible' });
 
         // Test navigation accessibility
@@ -276,7 +276,7 @@ test.describe('Settings Page Accessibility Tests', () => {
 
     test('should validate table accessibility @accessibility @tables', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
         await page.waitForSelector('.settings-container', { state: 'visible' });
 
         // Check if tables exist
@@ -343,7 +343,7 @@ test.describe('Settings Page Accessibility Tests', () => {
 
     test('should validate button and interactive element accessibility @accessibility @buttons', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
         await page.waitForSelector('.settings-container', { state: 'visible' });
 
         // Test button accessibility
@@ -405,7 +405,7 @@ test.describe('Settings Page Accessibility Tests', () => {
 
     test('should validate color and contrast accessibility @accessibility @contrast', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
         await page.waitForSelector('.settings-container', { state: 'visible' });
 
         // Run focused color contrast check
@@ -468,7 +468,7 @@ test.describe('Settings Page Accessibility Tests', () => {
 
     test('should validate responsive design accessibility @accessibility @responsive', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
         await page.waitForSelector('.settings-container', { state: 'visible' });
 
         // Test different viewport sizes
@@ -531,7 +531,7 @@ test.describe('Settings Page Accessibility Tests', () => {
   test.describe('Form Interaction Accessibility', () => {
     test('should validate form validation accessibility @accessibility @validation', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
         await page.waitForSelector('.settings-container', { state: 'visible' });
 
         // Test form validation accessibility
@@ -589,7 +589,7 @@ test.describe('Settings Page Accessibility Tests', () => {
 
     test('should validate keyboard navigation in forms @accessibility @keyboard @forms', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
         await page.waitForSelector('.settings-container', { state: 'visible' });
 
         // Get all focusable elements
@@ -668,7 +668,7 @@ test.describe('Settings Page Accessibility Tests', () => {
   test.describe('Performance Benchmarks', () => {
     test('should meet settings accessibility scan performance target @accessibility @performance', async ({ page }) => {
       try {
-        await page.goto('chrome-extension://__EXTENSION_ID__/ui/settings.html');
+        await page.goto('http://localhost:8080/ui/settings.html');
         await page.waitForSelector('.settings-container', { state: 'visible' });
 
         const startTime = Date.now();

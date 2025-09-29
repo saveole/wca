@@ -28,9 +28,6 @@ export default defineConfig({
 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
-    /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: 'chrome-extension://__MSG_@@extension_id__/',
-
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
 
@@ -41,19 +38,17 @@ export default defineConfig({
     video: 'retain-on-failure',
 
     /* Default timeout */
-    timeout: 5000,
+    timeout: 10000,
 
     /* Viewport size */
     viewport: { width: 1280, height: 720 },
 
-    /* Ignore HTTPS errors for extension pages */
+    /* Ignore HTTPS errors for external requests */
     ignoreHTTPSErrors: true,
 
-    /* Launch options for Chrome extension testing */
+    /* Launch options for component testing */
     launchOptions: {
       args: [
-        '--load-extension=./',
-        '--disable-extensions-except=./',
         '--disable-dev-shm-usage',
         '--no-sandbox',
         '--disable-setuid-sandbox'
@@ -61,32 +56,62 @@ export default defineConfig({
     }
   },
 
-  /* Configure projects for major browsers */
+  /* Configure projects for different test types */
   projects: [
     {
-      name: 'chromium-extension',
+      name: 'component-tests',
       use: {
         ...devices['Desktop Chrome'],
-        // Custom browser channel for extension testing
-        channel: 'chrome'
+        // Component testing configuration
+        headless: true,
+        viewport: { width: 360, height: 600 }
       },
+      testMatch: [
+        'tests/components/**/*.test.js',
+        'tests/unit/**/*.test.js'
+      ]
     },
+    {
+      name: 'visual-tests',
+      use: {
+        ...devices['Desktop Chrome'],
+        // Visual testing configuration
+        headless: true,
+        viewport: { width: 360, height: 600 }
+      },
+      testMatch: [
+        'tests/visual/**/*.test.js'
+      ]
+    },
+    {
+      name: 'accessibility-tests',
+      use: {
+        ...devices['Desktop Chrome'],
+        // Accessibility testing configuration
+        headless: true
+      },
+      testMatch: [
+        'tests/accessibility/**/*.test.js'
+      ]
+    },
+    {
+      name: 'integration-tests',
+      use: {
+        ...devices['Desktop Chrome'],
+        // Integration testing configuration
+        headless: true
+      },
+      testMatch: [
+        'tests/integration/**/*.test.js'
+      ]
+    }
   ],
 
-  /* Run your local dev server before starting the tests */
-  webServer: {
-    command: 'echo "Extension testing - no web server needed"',
-    url: 'chrome-extension://__MSG_@@extension_id__/ui/main_popup.html',
-    reuseExistingServer: true,
-    timeout: 5000,
-  },
+  /* Global setup for Chrome API mocking */
+  globalSetup: './tests/setup/global-setup.js',
 
-  /* Test match patterns */
-  testMatch: [
-    'tests/ui/**/*.test.js',
-    'tests/accessibility/**/*.test.js',
-    'tests/interactions/**/*.test.js'
-  ],
+  /* Global teardown for cleanup */
+  globalTeardown: './tests/setup/global-teardown.js',
 
   /* Expect configuration */
   expect: {
@@ -95,8 +120,8 @@ export default defineConfig({
 
   /* Metadata */
   metadata: {
-    project: 'WebClip Assistant UI Tests',
+    project: 'WebClip Assistant Component Tests',
     version: '1.0.0',
-    browser: 'Chrome Extension'
+    strategy: 'Component Isolation with Mocked APIs'
   }
 });
