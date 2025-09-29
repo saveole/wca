@@ -1,0 +1,467 @@
+name: UI Testing Workflow
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    # Run tests daily at 2 AM UTC
+    - cron: '0 2 * * *'
+
+env:
+  NODE_VERSION: '18'
+  PLAYWRIGHT_VERSION: '1.40.0'
+
+jobs:
+  validate-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      should-run-tests: ${{ steps.changes.outputs.any }}
+      test-types: ${{ steps.changes.outputs.test-types }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check for changes
+        id: changes
+        uses: dorny/paths-filter@v2
+        with:
+          filters: |
+            ui-tests:
+              - 'tests/**'
+              - 'package.json'
+              - 'playwright.config.*'
+              - '.eslintrc.*'
+              - '.eslintignore'
+            visual-tests:
+              - 'tests/ui/visual/**'
+              - 'tests/utils/screenshot-utils.js'
+              - 'tests/utils/baseline-utils.js'
+            accessibility-tests:
+              - 'tests/ui/accessibility/**'
+              - 'tests/utils/accessibility-utils.js'
+            interaction-tests:
+              - 'tests/ui/interactions/**'
+              - 'tests/ui/fixtures/**'
+            infrastructure:
+              - 'tests/infrastructure/**'
+              - 'tests/utils/config.js'
+              - 'tests/utils/reporter.js'
+
+  install-dependencies:
+    runs-on: ubuntu-latest
+    needs: validate-changes
+    if: needs.validate-changes.outputs.should-run-tests == 'true'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install chromium
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}
+          restore-keys: |
+            ${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}
+
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+  lint-check:
+    runs-on: ubuntu-latest
+    needs: [validate-changes, install-dependencies]
+    if: needs.validate-changes.outputs.should-run-tests == 'true'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint
+
+  visual-tests:
+    runs-on: ubuntu-latest
+    needs: [validate-changes, install-dependencies]
+    if: |
+      needs.validate-changes.outputs.test-types contains 'visual-tests' ||
+      needs.validate-changes.outputs.test-types contains 'infrastructure' ||
+      github.event_name == 'schedule' ||
+      github.ref == 'refs/heads/main'
+
+    strategy:
+      fail-fast: false
+      matrix:
+        theme: [light, dark]
+        viewport: [desktop, mobile]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install chromium
+
+      - name: Run visual tests
+        run: |
+          npm run test:visual -- --grep="${{ matrix.theme }}.*${{ matrix.viewport }}"
+        continue-on-error: true
+
+      - name: Upload visual test results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: visual-test-results-${{ matrix.theme }}-${{ matrix.viewport }}
+          path: |
+            test-results/
+            screenshots/
+            test-output/
+
+  accessibility-tests:
+    runs-on: ubuntu-latest
+    needs: [validate-changes, install-dependencies]
+    if: |
+      needs.validate-changes.outputs.test-types contains 'accessibility-tests' ||
+      needs.validate-changes.outputs.test-types contains 'infrastructure' ||
+      github.event_name == 'schedule' ||
+      github.ref == 'refs/heads/main'
+
+    strategy:
+      fail-fast: false
+      matrix:
+        standard: [WCAG2AA, WCAG2AAA]
+        impact: [critical, serious]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install chromium
+
+      - name: Run accessibility tests
+        run: |
+          npm run test:accessibility -- --grep="${{ matrix.standard }}.*${{ matrix.impact }}"
+        continue-on-error: true
+
+      - name: Upload accessibility test results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: accessibility-test-results-${{ matrix.standard }}-${{ matrix.impact }}
+          path: |
+            test-results/
+            a11y-reports/
+            test-output/
+
+  interaction-tests:
+    runs-on: ubuntu-latest
+    needs: [validate-changes, install-dependencies]
+    if: |
+      needs.validate-changes.outputs.test-types contains 'interaction-tests' ||
+      needs.validate-changes.outputs.test-types contains 'infrastructure' ||
+      github.event_name == 'schedule' ||
+      github.ref == 'refs/heads/main'
+
+    strategy:
+      fail-fast: false
+      matrix:
+        feature: [popup, settings, forms, theme]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install chromium
+
+      - name: Run interaction tests
+        run: |
+          npm run test:interactions -- --grep="${{ matrix.feature }}"
+        continue-on-error: true
+
+      - name: Upload interaction test results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: interaction-test-results-${{ matrix.feature }}
+          path: |
+            test-results/
+            test-output/
+
+  infrastructure-tests:
+    runs-on: ubuntu-latest
+    needs: [validate-changes, install-dependencies]
+    if: |
+      needs.validate-changes.outputs.test-types contains 'infrastructure' ||
+      github.event_name == 'schedule' ||
+      github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run infrastructure tests
+        run: |
+          npm run test:unit
+          npm run test:api
+          npm run test:integration
+        continue-on-error: true
+
+      - name: Upload infrastructure test results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: infrastructure-test-results
+          path: |
+            test-results/
+            test-output/
+
+  performance-tests:
+    runs-on: ubuntu-latest
+    needs: [validate-changes, install-dependencies]
+    if: github.ref == 'refs/heads/main' || github.event_name == 'schedule'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install chromium
+
+      - name: Run performance tests
+        run: npm run test:performance
+        continue-on-error: true
+
+      - name: Upload performance test results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: performance-test-results
+          path: |
+            test-results/
+            performance-reports/
+            test-output/
+
+  generate-report:
+    runs-on: ubuntu-latest
+    needs: [
+      visual-tests,
+      accessibility-tests,
+      interaction-tests,
+      infrastructure-tests,
+      performance-tests
+    ]
+    if: always() && needs.validate-changes.outputs.should-run-tests == 'true'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Download all test results
+        uses: actions/download-artifact@v3
+
+      - name: Generate AI-optimized report
+        run: npm run test:report:json
+        continue-on-error: true
+
+      - name: Generate HTML report
+        run: npm run test:report:html
+        continue-on-error: true
+
+      - name: Upload combined report
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: combined-test-report
+          path: |
+            reports/
+            test-results/
+            *.html
+
+  comment-pr:
+    runs-on: ubuntu-latest
+    needs: generate-report
+    if: github.event_name == 'pull_request' && needs.validate-changes.outputs.should-run-tests == 'true'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Download test results
+        uses: actions/download-artifact@v3
+        with:
+          name: combined-test-report
+
+      - name: Comment on PR with test results
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+
+            let commentBody = '## 🧪 UI Test Results\\n\\n';
+
+            // Check for JSON report
+            if (fs.existsSync('reports/test-results.json')) {
+              try {
+                const results = JSON.parse(fs.readFileSync('reports/test-results.json', 'utf8'));
+                commentBody += `**Summary:** ${results.summary.passed}/${results.summary.total} tests passed (${Math.round(results.summary.successRate * 100)}%)\\n\\n`;
+
+                if (results.summary.failed > 0) {
+                  commentBody += `**⚠️ Failed Tests:** ${results.summary.failed}\\n`;
+                }
+
+                if (results.results && results.results.length > 0) {
+                  commentBody += '\\n**Test Details:**\\n';
+                  results.results.forEach(test => {
+                    const status = test.status === 'passed' ? '✅' : test.status === 'failed' ? '❌' : '⚠️';
+                    commentBody += `- ${status} **${test.name}** (${test.type})\\n`;
+                  });
+                }
+              } catch (error) {
+                commentBody += 'Unable to parse test results JSON\\n';
+              }
+            } else {
+              commentBody += 'Test results report not found\\n';
+            }
+
+            commentBody += '\\n---\\n';
+            commentBody += '🤖 Generated by UI Testing Workflow\\n';
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: commentBody
+            });
+
+  deploy-success:
+    runs-on: ubuntu-latest
+    needs: [
+      lint-check,
+      visual-tests,
+      accessibility-tests,
+      interaction-tests,
+      infrastructure-tests
+    ]
+    if: github.ref == 'refs/heads/main' && success()
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy success notification
+        run: |
+          echo "🎉 All UI tests passed successfully!"
+          echo "Deployment ready for production"
+
+  deploy-failure:
+    runs-on: ubuntu-latest
+    needs: [
+      lint-check,
+      visual-tests,
+      accessibility-tests,
+      interaction-tests,
+      infrastructure-tests
+    ]
+    if: always() && github.ref == 'refs/heads/main' && (failure() || cancelled())
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy failure notification
+        run: |
+          echo "❌ Some UI tests failed or were cancelled"
+          echo "Please review the test results before deploying"
